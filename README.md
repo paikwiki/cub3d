@@ -1,5 +1,7 @@
 # Cub3d
 
+> "This project is inspired by the world-famous eponymous 90’s game, which was the ﬁrst FPS ever. It will enable you to explore ray-casting. Your goal will be to make a dynamic view inside a maze, in which you’ll have to ﬁnd your way."
+
 ## 학습용 링크
 
 - [365kim/raycasting_tutorial](https://github.com/365kim/raycasting_tutorial)
