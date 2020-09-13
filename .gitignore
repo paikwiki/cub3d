@@ -1,5 +1,13 @@
-.DS_Store
 *.out
 *.o
 *.a
 *.dSYM
+
+# CMake
+/CMakeCache.txt
+/cmake_install.cmake
+/CMakeFiles/
+/Makefile
+
+# MacOS
+.DS_Store
