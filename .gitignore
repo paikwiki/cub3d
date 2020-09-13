@@ -4,10 +4,7 @@
 *.dSYM
 
 # CMake
-/CMakeCache.txt
-/cmake_install.cmake
-/CMakeFiles/
-/Makefile
+/cmake-build-debug
 
 # MacOS
 .DS_Store
