@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/14 14:44:14 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/14 18:41:32 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,9 @@
 # include <stdlib.h>
 # include <errno.h>
 # include "./lib/gnl/get_next_line.h"
+# include "./lib/libft/libft.h"
+
+# define TRUE 1
+# define FALSE 0
 
 #endif
