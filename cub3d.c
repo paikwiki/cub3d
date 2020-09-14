@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/14 15:12:47 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/14 15:50:27 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,11 @@ void	ft_putstr(char *str)
 		return ;
 	idx = 0;
 	while (str[idx] != 0)
-	{
-		write(1, &str[idx], 1);
-		idx++;
-	}
+		write(1, &str[idx++], 1);
 	return ;
 }
 
-void	print_err(const char *msg)
+void	exit_puterr(const char *msg)
 {
 	ft_putstr((char *)"Error:\n");
 	ft_putstr((char *)msg);
@@ -43,7 +40,7 @@ int		main(int argc, char *argv[])
 
 	if (argc < 2)
 	{
-		print_err("Map does not exist.\n");
+		exit_puterr("Map does not exist.\n");
 		return (0);
 	}
 	if ((fd = open(argv[1], O_RDONLY)) > 0)
@@ -51,10 +48,10 @@ int		main(int argc, char *argv[])
 		while ((rd_byte = get_next_line(fd, &line)) > 0)
 			printf("%s\n", line);
 		if (*line)
-			print_err("No newline after map.");
+			exit_puterr("No newline after map.");
 		free(line);
 	}
 	else
-		print_err("Fail to open a map file.");
+		exit_puterr("Fail to open a map file.");
 	return (0);
 }
