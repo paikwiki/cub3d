@@ -3,4 +3,4 @@ project(cub3d C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(cub3d main.c)
+add_executable(cub3d cub3d.c cub3d.h lib/gnl/get_next_line.c lib/gnl/get_next_line_utils.c lib/gnl/get_next_line.h)
