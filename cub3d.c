@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/15 17:57:57 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/15 19:30:37 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,43 @@ void	exit_puterr(const char *msg)
 	exit(EXIT_FAILURE);
 }
 
-void 	check_line(char *line)
+void 	init_note(t_note *note)
 {
+	note->c_rd = 0;
+	note->is_map = 0;
+	note->is_done = 0;
+	note->c_info = 0;
+	note->c_temp = 0;
+}
+
+int		is_info_line(char *line, t_note *note)
+{
+	if (note->c_info < 8)
+	{
+		note->c_info += 1;
+		return (TRUE);
+	}
+	return (FALSE);
+}
+int 	collect_info(char *line, char *note)
+{
+	if (is_info_line(line, note) == TRUE)
+		return (FALSE);
+	return (TRUE);
+}
+
+void 	check_line(char *line, t_note *note)
+{
+	note->is_map = collect_info(line, note);
 	printf("%s\n", line);
+	return ;
 }
 
 int		main(int argc, char *argv[])
 {
 	char	*line;
 	int		fd;
-	int		rd_byte;
-	int 	is_done;
+	t_note	note;
 	t_list  *lst_line;
 
 	if (argc < 2)
@@ -50,21 +76,29 @@ int		main(int argc, char *argv[])
 		exit_puterr("Map does not exist.\n");
 		return (0);
 	}
+
+	init_note(&note);
 	if ((fd = open(argv[1], O_RDONLY)) > 0)
 	{
-		is_done = FALSE;
-		while (is_done == FALSE)
+		note.is_done = FALSE;
+		while (note.is_done == FALSE)
 		{
-			if ((rd_byte = get_next_line(fd, &line)) <= 0)
-				is_done = TRUE;
-			check_line(line);
-			if (!lst_line)
-				lst_line = ft_lstnew(line);
-			else
-				ft_lstadd_back(&lst_line, ft_lstnew(line));
-			free(line);
+			if ((note.c_rd = get_next_line(fd, &line)) <= 0)
+				note.is_done = TRUE;
+			check_line(line, &note);
+			if (note.is_map == TRUE)
+			{
+				if (note.c_info >= 8 && note.c_temp == 0)//(!lst_line )
+				{
+					lst_line = ft_lstnew(line);
+					note.c_temp = 1;
+				}
+				else
+					ft_lstadd_back(&lst_line, ft_lstnew(line));
+				free(line);
+			}
 		}
-		printf("%d\n", ft_lstsize(lst_line));
+		printf("size: %d\n", ft_lstsize(lst_line));
 	}
 	else
 		exit_puterr("Fail to open a map file.");

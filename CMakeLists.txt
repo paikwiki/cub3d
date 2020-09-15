@@ -9,5 +9,6 @@ add_executable(
         lib/libft/ft_lstnew.c
         lib/libft/ft_lstadd_back.c
         lib/libft/ft_lstsize.c
+        lib/libft/ft_strchr.c
         lib/libft/libft.h
 )

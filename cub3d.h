@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/15 17:19:19 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/15 18:48:00 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,21 @@
 # define TRUE 1
 # define FALSE 0
 # define MAP_VAL_CHARS " 012NWES"
+
+typedef struct	s_note
+{
+	int		c_rd;
+	int 	is_map;
+	int 	is_done;
+	char 	*info_r;
+	char 	*info_no;
+	char 	*info_so;
+	char 	*info_we;
+	char 	*info_ea;
+	char 	*info_s;
+	char 	*info_f;
+	char 	*info_c;
+	int 	c_info;
+	int 	c_temp;
+}				t_note;
 #endif
