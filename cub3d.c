@@ -52,7 +52,7 @@ int		main(int argc, char *argv[])
 		{
 			if ((rd_byte = get_next_line(fd, &line)) <= 0)
 				is_done = TRUE;
-			if (!temp_line)x
+			if (!temp_line)
 				temp_line = ft_lstnew(line);
 			else
 				ft_lstadd_back(&temp_line, ft_lstnew(line));
