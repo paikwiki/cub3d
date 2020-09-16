@@ -41,7 +41,13 @@ void 	init_note(t_note *note)
 	note->c_temp = 0;
 }
 
-int		is_info_line(char *line, t_note *note)
+void	init_lst_line(t_list *lst_line)
+{
+	lst_line->content = 0;
+	lst_line->next = 0;
+}
+
+int		is_info_line(char *key, char *line, t_note *note)
 {
 	if (note->c_info < 8)
 	{
@@ -78,6 +84,7 @@ int		main(int argc, char *argv[])
 	}
 
 	init_note(&note);
+	init_lst_line(&lst_line);
 	if ((fd = open(argv[1], O_RDONLY)) > 0)
 	{
 		note.is_done = FALSE;
