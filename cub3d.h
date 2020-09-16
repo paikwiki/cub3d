@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/15 18:48:00 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/16 10:39:48 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@
 # include "./lib/gnl/get_next_line.h"
 # include "./lib/libft/libft.h"
 
-# define TRUE 1
-# define FALSE 0
 # define MAP_VAL_CHARS " 012NWES"
+# define INFO_VALID_FIRST_CHAR "RNSWEFC"
+# define INFO_VALID_SECOND_CHAR " OEA"
+
+# define FALSE 0
+# define TRUE 1
 
 typedef struct	s_note
 {
@@ -38,6 +41,5 @@ typedef struct	s_note
 	char 	*info_f;
 	char 	*info_c;
 	int 	c_info;
-	int 	c_temp;
 }				t_note;
 #endif

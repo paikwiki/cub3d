@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/15 19:30:37 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/16 11:22:00 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void 	init_note(t_note *note)
 	note->is_map = 0;
 	note->is_done = 0;
 	note->c_info = 0;
-	note->c_temp = 0;
 }
 
 void	init_lst_line(t_list *lst_line)
@@ -56,9 +55,35 @@ int		is_info_line(char *key, char *line, t_note *note)
 	}
 	return (FALSE);
 }
+
+char *get_info_key(char *line)
+{
+	size_t	len;
+	size_t	len_val;
+	char	chr_2nd;
+
+	char	*key;
+	len = ft_strlen(line);
+	len_val = 0;
+	if (len > 2 && (ft_strchr(INFO_VALID_FIRST_CHAR, line[0])) > 0 && (chr_2nd = (ft_strchr(INFO_VALID_SECOND_CHAR, line[1])[0])) > 0)
+	{
+		if (chr_2nd == ' ')
+		{
+			printf("Get info: %c\n", line[0]);
+		}
+		else
+		{
+			printf("Get info: %c%c\n", line[0], line[1]);
+		}
+	}
+	key = (char *)malloc(sizeof(char) * len_val + 1);
+
+	return (0);
+}
+
 int 	collect_info(char *line, char *note)
 {
-	if (is_info_line(line, note) == TRUE)
+	if (is_info_line(get_info_key(line), line, note) == TRUE)
 		return (FALSE);
 	return (TRUE);
 }
@@ -66,7 +91,7 @@ int 	collect_info(char *line, char *note)
 void 	check_line(char *line, t_note *note)
 {
 	note->is_map = collect_info(line, note);
-	printf("%s\n", line);
+//	printf("%s\n", line);
 	return ;
 }
 
@@ -95,13 +120,11 @@ int		main(int argc, char *argv[])
 			check_line(line, &note);
 			if (note.is_map == TRUE)
 			{
-				if (note.c_info >= 8 && note.c_temp == 0)//(!lst_line )
-				{
+				if (note.c_info >= 8 && ft_lstsize(lst_line) < 1)
 					lst_line = ft_lstnew(line);
-					note.c_temp = 1;
-				}
 				else
 					ft_lstadd_back(&lst_line, ft_lstnew(line));
+				printf("%s\n", line);
 				free(line);
 			}
 		}
