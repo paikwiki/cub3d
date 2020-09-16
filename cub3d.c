@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/16 11:22:00 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/16 15:44:04 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,53 +37,119 @@ void 	init_note(t_note *note)
 	note->c_rd = 0;
 	note->is_map = 0;
 	note->is_done = 0;
-	note->c_info = 0;
+	note->info_r[0] = -1;
+	note->info_r[1] = -1;
+	note->info_no = 0;
+	note->info_so = 0;
+	note->info_we = 0;
+	note->info_ea = 0;
+	note->info_s = 0;
+	note->info_f[0] = -1;
+	note->info_f[1] = -1;
+	note->info_f[2] = -1;
+	note->info_c[0] = -1;
+	note->info_c[1] = -1;
+	note->info_c[2] = -1;
 }
 
-void	init_lst_line(t_list *lst_line)
+int 	count_info(t_note *note)
 {
-	lst_line->content = 0;
-	lst_line->next = 0;
+	int	cnt;
+
+	cnt = 0;
+	if (note->info_r[0] != -1)
+		cnt++;
+	if (note->info_no != 0)
+		cnt++;
+	if (note->info_so != 0)
+		cnt++;
+	if (note->info_we != 0)
+		cnt++;
+	if (note->info_ea != 0)
+		cnt++;
+	if (note->info_s != 0)
+		cnt++;
+	if (note->info_f[0] != -1)
+		cnt++;
+	if (note->info_c[0] != -1)
+		cnt++;
+	return (cnt);
 }
 
-int		is_info_line(char *key, char *line, t_note *note)
+void 	get_info_texture(char *line, t_note *note)
 {
-	if (note->c_info < 8)
+	char	*value;
+
+	value = ft_strndup((char *)&line[4], ft_strlen((const char *)&line[4]));
+
+	if (ft_strncmp((const char *)line, "NO ", 3) == 0)
+		note->info_no = value;
+	else if (ft_strncmp((const char *)line, "SO ", 3) == 0)
+		note->info_so = value;
+	else if (ft_strncmp((const char *)line, "WE ", 3) == 0)
+		note->info_we = value;
+	else if (ft_strncmp((const char *)line, "EA ", 3) == 0)
+		note->info_ea = value;
+	else if (ft_strncmp((const char *)line, "S ", 2) == 0)
+		note->info_s = value;
+	return ;
+}
+
+void	get_info_ceil_floor(char *line, t_note *note)
+{
+
+	char	*raw_str;
+	char	**raw_values;
+
+	raw_str = ft_strndup((char *)&line[2], ft_strlen((const char *)&line[2]));
+	raw_values = ft_split(raw_str, ',');
+	if (ft_strncmp((const char *)line, "F ", 2) == 0)
 	{
-		note->c_info += 1;
-		return (TRUE);
+		note->info_f[0] = ft_atoi(raw_values[0]);
+		note->info_f[1] = ft_atoi(raw_values[1]);
+		note->info_f[2] = ft_atoi(raw_values[2]);
 	}
-	return (FALSE);
-}
-
-char *get_info_key(char *line)
-{
-	size_t	len;
-	size_t	len_val;
-	char	chr_2nd;
-
-	char	*key;
-	len = ft_strlen(line);
-	len_val = 0;
-	if (len > 2 && (ft_strchr(INFO_VALID_FIRST_CHAR, line[0])) > 0 && (chr_2nd = (ft_strchr(INFO_VALID_SECOND_CHAR, line[1])[0])) > 0)
+	else if (ft_strncmp((const char *)line, "C ", 2) == 0)
 	{
-		if (chr_2nd == ' ')
-		{
-			printf("Get info: %c\n", line[0]);
-		}
-		else
-		{
-			printf("Get info: %c%c\n", line[0], line[1]);
-		}
+		note->info_c[0] = ft_atoi(raw_values[0]);
+		note->info_c[1] = ft_atoi(raw_values[1]);
+		note->info_c[2] = ft_atoi(raw_values[2]);
 	}
-	key = (char *)malloc(sizeof(char) * len_val + 1);
-
-	return (0);
+	return ;
 }
 
-int 	collect_info(char *line, char *note)
+void 	get_info_resolution(char *line, t_note *note)
 {
-	if (is_info_line(get_info_key(line), line, note) == TRUE)
+	char	*raw_str;
+	char	**raw_values;
+
+	raw_str = ft_strndup((char *)&line[2], ft_strlen((const char *)&line[2]));
+	raw_values = ft_split(raw_str, ' ');
+	note->info_r[0] = ft_atoi(raw_values[0]);
+	note->info_r[1] = ft_atoi(raw_values[1]);
+	return ;
+}
+
+void	generate_info(char *line, t_note *note)
+{
+	if (ft_strncmp((const char *)line, "R ", 2) == 0)
+		get_info_resolution(line, note);
+	else if (ft_strncmp((const char *)line, "F ", 2) == 0 ||
+			ft_strncmp((const char *)line, "C ", 2) == 0)
+		get_info_ceil_floor(line, note);
+	else if (ft_strncmp((const char *)line, "NO ", 3) == 0 ||
+			ft_strncmp((const char *)line, "SO ", 3) == 0 ||
+			ft_strncmp((const char *)line, "WE ", 3) == 0 ||
+			ft_strncmp((const char *)line, "EA ", 3) == 0 ||
+			ft_strncmp((const char *)line, "S ", 2) == 0)
+		get_info_texture(line, note);
+	return ;
+}
+
+int 	collect_info(char *line, t_note *note)
+{
+	generate_info(line, note);
+	if (count_info(note) < 8)
 		return (FALSE);
 	return (TRUE);
 }
@@ -91,7 +157,6 @@ int 	collect_info(char *line, char *note)
 void 	check_line(char *line, t_note *note)
 {
 	note->is_map = collect_info(line, note);
-//	printf("%s\n", line);
 	return ;
 }
 
@@ -103,13 +168,11 @@ int		main(int argc, char *argv[])
 	t_list  *lst_line;
 
 	if (argc < 2)
-	{
 		exit_puterr("Map does not exist.\n");
-		return (0);
-	}
 
 	init_note(&note);
-	init_lst_line(&lst_line);
+	lst_line = NULL;
+
 	if ((fd = open(argv[1], O_RDONLY)) > 0)
 	{
 		note.is_done = FALSE;
@@ -117,16 +180,16 @@ int		main(int argc, char *argv[])
 		{
 			if ((note.c_rd = get_next_line(fd, &line)) <= 0)
 				note.is_done = TRUE;
-			check_line(line, &note);
 			if (note.is_map == TRUE)
 			{
-				if (note.c_info >= 8 && ft_lstsize(lst_line) < 1)
+				if (!lst_line)
 					lst_line = ft_lstnew(line);
 				else
 					ft_lstadd_back(&lst_line, ft_lstnew(line));
 				printf("%s\n", line);
 				free(line);
 			}
+			check_line(line, &note);
 		}
 		printf("size: %d\n", ft_lstsize(lst_line));
 	}

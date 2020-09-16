@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/16 10:39:48 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/16 15:46:00 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,20 @@
 # define FALSE 0
 # define TRUE 1
 
+# define NO 0
 typedef struct	s_note
 {
 	int		c_rd;
 	int 	is_map;
 	int 	is_done;
-	char 	*info_r;
+	int 	info_r[2];
+	int 	info_f[3];
+	int 	info_c[3];
 	char 	*info_no;
 	char 	*info_so;
 	char 	*info_we;
 	char 	*info_ea;
 	char 	*info_s;
-	char 	*info_f;
-	char 	*info_c;
-	int 	c_info;
+
 }				t_note;
 #endif
