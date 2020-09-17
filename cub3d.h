@@ -37,7 +37,7 @@ typedef struct	s_note
 	char 	*info_we;
 	char 	*info_ea;
 	char 	*info_s;
-	int 	map[2];
+	int 	map_size[2];
 
 }				t_note;
 #endif
