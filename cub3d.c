@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/16 19:21:57 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/17 11:35:31 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void 	get_info_texture(char *line, t_note *note)
 	char	*value;
 
 	value = ft_strndup((char *)&line[4], ft_strlen((const char *)&line[4]));
-
 	if (ft_strncmp((const char *)line, "NO ", 3) == 0)
 		note->info_no = value;
 	else if (ft_strncmp((const char *)line, "SO ", 3) == 0)
@@ -94,12 +93,12 @@ void 	get_info_texture(char *line, t_note *note)
 		note->info_ea = value;
 	else if (ft_strncmp((const char *)line, "S ", 2) == 0)
 		note->info_s = value;
+	free(value);
 	return ;
 }
 
 void	get_info_ceil_floor(char *line, t_note *note)
 {
-
 	char	*raw_str;
 	char	**raw_values;
 
@@ -117,6 +116,11 @@ void	get_info_ceil_floor(char *line, t_note *note)
 		note->info_c[1] = ft_atoi(raw_values[1]);
 		note->info_c[2] = ft_atoi(raw_values[2]);
 	}
+	free(raw_str);
+	free(raw_values[0]);
+	free(raw_values[1]);
+	free(raw_values[2]);
+	free(raw_values);
 	return ;
 }
 
@@ -129,6 +133,10 @@ void 	get_info_resolution(char *line, t_note *note)
 	raw_values = ft_split(raw_str, ' ');
 	note->info_r[0] = ft_atoi(raw_values[0]);
 	note->info_r[1] = ft_atoi(raw_values[1]);
+	free(raw_str);
+	free(raw_values[0]);
+	free(raw_values[1]);
+	free(raw_values);
 	return ;
 }
 
@@ -139,12 +147,13 @@ void	generate_info(char *line, t_note *note)
 	else if (ft_strncmp((const char *)line, "F ", 2) == 0 ||
 			ft_strncmp((const char *)line, "C ", 2) == 0)
 		get_info_ceil_floor(line, note);
-	else if (ft_strncmp((const char *)line, "NO ", 3) == 0 ||
+	else if (ft_strncmp((const char *)line, "S ", 2) == 0 ||
 			ft_strncmp((const char *)line, "SO ", 3) == 0 ||
 			ft_strncmp((const char *)line, "WE ", 3) == 0 ||
 			ft_strncmp((const char *)line, "EA ", 3) == 0 ||
-			ft_strncmp((const char *)line, "S ", 2) == 0)
+			ft_strncmp((const char *)line, "NO ", 3) == 0)
 		get_info_texture(line, note);
+	free(line);
 	return ;
 }
 
@@ -173,20 +182,16 @@ void	init_map(char **map, t_note *note)
 	{
 		line = (char *)malloc((sizeof(char) * note->map[0]) + 1);
 		line[note->map[0]] = '\0';
-
 		idx_sub = 0;
 		while (idx_sub < note->map[0])
-		{
-			line[idx_sub] = ' ';
-			idx_sub++;
-		}
+			line[idx_sub++] = ' ';
 		map[idx] = line;
 		idx++;
 	}
 	return ;
 }
 
-void 	set_map(char **map, t_list **lst_line)
+void 	set_map(char **map, t_list **lines)
 {
 	int 	idx;
 	int 	idx_map;
@@ -196,22 +201,21 @@ void 	set_map(char **map, t_list **lst_line)
 	idx_map = 0;
 	while(1)
 	{
-		crr_item = *lst_line;
+		crr_item = *lines;
 		idx = 0;
-
-		line = (char *)(crr_item->content);
+		line = crr_item->content;
 		while(line[idx] != '\0')
 		{
 			map[idx_map][idx] = line[idx];
 			idx++;
 		}
-		if ((*lst_line)->next != 0)
+		if ((*lines)->next != 0)
 		{
-			lst_line = &((*lst_line)->next);
+			free((*lines)->content);
+			lines = &((crr_item)->next);
 		}
-		else {
+		else
 			return ;
-		}
 		idx_map++;
 	}
 }
@@ -221,15 +225,13 @@ int		main(int argc, char *argv[])
 	char	*line;
 	int		fd;
 	t_note	note;
-	t_list  *lst_line;
+	t_list  *lines;
 	char 	**map;
 
 	if (argc < 2)
 		exit_puterr("Map does not exist.\n");
-
 	init_note(&note);
-	lst_line = NULL;
-
+	lines = NULL;
 	if ((fd = open(argv[1], O_RDONLY)) > 0)
 	{
 		note.is_done = FALSE;
@@ -239,24 +241,27 @@ int		main(int argc, char *argv[])
 				note.is_done = TRUE;
 			if (note.is_map == TRUE)
 			{
-				note.map[0] = ft_strlen(line) > note.map[0] ? (int)ft_strlen(line) : note.map[0];
-				if (!lst_line)
-					lst_line = ft_lstnew(line);
+				note.map[0] = ft_strlen(line) > note.map[0] ?
+						(int)ft_strlen(line) : note.map[0];
+				if (!lines)
+					lines = ft_lstnew(line);
 				else
-					ft_lstadd_back(&lst_line, ft_lstnew(line));
+					ft_lstadd_back(&lines, ft_lstnew(line));
+			} else {
+				check_line(line, &note);
 			}
-			check_line(line, &note);
 		}
-		free(line);
-		note.map[1] = ft_lstsize(lst_line);
+		note.map[1] = ft_lstsize(lines);
 	}
 	else
 		exit_puterr("Fail to open a map file.");
+	if (note.is_map == FALSE)
+		exit_puterr("Fail to get information of map.");
 	map = (char **)malloc(sizeof(char *) * note.map[1] + 1);
 	map[note.map[1]] = 0;
 	init_map(map, &note);
-	set_map(map, &lst_line);
-
+	set_map(map, &lines);
+	free(lines);
 	for (int i = 0; i < note.map[1]; i++)
 		printf("$%s$\n", map[i]);
 	return (0);
