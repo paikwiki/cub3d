@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/17 17:42:49 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/18 16:09:25 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	init_note(t_note *note)
 	note->info_c[0] = -1;
 	note->info_c[1] = -1;
 	note->info_c[2] = -1;
-	note->map_size[0] = 0;
-	note->map_size[1] = 0;
+	note->map_width = 0;
+	note->map_height = 0;
 }
 
 int		count_info(t_note *note)
@@ -92,7 +92,41 @@ void	get_info_texture(char *line, t_note *note)
 		note->info_ea = str;
 	else if (ft_strncmp((const char *)line, "S ", 2) == 0)
 		note->info_s = str;
-//	free(str);
+}
+
+void	check_isdigit_all(char *str)
+{
+	size_t idx;
+	size_t len;
+
+	idx = 0;
+	len = ft_strlen(str);
+	while (idx < len)
+	{
+		if (ft_isdigit(str[idx]) == FALSE)
+			exit_puterr("Values of RGB or resolution are must be digit.");
+		idx++;
+	}
+}
+
+void	parse_rgb(int *dest, char **raw_values)
+{
+	int		idx;
+
+	idx = 0;
+	while (idx < 3)
+	{
+		check_isdigit_all(raw_values[idx]);
+		dest[idx] = ft_atoi(raw_values[idx]);
+		idx++;
+	}
+	idx = 0;
+	while (idx < 3)
+	{
+		if (dest[idx] > 255 || dest[idx] < 0)
+			exit_puterr("Wrong range of RGB values(0~255)");
+		idx++;
+	}
 }
 
 void	get_info_ceil_floor(char *line, t_note *note)
@@ -107,10 +141,7 @@ void	get_info_ceil_floor(char *line, t_note *note)
 		dest = note->info_f;
 	else
 		dest = note->info_c;
-	dest[0] = ft_atoi(raw_values[0]);
-	dest[1] = ft_atoi(raw_values[1]);
-	dest[2] = ft_atoi(raw_values[2]);
-//	free(raw_str);
+	parse_rgb(dest, raw_values);
 	free(raw_values[0]);
 	free(raw_values[1]);
 	free(raw_values[2]);
@@ -119,14 +150,19 @@ void	get_info_ceil_floor(char *line, t_note *note)
 
 void	get_info_resolution(char *line, t_note *note)
 {
+	size_t	idx;
 	char	*raw_str;
 	char	**raw_values;
 
 	raw_str = ft_strndup((char *)&line[2], ft_strlen((const char *)&line[2]));
 	raw_values = ft_split(raw_str, ' ');
-	note->info_r[0] = ft_atoi(raw_values[0]);
-	note->info_r[1] = ft_atoi(raw_values[1]);
-//	free(raw_str);
+	idx = 0;
+	while (idx < 2)
+	{
+		check_isdigit_all(raw_values[idx]);
+		note->info_r[idx] = ft_atoi(raw_values[idx]);
+		idx++;
+	}
 	free(raw_values[0]);
 	free(raw_values[1]);
 	free(raw_values);
@@ -145,7 +181,6 @@ void	generate_info(char *line, t_note *note)
 			ft_strncmp((const char *)line, "EA ", 3) == 0 ||
 			ft_strncmp((const char *)line, "NO ", 3) == 0)
 		get_info_texture(line, note);
-//	free(line);
 	note->is_map = count_info(note) < 8 ? FALSE : TRUE;
 }
 
@@ -156,16 +191,23 @@ void	init_map(char **map, t_note *note)
 	int		idx_sub;
 
 	idx = 0;
-	while (idx <= note->map_size[1])
+	while (idx <= note->map_height)
 	{
-		line = (char *)malloc((sizeof(char) * note->map_size[0]) + 1);
-		line[note->map_size[0]] = '\0';
+		line = (char *)malloc((sizeof(char) * note->map_width) + 1);
+		line[note->map_width] = '\0';
 		idx_sub = 0;
-		while (idx_sub < note->map_size[0])
+		while (idx_sub < note->map_width)
 			line[idx_sub++] = ' ';
 		map[idx] = line;
 		idx++;
 	}
+}
+
+char	check_valid_map_char(char chr)
+{
+	if (ft_strchr(" 012NSWE", chr) == 0)
+		exit_puterr("Not valid char.");
+	return (chr);
 }
 
 void	set_map(char **map, t_list **lines)
@@ -183,10 +225,7 @@ void	set_map(char **map, t_list **lines)
 		line = crr_item->content;
 		while (line[idx] != '\0')
 		{
-			if (ft_strchr(" 012NSWE", line[idx]) != 0)
-				map[idx_map][idx] = line[idx];
-			else
-				exit_puterr("Not valid char.");
+			map[idx_map][idx] = check_valid_map_char(line[idx]);
 			idx++;
 		}
 		if ((*lines)->next != 0)
@@ -213,8 +252,8 @@ void	get_map_file(char *file_path, t_note *note, t_list **lines)
 				note->is_done = TRUE;
 			if (note->is_map == TRUE)
 			{
-				note->map_size[0] = ft_strlen(line) > note->map_size[0] ?
-							(int)ft_strlen(line) : note->map_size[0];
+				note->map_width = ft_strlen(line) > note->map_width ?
+							(int)ft_strlen(line) : note->map_width;
 				if (!lines)
 					*lines = ft_lstnew(line);
 				else
@@ -223,10 +262,10 @@ void	get_map_file(char *file_path, t_note *note, t_list **lines)
 			else
 				generate_info(line, note);
 		}
-		note->map_size[1] = ft_lstsize(*lines);
+		note->map_height = ft_lstsize(*lines);
 	}
 	else
-		exit_puterr("Fail to open a map_size file.");
+		exit_puterr("Fail to open a map file.");
 }
 
 void	put_map(char **map, t_note *note)
@@ -234,7 +273,7 @@ void	put_map(char **map, t_note *note)
 	int	idx;
 
 	idx = 0;
-	while (idx < note->map_size[1])
+	while (idx < note->map_height)
 	{
 		ft_putstr("$");
 		ft_putstr(map[idx++]);
@@ -242,10 +281,20 @@ void	put_map(char **map, t_note *note)
 	}
 }
 
+int		get_wall_char(char **map, int x_start, int y_start)
+{
+	if (map[y_start][x_start] == ' ')
+		return (-1);
+	else if (map[y_start][x_start] == '1')
+		return (y_start);
+	else
+		exit_puterr("There is something out of the outer wall.");
+}
+
 void	check_mapline_horizon(char **map, int xs, int xe, int y)
 {
-	int	start;
-	int	end;
+	int		start;
+	int		end;
 
 	start = xs + 1;
 	end = xe - 1;
@@ -265,8 +314,8 @@ void	check_mapline_horizon(char **map, int xs, int xe, int y)
 
 void	check_mapline_vertical(char **map, int ys, int ye, int x)
 {
-	int	start;
-	int	end;
+	int		start;
+	int		end;
 
 	start = ys + 1;
 	end = ye - 1;
@@ -284,88 +333,48 @@ void	check_mapline_vertical(char **map, int ys, int ye, int x)
 	}
 }
 
-void 	check_map_horizon(char **map, t_note *note)
+void	check_map_horizon(char **map, t_note *note)
 {
-
 	int		x_start;
-	int 	y_start;
-	int 	x_end;
-	int 	y_end;
-	int 	mapline_start;
-	int 	mapline_end;
+	int		y_start;
+	int		mapline_start;
+	int		mapline_end;
 
 	y_start = 0;
-	x_end = note->map_size[0];
-	y_end = note->map_size[1];
-
-	while (y_start < y_end)
+	while (y_start < note->map_height)
 	{
 		x_start = 0;
 		mapline_start = -1;
 		mapline_end = -1;
-		while (x_start < x_end && mapline_start == -1)
-		{
-			if (map[y_start][x_start] == ' ')
-				x_start++;
-			else if (map[y_start][x_start] == '1')
-				mapline_start = x_start;
-			else
-				exit_puterr("horizon start wrong");
-		}
-		x_start = x_end - 1;
+		while (x_start < note->map_width && mapline_start == -1)
+			mapline_start = get_wall_char(map, x_start++, y_start);
+		x_start = note->map_width - 1;
 		while (x_start > 0 && mapline_end == -1)
-		{
-			if (map[y_start][x_start] == ' ')
-				x_start--;
-			else if (map[y_start][x_start] == '1')
-				mapline_end = x_start;
-			else
-				exit_puterr("horizon end wrong");
-		}
+			mapline_end = get_wall_char(map, x_start--, y_start);
 		if (mapline_start != -1)
 			check_mapline_horizon(map, mapline_start, mapline_end, y_start);
 		y_start++;
 	}
 }
 
-void 	check_map_vertical(char **map, t_note *note)
+void	check_map_vertical(char **map, t_note *note)
 {
-
 	int		x_start;
-	int 	y_start;
-	int 	x_end;
-	int 	y_end;
-	int 	mapline_start;
-	int 	mapline_end;
+	int		y_start;
+	int		mapline_start;
+	int		mapline_end;
 
 	x_start = 0;
-	x_end = note->map_size[0];
-	y_end = note->map_size[1];
-
-	while (x_start < x_end)
+	while (x_start < note->map_width)
 	{
 		y_start = 0;
 		mapline_start = -1;
 		mapline_end = -1;
-		while (y_start < y_end && mapline_start == -1)
-		{
-			if (map[y_start][x_start] == ' ')
-				y_start++;
-			else if (map[y_start][x_start] == '1')
-				mapline_start = y_start;
-			else
-				exit_puterr("vertical start wrong");
-		}
-		y_start = y_end - 1;
+		while (y_start < note->map_height && mapline_start == -1)
+			mapline_start = get_wall_char(map, x_start, y_start++);
+		y_start = note->map_height - 1;
 		while (y_start > 0 && mapline_end == -1)
-		{
-			if (map[y_start][x_start] == ' ')
-				y_start--;
-			else if (map[y_start][x_start] == '1')
-				mapline_end = y_start;
-			else
-				exit_puterr("vertical end wrong!!");
-		}
+			mapline_end = get_wall_char(map, x_start, y_start--);
 		if (mapline_start != -1)
 			check_mapline_vertical(map, mapline_start, mapline_end, x_start);
 		x_start++;
@@ -385,8 +394,8 @@ int		main(int argc, char *argv[])
 	get_map_file(argv[1], &note, &lines);
 	if (note.is_map == FALSE)
 		exit_puterr("Fail to get information of map_size.");
-	map = (char **)malloc(sizeof(char *) * note.map_size[1] + 1);
-	map[note.map_size[1]] = 0;
+	map = (char **)malloc(sizeof(char *) * note.map_height + 1);
+	map[note.map_height] = 0;
 	init_map(map, &note);
 	set_map(map, &lines);
 	free(lines);

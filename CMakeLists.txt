@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(cub3d C)
+project(cub3D C)
 
 set(CMAKE_C_STANDARD 99)
 
@@ -16,5 +16,6 @@ add_executable(
         lib/libft/ft_itoa.c
         lib/libft/ft_split.c
         lib/libft/ft_atoi.c
+        lib/libft/ft_isdigit.c
         lib/libft/libft.h
 )
