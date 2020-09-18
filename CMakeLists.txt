@@ -6,9 +6,9 @@ set(CMAKE_C_STANDARD 99)
 add_executable(
         cub3D
         cub3d.h
-        lib/gnl/get_next_line.c
-        lib/gnl/get_next_line_utils.c
-        lib/gnl/get_next_line.h
+        gnl/get_next_line.c
+        gnl/get_next_line_utils.c
+        gnl/get_next_line.h
         lib/libft/ft_lstnew.c
         lib/libft/ft_lstadd_back.c
         lib/libft/ft_lstsize.c
@@ -21,4 +21,8 @@ add_executable(
         lib/libft/libft.h
         cub3d.c
         cub3d_utils.c
-        cub3d_utils_map.c cub3d_utils_map2.c temp_utils.c cub3d_utils_info.c)
+        cub3d_utils_map.c
+        cub3d_utils_map2.c
+        temp_utils.c
+        cub3d_utils_info.c
+    )

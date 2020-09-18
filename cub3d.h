@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <errno.h>
-# include "./lib/gnl/get_next_line.h"
+# include "./gnl/get_next_line.h"
 # include "./lib/libft/libft.h"
 
 # define FALSE 0
