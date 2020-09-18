@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/01 11:12:08 by cbaek             #+#    #+#             */
-/*   Updated: 2020/07/30 22:18:57 by cbaek            ###   ########.fr       */
+/*   Created: 2020/02/28 16:07:12 by cbaek             #+#    #+#             */
+/*   Updated: 2020/09/18 21:17:30 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# define GNL_NL 1
-# define GNL_ERROR -1
-# define GNL_EOF 0
+size_t	ft_strlen(const char *s)
+{
+	size_t len;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 64
-# endif
-
-int		get_next_line(int fd, char **line);
-#endif
+	len = 0;
+	while (s[len] != '\0')
+		len++;
+	return (len);
+}

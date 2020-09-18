@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/18 16:43:42 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/18 21:24:30 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <limits.h>
 # include <errno.h>
+# include "./libft/libft.h"
 # include "./gnl/get_next_line.h"
-# include "./lib/libft/libft.h"
 
 # define FALSE 0
 # define TRUE 1

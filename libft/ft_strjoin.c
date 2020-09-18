@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/07 23:55:50 by cbaek             #+#    #+#             */
-/*   Updated: 2020/03/08 00:03:41 by cbaek            ###   ########.fr       */
+/*   Created: 2020/03/06 10:00:11 by cbaek             #+#    #+#             */
+/*   Updated: 2020/09/18 21:17:30 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstsize(t_list *lst)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t size;
-	t_list *temp;
+	char	*str;
+	size_t	len;
 
-	size = 0;
-	temp = lst;
-	while (temp != 0)
+	if (!s1 || !s2)
+		return (0);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	if (len == 0)
 	{
-		temp = temp->next;
-		size++;
+		str = (char *)malloc(sizeof(char));
+		str[0] = '\0';
+		return (str);
 	}
-	return (size);
+	if ((str = (char *)malloc(sizeof(char) * (len + 1))) == 0)
+		return (0);
+	len = 0;
+	while (*s1 != 0)
+		str[len++] = *s1++;
+	while (*s2 != 0)
+		str[len++] = *s2++;
+	str[len] = '\0';
+	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/18 18:12:41 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/18 18:13:06 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int		main(int argc, char *argv[])
 	free(lines);
 	check_map_horizon(map, &note);
 	check_map_vertical(map, &note);
-//	put_map(map, &note);
-//	ft_putstr("Good\n");
+	put_map(map, &note);
 	return (0);
 }

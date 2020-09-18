@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/28 16:07:12 by cbaek             #+#    #+#             */
-/*   Updated: 2020/03/01 22:41:21 by cbaek            ###   ########.fr       */
+/*   Created: 2020/03/07 23:55:50 by cbaek             #+#    #+#             */
+/*   Updated: 2020/09/18 21:17:30 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_lstsize(t_list *lst)
 {
-	size_t len;
+	size_t size;
+	t_list *temp;
 
-	len = 0;
-	while (s[len] != 0)
-		len++;
-	return (len);
+	size = 0;
+	temp = lst;
+	while (temp != 0)
+	{
+		temp = temp->next;
+		size++;
+	}
+	return (size);
 }
