@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:21:54 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/18 16:47:11 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/19 22:22:49 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,9 @@ void	init_note(t_note *note)
 	note->info_c[0] = -1;
 	note->info_c[1] = -1;
 	note->info_c[2] = -1;
+	note->player_xy[0] = -1;
+	note->player_xy[1] = -1;
+	note->player_dir = ' ';
 	note->map_width = 0;
 	note->map_height = 0;
 }

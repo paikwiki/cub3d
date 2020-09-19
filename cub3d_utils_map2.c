@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:36:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/18 16:39:00 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/19 22:52:24 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ void	init_map(char **map, t_note *note)
 	}
 }
 
+int		is_player_pos(char chr)
+{
+	if (ft_strchr("NSWE", chr) == 0)
+		return (FALSE);
+	return (TRUE);
+}
+
 char	check_valid_map_char(char chr)
 {
 	if (ft_strchr(" 012NSWE", chr) == 0)
@@ -38,7 +45,7 @@ char	check_valid_map_char(char chr)
 	return (chr);
 }
 
-void	set_map(char **map, t_list **lines)
+void	set_map(char **map, t_note *note, t_list **lines)
 {
 	int		idx;
 	int		idx_map;
@@ -54,6 +61,12 @@ void	set_map(char **map, t_list **lines)
 		while (line[idx] != '\0')
 		{
 			map[idx_map][idx] = check_valid_map_char(line[idx]);
+			if (is_player_pos(map[idx_map][idx]) == TRUE)
+			{
+				note->player_xy[0] = idx;
+				note->player_xy[1] = idx_map;
+				note->player_dir = map[idx_map][idx];
+			}
 			idx++;
 		}
 		if ((*lines)->next != 0)

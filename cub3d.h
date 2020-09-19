@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/19 20:21:46 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/19 22:46:18 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct	s_note
 	char	*info_we;
 	char	*info_ea;
 	char	*info_s;
+	int 	player_xy[2];
+	char 	player_dir;
 	int		map_width;
 	int		map_height;
 }				t_note;
@@ -66,7 +68,7 @@ void			ft_putstr(char *str);
 ** ============================================================================
 */
 
-void			get_info_texture(char *line, t_note *note);
+void			get_info_texture(char *line, t_note *note, int idx);
 void			parse_rgb(int *dest, char **raw_values);
 void			get_info_ceil_floor(char *line, t_note *note);
 void			get_info_resolution(char *line, t_note *note);
@@ -92,7 +94,7 @@ void			check_mapline_vertical(char **map, int ys, int ye, int x);
 
 void			init_map(char **map, t_note *note);
 char			check_valid_map_char(char chr);
-void			set_map(char **map, t_list **lines);
+void			set_map(char **map, t_note *note, t_list **lines);
 void			get_map_file(char *file_path, t_note *note, t_list **lines);
 
 /*
