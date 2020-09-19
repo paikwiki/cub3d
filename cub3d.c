@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/19 20:34:02 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/19 20:54:18 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int		key_press(int keycode)
 
 void	process_map(char **map, t_note *note, t_list **lines)
 {
-	map[note->map_height] = 0;
 	init_map(map, note);
 	set_map(map, lines);
 	check_map_horizon(map, note);
@@ -45,6 +44,7 @@ int		main(int argc, char *argv[])
 	if (note.is_map == FALSE)
 		exit_puterr("Fail to get information of map_size.");
 	map = (char **)malloc(sizeof(char *) * note.map_height + 1);
+	map[note.map_height] = 0;
 	process_map(map, &note, &lines);
 	free(lines);
 	mlx = mlx_init();
