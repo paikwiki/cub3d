@@ -73,7 +73,10 @@ void	get_info_resolution(char *line, t_note *note)
 	size_t	idx;
 	char	*raw_str;
 	char	**raw_values;
+	int 	max_size[2];
 
+	max_size[0] = 1920;
+	max_size[1] = 1080;
 	raw_str = ft_strndup((char *)&line[2], ft_strlen((const char *)&line[2]));
 	raw_values = ft_split(raw_str, ' ');
 	idx = 0;
@@ -81,6 +84,8 @@ void	get_info_resolution(char *line, t_note *note)
 	{
 		check_isdigit_all(raw_values[idx]);
 		note->info_r[idx] = ft_atoi(raw_values[idx]);
+		note->info_r[idx] = note->info_r[idx] <= max_size[idx] ?
+				note->info_r[idx] : max_size[idx];
 		idx++;
 	}
 	free(raw_values[0]);
