@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/19 22:46:18 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/19 22:46:21 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,15 @@ void			init_map(char **map, t_note *note);
 char			check_valid_map_char(char chr);
 void			set_map(char **map, t_note *note, t_list **lines);
 void			get_map_file(char *file_path, t_note *note, t_list **lines);
+
+/*
+** ============================================================================
+**   cub3d_utils_player.c
+** ============================================================================
+*/
+
+int				is_player_pos(char chr);
+void			get_info_player_pos(t_note *note, char **map, int x, int y);
 
 /*
 ** ============================================================================

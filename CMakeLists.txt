@@ -36,6 +36,6 @@ add_executable(cub3D
         cub3d_utils_map2.c
         temp_utils.c
         cub3d_utils_info.c
-    )
+        cub3d_utils_player.c)
 
 target_link_libraries(cub3D "-framework OpenGL -framework AppKit")
