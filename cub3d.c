@@ -6,11 +6,19 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/19 19:49:54 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/19 20:26:52 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+
+int		key_press(int keycode)
+{
+	if (keycode == KEY_ESC)
+		exit(0);
+	return (0);
+}
 
 int		main(int argc, char *argv[])
 {
@@ -37,6 +45,7 @@ int		main(int argc, char *argv[])
 
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, note.info_r[0], note.info_r[1], "cub3D");
+	mlx_hook(win, X_EVENT_KEY_PRESS, 0, &key_press, &note);
 	mlx_loop(mlx);
 	return (0);
 }

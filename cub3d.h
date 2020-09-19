@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/19 19:49:36 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/19 20:21:46 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 
 # define FALSE 0
 # define TRUE 1
+
+#define X_EVENT_KEY_PRESS		2
+#define X_EVENT_KEY_RELEASE		3
+#define X_EVENT_KEY_EXIT		17 //exit key code
+
+# define KEY_ESC 53
 
 typedef struct	s_note
 {
