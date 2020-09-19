@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:31:10 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/18 16:32:24 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/19 19:59:26 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int		get_wall_char(char **map, int x_start, int y_start)
 		return (y_start);
 	else
 		exit_puterr("Check the outer wall.");
+	return (0);
 }
 
 void	check_mapline_horizon(char **map, int xs, int xe, int y)

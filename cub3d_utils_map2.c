@@ -80,7 +80,7 @@ void	get_map_file(char *file_path, t_note *note, t_list **lines)
 				note->is_done = TRUE;
 			if (note->is_map == TRUE)
 			{
-				note->map_width = ft_strlen(line) > note->map_width ?
+				note->map_width = (int)ft_strlen(line) > note->map_width ?
 						(int)ft_strlen(line) : note->map_width;
 				if (!lines)
 					*lines = ft_lstnew(line);

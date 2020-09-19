@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/18 18:13:06 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/19 19:49:54 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int		main(int argc, char *argv[])
 	t_note	note;
 	t_list	*lines;
 	char	**map;
+	void 	*mlx;
+	void 	*win;
 
 	if (argc < 2)
 		exit_puterr("Map does not exist.\n");
@@ -32,6 +34,9 @@ int		main(int argc, char *argv[])
 	free(lines);
 	check_map_horizon(map, &note);
 	check_map_vertical(map, &note);
-	put_map(map, &note);
+
+	mlx = mlx_init();
+	win = mlx_new_window(mlx, note.info_r[0], note.info_r[1], "cub3D");
+	mlx_loop(mlx);
 	return (0);
 }

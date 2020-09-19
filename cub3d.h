@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/18 21:24:30 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/19 19:49:36 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <errno.h>
+# include "./mlx/mlx.h"
 # include "./libft/libft.h"
 # include "./gnl/get_next_line.h"
 

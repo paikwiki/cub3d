@@ -1,10 +1,19 @@
 cmake_minimum_required(VERSION 3.17)
 project(cub3D C)
 
-set(CMAKE_C_STANDARD 99)
+SET(CMAKE_C_STANDARD 11)
+SET(CMAKE_C_COMPILER gcc)
+ADD_COMPILE_OPTIONS(-Wall -Wextra -Werror)
 
-add_executable(
-        cub3D
+LINK_DIRECTORIES(mlx)
+LINK_LIBRARIES(mlx)
+
+add_executable(cub3D
+        mlx/mlx.h
+        mlx/mlx_int.h
+        mlx/mlx_new_window.h
+        mlx/mlx_opengl.h
+        mlx/mlx_png.h
         cub3d.h
         libft/ft_lstnew.c
         libft/ft_lstadd_back.c
@@ -28,3 +37,5 @@ add_executable(
         temp_utils.c
         cub3d_utils_info.c
     )
+
+target_link_libraries(cub3D "-framework OpenGL -framework AppKit")
