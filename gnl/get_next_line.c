@@ -6,11 +6,11 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 11:11:48 by cbaek             #+#    #+#             */
-/*   Updated: 2020/09/18 21:23:49 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/21 11:39:39 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../includes/main.h"
 
 static char	*ft_get_nlc_addr(char *s)
 {

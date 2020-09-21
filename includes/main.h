@@ -18,9 +18,9 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <errno.h>
-# include "./mlx/mlx.h"
-# include "./libft/libft.h"
-# include "./gnl/get_next_line.h"
+# include "../mlx/mlx.h"
+# include "../libft/libft.h"
+# include "../gnl/get_next_line.h"
 
 # define FALSE 0
 # define TRUE 1
