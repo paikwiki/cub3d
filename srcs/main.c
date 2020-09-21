@@ -41,6 +41,7 @@ void	main_loop(t_note *note)
 	img = mlx_xpm_file_to_image(mlx, "../textures/fan.xpm", &img_width, &img_height);
 	mlx_put_image_to_window(mlx, win, img, 50, 50);
 	mlx_hook(win, X_EVENT_KEY_PRESS, 0, &key_press, &note);
+	mlx_hook(win, X_EVENT_KEY_EXIT, 0, &close, &note);
 	mlx_loop(mlx);
 }
 
