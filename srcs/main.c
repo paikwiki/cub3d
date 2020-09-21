@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/21 11:39:40 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/21 12:34:34 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,23 @@ void	process_map(char **map, t_note *note, t_list **lines)
 	check_map_vertical(map, note);
 }
 
-int		main(int argc, char *argv[])
+int		main_loop(t_note *note)
+{
+	void	*mlx;
+	void	*win;
+
+	mlx = mlx_init();
+	win = mlx_new_window(mlx, note->info_r[0], note->info_r[1], "cub3D");
+	mlx_hook(win, X_EVENT_KEY_PRESS, 0, &key_press, &note);
+	mlx_loop(mlx);
+	return (0);
+}
+
+int		main(int argc, char **argv)
 {
 	t_note	note;
 	t_list	*lines;
 	char	**map;
-	void	*mlx;
-	void	*win;
 
 	if (argc < 2)
 		exit_puterr("Map does not exist.\n");
@@ -46,9 +56,6 @@ int		main(int argc, char *argv[])
 	map[note.map_height] = 0;
 	process_map(map, &note, &lines);
 	free(lines);
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, note.info_r[0], note.info_r[1], "cub3D");
-	mlx_hook(win, X_EVENT_KEY_PRESS, 0, &key_press, &note);
-	mlx_loop(mlx);
+	main_loop(&note);
 	return (0);
 }
