@@ -6,11 +6,11 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:37:29 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/18 16:38:01 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/21 11:39:39 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cub3d.h"
+#include "includes/main.h"
 
 void	put_map(char **map, t_note *note)
 {

@@ -14,7 +14,7 @@ add_executable(cub3D
         mlx/mlx_new_window.h
         mlx/mlx_opengl.h
         mlx/mlx_png.h
-        includes/cub3d.h
+        includes/main.h
         libft/ft_lstnew.c
         libft/ft_lstadd_back.c
         libft/ft_lstsize.c
@@ -30,12 +30,12 @@ add_executable(cub3D
         libft/libft.h
         gnl/get_next_line.c
         gnl/get_next_line.h
-        srcs/cub3d.c
-        srcs/cub3d_utils.c
-        srcs/cub3d_utils_map.c
-        srcs/cub3d_utils_map2.c
+        srcs/main.c
+        srcs/utils.c
+        srcs/utils_map.c
+        srcs/utils_map2.c
         temp_utils.c
-        srcs/cub3d_utils_info.c
-        srcs/cub3d_utils_player.c)
+        srcs/utils_info.c
+        srcs/utils_player.c)
 
 target_link_libraries(cub3D "-framework OpenGL -framework AppKit")
