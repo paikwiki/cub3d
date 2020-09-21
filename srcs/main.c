@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/21 15:36:33 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/21 18:09:46 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,22 @@ void	process_map(char **map, t_note *note, t_list **lines)
 void	main_loop(t_note *note)
 {
 	t_mlx	mlx;
-	void 	*img;
-	int		img_width;
-	int 	img_height;
+	t_img	img;
+	int		cnt_w;
+	int		cnt_h;
 
 	mlx.ptr = mlx_init();
 	mlx.win = mlx_new_window(mlx.ptr, note->info_r[0], note->info_r[1], "cub3D");
-	img = mlx_xpm_file_to_image(mlx.ptr, "../textures/fan.xpm", &img_width, &img_height);
-	mlx_put_image_to_window(mlx.ptr, mlx.win, img, 50, 50);
+	img.ptr = mlx_new_image(mlx.ptr, note->info_r[0], note->info_r[1]);
+	img.data = (int *)mlx_get_data_addr(img.ptr, &img.bpp, &img.size_line, &img.endian);
+	cnt_h = -1;
+	while (++cnt_h < note->info_r[1] && (cnt_w = -1) == -1)
+		while (++cnt_w < note->info_r[0])
+			if (cnt_w % 4)
+				img.data[cnt_h * note->info_r[0] + cnt_w] = 0x4169E1;
+			else
+				img.data[cnt_h * note->info_r[0] + cnt_w] = 0xFFFFFF;
+	mlx_put_image_to_window(mlx.ptr, mlx.win, img.ptr, 0, 0);
 	mlx_hook(mlx.win, X_EVENT_KEY_PRESS, 0, &key_press, &note);
 	mlx_hook(mlx.win, X_EVENT_KEY_EXIT, 0, &close, &note);
 	mlx_loop(mlx.ptr);
