@@ -6,11 +6,11 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:21:54 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/19 22:22:49 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/21 11:37:59 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 int		count_info(t_note *note)
 {

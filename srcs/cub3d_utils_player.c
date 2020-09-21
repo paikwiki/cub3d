@@ -6,11 +6,11 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/19 23:02:26 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/19 23:02:26 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/21 11:37:59 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 int		is_player_pos(char chr)
 {
