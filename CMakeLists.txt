@@ -26,6 +26,7 @@ add_executable(cub3D
         libft/ft_itoa.c
         libft/ft_split.c
         libft/ft_atoi.c
+        libft/ft_uitoa_base.c
         libft/ft_isdigit.c
         libft/libft.h
         gnl/get_next_line.c

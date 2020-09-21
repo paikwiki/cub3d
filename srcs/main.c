@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/21 18:26:52 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/21 21:29:48 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,19 @@ void	main_loop(t_note *note)
 	int		cnt_h;
 
 	mlx.ptr = mlx_init();
-	mlx.win = mlx_new_window(mlx.ptr, note->info_r[0], note->info_r[1], "cub3D");
+	mlx.win = mlx_new_window(mlx.ptr, note->info_r[0],
+						note->info_r[1], "cub3D");
 	img.ptr = mlx_new_image(mlx.ptr, note->info_r[0], note->info_r[1]);
-	img.data = (int *)mlx_get_data_addr(img.ptr, &img.bpp, &img.size_line, &img.endian);
+	img.data = (int *)mlx_get_data_addr(img.ptr,
+									&img.bpp, &img.size_line, &img.endian);
 	cnt_h = -1;
 	while (++cnt_h < (note->info_r[1] / 2) && (cnt_w = -1) == -1)
 		while (++cnt_w < note->info_r[0])
-			img.data[cnt_h * note->info_r[0] + cnt_w] = 0x4169E1;
+			img.data[cnt_h * note->info_r[0] + cnt_w] = note->rgb_ceiling;
 	cnt_h = (note->info_r[1] / 2) - 1;
 	while (++cnt_h < note->info_r[1] && (cnt_w = -1) == -1)
 		while (++cnt_w < note->info_r[0])
-			img.data[cnt_h * note->info_r[0] + cnt_w] = 0xFFFFFF;
+			img.data[cnt_h * note->info_r[0] + cnt_w] = note->rgb_floor;
 	mlx_put_image_to_window(mlx.ptr, mlx.win, img.ptr, 0, 0);
 	mlx_hook(mlx.win, X_EVENT_KEY_PRESS, 0, &key_press, &note);
 	mlx_hook(mlx.win, X_EVENT_KEY_EXIT, 0, &close, &note);

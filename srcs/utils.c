@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:21:54 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/21 11:39:40 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/21 21:11:44 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int		count_info(t_note *note)
 		cnt++;
 	if (note->info_s != 0)
 		cnt++;
-	if (note->info_f[2] != -1)
+	if (note->rgb_floor != -1)
 		cnt++;
-	if (note->info_c[2] != -1)
+	if (note->rgb_ceiling != -1)
 		cnt++;
 	return (cnt);
 }
@@ -81,12 +81,8 @@ void	init_note(t_note *note)
 	note->info_we = 0;
 	note->info_ea = 0;
 	note->info_s = 0;
-	note->info_f[0] = -1;
-	note->info_f[1] = -1;
-	note->info_f[2] = -1;
-	note->info_c[0] = -1;
-	note->info_c[1] = -1;
-	note->info_c[2] = -1;
+	note->rgb_ceiling = -1;
+	note->rgb_floor = -1;
 	note->player_xy[0] = -1;
 	note->player_xy[1] = -1;
 	note->player_dir = ' ';

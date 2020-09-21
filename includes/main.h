@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/21 16:45:43 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/21 21:29:13 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@
 # define FALSE 0
 # define TRUE 1
 
-#define X_EVENT_KEY_PRESS		2
-#define X_EVENT_KEY_RELEASE		3
-#define X_EVENT_KEY_EXIT		17 //exit key code
+# define HEX_UPPER "0123456789ABCDEF"
+
+# define X_EVENT_KEY_PRESS		2
+# define X_EVENT_KEY_RELEASE	3
+# define X_EVENT_KEY_EXIT		17
 
 # define KEY_ESC 53
 
@@ -52,8 +54,8 @@ typedef struct	s_note
 	int		is_map;
 	int		is_done;
 	int		info_r[2];
-	int		info_f[3];
-	int		info_c[3];
+	int 	rgb_ceiling;
+	int 	rgb_floor;
 	char	*info_no;
 	char	*info_so;
 	char	*info_we;
@@ -84,7 +86,7 @@ void			ft_putstr(char *str);
 */
 
 void			get_info_texture(char *line, t_note *note, int idx);
-void			parse_rgb(int *dest, char **raw_values);
+void			get_rgb_int(int *dest, char **raw_values);
 void			get_info_ceil_floor(char *line, t_note *note);
 void			get_info_resolution(char *line, t_note *note);
 void			generate_info(char *line, t_note *note);
