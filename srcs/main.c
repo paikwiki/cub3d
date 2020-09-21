@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/21 13:38:36 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/21 15:36:33 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,18 @@ void	process_map(char **map, t_note *note, t_list **lines)
 
 void	main_loop(t_note *note)
 {
-	void	*mlx;
-	void	*win;
+	t_mlx	mlx;
 	void 	*img;
-
 	int		img_width;
 	int 	img_height;
 
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, note->info_r[0], note->info_r[1], "cub3D");
-	img = mlx_xpm_file_to_image(mlx, "../textures/fan.xpm", &img_width, &img_height);
-	mlx_put_image_to_window(mlx, win, img, 50, 50);
-	mlx_hook(win, X_EVENT_KEY_PRESS, 0, &key_press, &note);
-	mlx_hook(win, X_EVENT_KEY_EXIT, 0, &close, &note);
-	mlx_loop(mlx);
+	mlx.ptr = mlx_init();
+	mlx.win = mlx_new_window(mlx.ptr, note->info_r[0], note->info_r[1], "cub3D");
+	img = mlx_xpm_file_to_image(mlx.ptr, "../textures/fan.xpm", &img_width, &img_height);
+	mlx_put_image_to_window(mlx.ptr, mlx.win, img, 50, 50);
+	mlx_hook(mlx.win, X_EVENT_KEY_PRESS, 0, &key_press, &note);
+	mlx_hook(mlx.win, X_EVENT_KEY_EXIT, 0, &close, &note);
+	mlx_loop(mlx.ptr);
 }
 
 int		main(int argc, char **argv)

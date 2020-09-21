@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/19 22:46:21 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/21 15:22:07 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@
 #define X_EVENT_KEY_EXIT		17 //exit key code
 
 # define KEY_ESC 53
+
+typedef struct	s_mlx
+{
+	void 	*ptr;
+	void 	*win;
+}				t_mlx;
 
 typedef struct	s_note
 {
