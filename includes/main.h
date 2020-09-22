@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/22 11:18:12 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/22 17:12:54 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@
 # define X_EVENT_KEY_EXIT		17
 
 # define KEY_ESC 53
+# define KEY_W 13
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_RA 124
+# define KEY_LA 123
 
 typedef struct	s_img
 {
@@ -42,10 +48,24 @@ typedef struct	s_img
 	int		endian;
 }				t_img;
 
+typedef struct s_param
+{
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	double	moveSpeed;
+	double	rotSpeed;
+	double	planeX;
+	double	planeY;
+}				t_param;
+
 typedef struct	s_mlx
 {
 	void	*ptr;
 	void	*win;
+	t_img	img;
+	t_param	param;
 }				t_mlx;
 
 typedef struct	s_note

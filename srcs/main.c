@@ -6,18 +6,11 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/21 21:29:48 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/22 17:14:33 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
-
-int		key_press(int keycode)
-{
-	if (keycode == KEY_ESC)
-		exit(0);
-	return (0);
-}
 
 void	process_map(char **map, t_note *note, t_list **lines)
 {
@@ -27,31 +20,63 @@ void	process_map(char **map, t_note *note, t_list **lines)
 	check_map_vertical(map, note);
 }
 
+void    param_init(t_mlx *mlx, double posX, double posY)
+{
+	mlx->param.posX = posX;
+	mlx->param.posY = posY;
+	mlx->param.dirX = -1;
+	mlx->param.dirY = 0;
+	mlx->param.moveSpeed = 1.0;
+	mlx->param.rotSpeed = 0.3;
+	mlx->param.planeX = 0;
+	mlx->param.planeY = 0.66;
+}
+
+int     key_press(int keycode)
+{
+	if (keycode == KEY_W)
+		write(1, "W_", 2);
+	if (keycode == KEY_S)
+		write(1, "S_", 2);
+	if (keycode == KEY_A)
+		write(1, "A_", 2);
+	if (keycode == KEY_D)
+		write(1, "D_", 2);
+	if (keycode == KEY_RA)
+		write(1, "RA_", 3);
+	if (keycode == KEY_LA)
+		write(1, "LA_", 3);
+	if (keycode == KEY_ESC)
+		exit(0);
+	return (0);
+}
+
 void	main_loop(t_note *note)
 {
-	t_mlx	mlx;
-	t_img	img;
+	t_mlx	*mlx;
 	int		cnt_w;
-	int		cnt_h;
+	int 	cnt_h;
 
-	mlx.ptr = mlx_init();
-	mlx.win = mlx_new_window(mlx.ptr, note->info_r[0],
+	mlx = (t_mlx *)malloc(sizeof(t_mlx));
+	param_init(mlx, note->player_xy[0], note->player_xy[1]);
+	mlx->ptr = mlx_init();
+	mlx->win = mlx_new_window(mlx->ptr, note->info_r[0],
 						note->info_r[1], "cub3D");
-	img.ptr = mlx_new_image(mlx.ptr, note->info_r[0], note->info_r[1]);
-	img.data = (int *)mlx_get_data_addr(img.ptr,
-									&img.bpp, &img.size_line, &img.endian);
+	mlx->img.ptr = mlx_new_image(mlx->ptr, note->info_r[0], note->info_r[1]);
+	mlx->img.data = (int *)mlx_get_data_addr(mlx->img.ptr,
+									&mlx->img.bpp, &mlx->img.size_line, &mlx->img.endian);
 	cnt_h = -1;
 	while (++cnt_h < (note->info_r[1] / 2) && (cnt_w = -1) == -1)
 		while (++cnt_w < note->info_r[0])
-			img.data[cnt_h * note->info_r[0] + cnt_w] = note->rgb_ceiling;
+			mlx->img.data[cnt_h * note->info_r[0] + cnt_w] = note->rgb_ceiling;
 	cnt_h = (note->info_r[1] / 2) - 1;
 	while (++cnt_h < note->info_r[1] && (cnt_w = -1) == -1)
 		while (++cnt_w < note->info_r[0])
-			img.data[cnt_h * note->info_r[0] + cnt_w] = note->rgb_floor;
-	mlx_put_image_to_window(mlx.ptr, mlx.win, img.ptr, 0, 0);
-	mlx_hook(mlx.win, X_EVENT_KEY_PRESS, 0, &key_press, &note);
-	mlx_hook(mlx.win, X_EVENT_KEY_EXIT, 0, &close, &note);
-	mlx_loop(mlx.ptr);
+			mlx->img.data[cnt_h * note->info_r[0] + cnt_w] = note->rgb_floor;
+	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img.ptr, 0, 0);
+	mlx_hook(mlx->win, X_EVENT_KEY_EXIT, 0, &close, &note);
+	mlx_hook(mlx->win, X_EVENT_KEY_PRESS, 0, &key_press, &note);
+	mlx_loop(mlx->ptr);
 }
 
 int		main(int argc, char **argv)
