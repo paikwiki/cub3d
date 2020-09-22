@@ -6,11 +6,17 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:39:42 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/21 21:27:12 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/22 09:31:04 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
+
+void	check_rgb_range(int value)
+{
+	if (value > 255 || value < 0)
+		exit_puterr("Wrong range of RGB values(0~255)");
+}
 
 void	get_info_texture(char *line, t_note *note, int idx)
 {
@@ -27,12 +33,6 @@ void	get_info_texture(char *line, t_note *note, int idx)
 		note->info_ea = str;
 	else if (ft_strncmp((const char *)line, "S ", 2) == 0)
 		note->info_s = str;
-}
-
-void	check_rgb_range(int value)
-{
-	if (value > 255 || value < 0)
-		exit_puterr("Wrong range of RGB values(0~255)");
 }
 
 void	parse_rgb_hexstr_helper(char *rgb_hex, char *temp, int idx)
@@ -74,17 +74,18 @@ char	*parse_rgb_hexstr(int *dest)
 void	get_rgb_int(int *dest, char **raw_values)
 {
 	int		idx;
+	int 	value;
 
 	idx = 0;
 	while (idx < 3)
 	{
 		check_isdigit_all(raw_values[idx]);
-		dest[idx] = ft_atoi(raw_values[idx]);
+		value = ft_atoi(raw_values[idx]);
+		check_rgb_range(value);
+		dest[idx] = value;
 		idx++;
 	}
-	idx = 0;
-	while (idx < 3)
-		check_rgb_range(idx++);
+
 }
 
 int		atoi_hexchar(char chr)
@@ -105,7 +106,7 @@ int		atoi_hexchar(char chr)
 		return (chr - 48);
 }
 
-int		get_int_value_from_hexstr(char *rgb_hex)
+int		get_int_from_hexstr(char *rgb_hex)
 {
 	int idx;
 	int res;
@@ -130,9 +131,9 @@ void	get_info_ceil_floor(char *line, t_note *note)
 	get_rgb_int(dest, raw_values);
 	rgb_hex = parse_rgb_hexstr(dest);
 	if (ft_strncmp((const char *)line, "F ", 2) == 0)
-		note->rgb_floor = get_int_value_from_hexstr(rgb_hex);
+		note->rgb_floor = get_int_from_hexstr(rgb_hex);
 	else
-		note->rgb_ceiling = get_int_value_from_hexstr(rgb_hex);
+		note->rgb_ceiling = get_int_from_hexstr(rgb_hex);
 	free(raw_values[0]);
 	free(raw_values[1]);
 	free(raw_values[2]);
