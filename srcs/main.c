@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/22 17:14:33 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/22 17:34:33 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,36 +51,33 @@ int     key_press(int keycode)
 	return (0);
 }
 
-void	main_loop(t_note *note)
+void	clear_screen(t_mlx *mlx)
 {
-	t_mlx	*mlx;
-	int		cnt_w;
-	int 	cnt_h;
+	int idx;
+	int sub_idx;
+	idx = -1;
+	while(++idx < 240)
+	{
+		sub_idx = -1;
+		while (++sub_idx < 120)
+		{
+			mlx->img.data[idx * 120 + sub_idx] = 0;
+		}
+	}
+}
 
-	mlx = (t_mlx *)malloc(sizeof(t_mlx));
-	param_init(mlx, note->player_xy[0], note->player_xy[1]);
-	mlx->ptr = mlx_init();
-	mlx->win = mlx_new_window(mlx->ptr, note->info_r[0],
-						note->info_r[1], "cub3D");
-	mlx->img.ptr = mlx_new_image(mlx->ptr, note->info_r[0], note->info_r[1]);
-	mlx->img.data = (int *)mlx_get_data_addr(mlx->img.ptr,
-									&mlx->img.bpp, &mlx->img.size_line, &mlx->img.endian);
-	cnt_h = -1;
-	while (++cnt_h < (note->info_r[1] / 2) && (cnt_w = -1) == -1)
-		while (++cnt_w < note->info_r[0])
-			mlx->img.data[cnt_h * note->info_r[0] + cnt_w] = note->rgb_ceiling;
-	cnt_h = (note->info_r[1] / 2) - 1;
-	while (++cnt_h < note->info_r[1] && (cnt_w = -1) == -1)
-		while (++cnt_w < note->info_r[0])
-			mlx->img.data[cnt_h * note->info_r[0] + cnt_w] = note->rgb_floor;
+int		main_loop(t_mlx *mlx)
+{
+	clear_screen(mlx);
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img.ptr, 0, 0);
-	mlx_hook(mlx->win, X_EVENT_KEY_EXIT, 0, &close, &note);
-	mlx_hook(mlx->win, X_EVENT_KEY_PRESS, 0, &key_press, &note);
-	mlx_loop(mlx->ptr);
+	return (0);
 }
 
 int		main(int argc, char **argv)
 {
+	t_mlx	*mlx;
+	int		cnt_w;
+	int 	cnt_h;
 	t_note	note;
 	t_list	*lines;
 	char	**map;
@@ -96,6 +93,25 @@ int		main(int argc, char **argv)
 	map[note.map_height] = 0;
 	process_map(map, &note, &lines);
 	free(lines);
-	main_loop(&note);
+	mlx = (t_mlx *)malloc(sizeof(t_mlx));
+	param_init(mlx, note.player_xy[0], note.player_xy[1]);
+	mlx->ptr = mlx_init();
+	mlx->win = mlx_new_window(mlx->ptr, note.info_r[0],
+							  note.info_r[1], "cub3D");
+	mlx->img.ptr = mlx_new_image(mlx->ptr, note.info_r[0], note.info_r[1]);
+	mlx->img.data = (int *)mlx_get_data_addr(mlx->img.ptr,
+											 &mlx->img.bpp, &mlx->img.size_line, &mlx->img.endian);
+	cnt_h = -1;
+	while (++cnt_h < (note.info_r[1] / 2) && (cnt_w = -1) == -1)
+		while (++cnt_w < note.info_r[0])
+			mlx->img.data[cnt_h * note.info_r[0] + cnt_w] = note.rgb_ceiling;
+	cnt_h = (note.info_r[1] / 2) - 1;
+	while (++cnt_h < note.info_r[1] && (cnt_w = -1) == -1)
+		while (++cnt_w < note.info_r[0])
+			mlx->img.data[cnt_h * note.info_r[0] + cnt_w] = note.rgb_floor;
+	mlx_hook(mlx->win, X_EVENT_KEY_EXIT, 0, &close, &note);
+	mlx_hook(mlx->win, X_EVENT_KEY_PRESS, 0, &key_press, &note);
+	mlx_loop_hook(mlx->ptr, &main_loop, mlx);
+	mlx_loop(mlx->ptr);
 	return (0);
 }
