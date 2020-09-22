@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/21 21:29:13 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/22 10:22:34 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct	s_note
 
 /*
 ** ============================================================================
-**   cub3d_utils.c
+**   utils.c
 ** ============================================================================
 */
 
@@ -81,19 +81,30 @@ void			ft_putstr(char *str);
 
 /*
 ** ============================================================================
-**   cub3d_utils_info.c
+**   utils_info.c
 ** ============================================================================
 */
 
 void			get_info_texture(char *line, t_note *note, int idx);
-void			get_rgb_int(int *dest, char **raw_values);
-void			get_info_ceil_floor(char *line, t_note *note);
 void			get_info_resolution(char *line, t_note *note);
 void			generate_info(char *line, t_note *note);
 
 /*
 ** ============================================================================
-**   cub3d_utils_map.c
+**   utils_info2.c
+** ============================================================================
+*/
+
+void			check_rgb_range(int value);
+int				get_int_from_hexstr(char *rgb_hex);
+void			proc_parse_hexstr_from_int(char *rgb_hex, char *temp, int idx);
+char			*parse_hexstr_from_int(int *dest);
+void			get_rgb_int(int *dest, char **raw_values);
+void			get_info_ceil_floor(char *line, t_note *note);
+
+/*
+** ============================================================================
+**   utils_map.c
 ** ============================================================================
 */
 
@@ -105,7 +116,7 @@ void			check_mapline_vertical(char **map, int ys, int ye, int x);
 
 /*
 ** ============================================================================
-**   cub3d_utils_map2.c
+**   utils_map2.c
 ** ============================================================================
 */
 
@@ -116,7 +127,7 @@ void			get_map_file(char *file_path, t_note *note, t_list **lines);
 
 /*
 ** ============================================================================
-**   cub3d_utils_player.c
+**   utils_player.c
 ** ============================================================================
 */
 
