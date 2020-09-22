@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/22 10:22:34 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/22 11:18:12 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef MAIN_H
+# define MAIN_H
 
 # include <fcntl.h>
 # include <unistd.h>
@@ -33,19 +33,19 @@
 
 # define KEY_ESC 53
 
-typedef struct 	s_img
+typedef struct	s_img
 {
-	void 	*ptr;
-	int 	*data;
-	int 	size_line;
-	int 	bpp;
-	int 	endian;
+	void	*ptr;
+	int		*data;
+	int		size_line;
+	int		bpp;
+	int		endian;
 }				t_img;
 
 typedef struct	s_mlx
 {
-	void 	*ptr;
-	void 	*win;
+	void	*ptr;
+	void	*win;
 }				t_mlx;
 
 typedef struct	s_note
@@ -54,15 +54,15 @@ typedef struct	s_note
 	int		is_map;
 	int		is_done;
 	int		info_r[2];
-	int 	rgb_ceiling;
-	int 	rgb_floor;
+	int		rgb_ceiling;
+	int		rgb_floor;
 	char	*info_no;
 	char	*info_so;
 	char	*info_we;
 	char	*info_ea;
 	char	*info_s;
-	int 	player_xy[2];
-	char 	player_dir;
+	int		player_xy[2];
+	char	player_dir;
 	int		map_width;
 	int		map_height;
 }				t_note;
@@ -95,12 +95,20 @@ void			generate_info(char *line, t_note *note);
 ** ============================================================================
 */
 
-void			check_rgb_range(int value);
 int				get_int_from_hexstr(char *rgb_hex);
 void			proc_parse_hexstr_from_int(char *rgb_hex, char *temp, int idx);
 char			*parse_hexstr_from_int(int *dest);
 void			get_rgb_int(int *dest, char **raw_values);
 void			get_info_ceil_floor(char *line, t_note *note);
+
+/*
+** ============================================================================
+**   utils_info3.c
+** ============================================================================
+*/
+
+int				atoi_hexchar(char chr);
+void			check_rgb_range(int value);
 
 /*
 ** ============================================================================

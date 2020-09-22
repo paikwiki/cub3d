@@ -6,33 +6,11 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 10:19:27 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/22 10:21:40 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/22 11:16:42 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	check_rgb_range(int value)
-{
-	if (value > 255 || value < 0)
-		exit_puterr("Wrong range of RGB values(0~255)");
-}
-
-int		atoi_hexchar(char chr)
-{
-	if (chr == 'a' || chr == 'A')
-		return (10);
-	if (chr == 'b' || chr == 'B')
-		return (11);
-	if (chr == 'c' || chr == 'C')
-		return (12);
-	if (chr == 'd' || chr == 'D')
-		return (13);
-	if (chr == 'e' || chr == 'E')
-		return (14);
-	if (chr == 'f' || chr == 'F')
-		return (15);
-	else
-		return (chr - 48);
-}
+#include "../includes/main.h"
 
 int		get_int_from_hexstr(char *rgb_hex)
 {
@@ -85,7 +63,7 @@ char	*parse_hexstr_from_int(int *dest)
 void	get_rgb_int(int *dest, char **raw_values)
 {
 	int		idx;
-	int 	value;
+	int		value;
 
 	idx = 0;
 	while (idx < 3)
@@ -96,7 +74,6 @@ void	get_rgb_int(int *dest, char **raw_values)
 		dest[idx] = value;
 		idx++;
 	}
-
 }
 
 void	get_info_ceil_floor(char *line, t_note *note)
