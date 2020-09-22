@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/22 17:34:33 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/22 22:47:13 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ int		main_loop(t_mlx *mlx)
 	return (0);
 }
 
+int		ft_exit(int ret)
+{
+	exit(ret);
+	return (ret);
+}
+
 int		main(int argc, char **argv)
 {
 	t_mlx	*mlx;
@@ -109,7 +115,7 @@ int		main(int argc, char **argv)
 	while (++cnt_h < note.info_r[1] && (cnt_w = -1) == -1)
 		while (++cnt_w < note.info_r[0])
 			mlx->img.data[cnt_h * note.info_r[0] + cnt_w] = note.rgb_floor;
-	mlx_hook(mlx->win, X_EVENT_KEY_EXIT, 0, &close, &note);
+	mlx_hook(mlx->win, X_EVENT_KEY_EXIT, 0, &ft_exit, &note);
 	mlx_hook(mlx->win, X_EVENT_KEY_PRESS, 0, &key_press, &note);
 	mlx_loop_hook(mlx->ptr, &main_loop, mlx);
 	mlx_loop(mlx->ptr);
