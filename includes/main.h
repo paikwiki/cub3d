@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/22 17:12:54 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/23 20:30:43 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <math.h>
 # include <errno.h>
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
@@ -31,13 +32,13 @@
 # define X_EVENT_KEY_RELEASE	3
 # define X_EVENT_KEY_EXIT		17
 
-# define KEY_ESC 53
-# define KEY_W 13
 # define KEY_A 0
-# define KEY_S 1
 # define KEY_D 2
+# define KEY_S 1
+# define KEY_W 13
 # define KEY_RA 124
 # define KEY_LA 123
+# define KEY_ESC 53
 
 typedef struct	s_img
 {
@@ -50,22 +51,32 @@ typedef struct	s_img
 
 typedef struct s_param
 {
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
-	double	moveSpeed;
-	double	rotSpeed;
-	double	planeX;
-	double	planeY;
+	double	px;
+	double	py;
+	double	dx;
+	double	dy;
+	double	m_spd;
+	double	r_spd;
+	double	pln_x;
+	double	pln_y;
 }				t_param;
+
+typedef struct	s_info
+{
+	int 	w;
+	int 	h;
+	int		color_c;
+	int		color_f;
+}				t_info;
 
 typedef struct	s_mlx
 {
-	void	*ptr;
-	void	*win;
-	t_img	img;
-	t_param	param;
+	void		*ptr;
+	void		*win;
+	char 		**map;
+	t_img		img;
+	t_info		info;
+	t_param		prm;
 }				t_mlx;
 
 typedef struct	s_note
@@ -86,6 +97,28 @@ typedef struct	s_note
 	int		map_width;
 	int		map_height;
 }				t_note;
+
+typedef struct	s_raycast_note
+{
+	double	rd_x;
+	double	rd_y;
+	double	cam_x;
+	int		mx;
+	int		my;
+	double	side_dx;
+	double	side_dy;
+	double	delta_dx;
+	double	delta_dy;
+	double	pp_walld;
+	int		st_x;
+	int		st_y;
+	int		hit;
+	int		side;
+	int		color;
+	int 	lineHeight;
+	int 	drawStart;
+	int 	drawEnd;
+}				t_raycast_note;
 
 /*
 ** ============================================================================
@@ -148,7 +181,7 @@ void			check_mapline_vertical(char **map, int ys, int ye, int x);
 ** ============================================================================
 */
 
-void			init_map(char **map, t_note *note);
+void			init_map(t_mlx *mlx, t_note *note);
 char			check_valid_map_char(char chr);
 void			set_map(char **map, t_note *note, t_list **lines);
 void			get_map_file(char *file_path, t_note *note, t_list **lines);
@@ -168,5 +201,5 @@ void			get_info_player_pos(t_note *note, char **map, int x, int y);
 ** ============================================================================
 */
 
-void			put_map(char **map, t_note *note);
+void			put_map(char **map);
 #endif
