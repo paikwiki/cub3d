@@ -4,6 +4,8 @@
 
 ## 학습용 링크
 
+- [42 Docs - cub3d](https://harm-smits.github.io/42docs/projects/cub3d)
+- [42 Docs - MiniLibX](https://harm-smits.github.io/42docs/libs/minilibx)
 - [365kim/raycasting_tutorial](https://github.com/365kim/raycasting_tutorial)
 - [taelee42/mlx_example](https://github.com/taelee42/mlx_example)
 - [Raycasting Basics with JavaScript](https://courses.pikuma.com/courses/raycasting)
