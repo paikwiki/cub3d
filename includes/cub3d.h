@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 18:29:37 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 18:37:21 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # include <limits.h>
 # include <math.h>
 # include <errno.h>
-# include "keys.h"
+# include "cub3d_keys.h"
+# include "cub3d_structs.h"
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
 # include "../gnl/get_next_line.h"
@@ -32,86 +33,6 @@
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_RELEASE	3
 # define X_EVENT_KEY_EXIT		17
-
-typedef struct	s_img
-{
-	void	*ptr;
-	int		*data;
-	int		size_line;
-	int		bpp;
-	int		endian;
-}				t_img;
-
-typedef struct	s_param
-{
-	double	px;
-	double	py;
-	double	dx;
-	double	dy;
-	double	m_spd;
-	double	r_spd;
-	double	pln_x;
-	double	pln_y;
-}				t_param;
-
-typedef struct	s_info
-{
-	int		w;
-	int		h;
-	int		color_c;
-	int		color_f;
-}				t_info;
-
-typedef struct	s_mlx
-{
-	void		*ptr;
-	void		*win;
-	char		**map;
-	t_img		img;
-	t_info		info;
-	t_param		prm;
-}				t_mlx;
-
-typedef struct	s_note
-{
-	int		c_rd;
-	int		is_map;
-	int		is_done;
-	int		info_r[2];
-	int		rgb_ceiling;
-	int		rgb_floor;
-	char	*info_no;
-	char	*info_so;
-	char	*info_we;
-	char	*info_ea;
-	char	*info_s;
-	int		player_xy[2];
-	char	player_dir;
-	int		map_width;
-	int		map_height;
-}				t_note;
-
-typedef struct	s_raycast_note
-{
-	double	rd_x;
-	double	rd_y;
-	double	cam_x;
-	int		mx;
-	int		my;
-	double	side_dx;
-	double	side_dy;
-	double	delta_dx;
-	double	delta_dy;
-	double	pp_walld;
-	int		st_x;
-	int		st_y;
-	int		hit;
-	int		side;
-	int		color;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-}				t_raycast_note;
 
 /*
 ** ============================================================================

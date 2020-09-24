@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEYS_H
-# define KEYS_H
+#ifndef CUB3D_KEYS_H
+# define CUB3D_KEYS_H
 
 # define KEY_A 0
 # define KEY_D 2

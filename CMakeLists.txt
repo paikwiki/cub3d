@@ -15,7 +15,8 @@ add_executable(cub3D
         mlx/mlx_opengl.h
         mlx/mlx_png.h
         includes/cub3d.h
-        includes/keys.h
+        includes/cub3d_keys.h
+        includes/cub3d_structs.h
         libft/ft_lstnew.c
         libft/ft_lstadd_back.c
         libft/ft_lstsize.c
