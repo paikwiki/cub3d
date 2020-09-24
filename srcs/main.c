@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 12:03:56 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 13:10:17 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void    init_param(t_mlx *mlx, double px, double py)
 }
 
 /*
+** rotate_player()
 ** counterclockwise direction: -1;
 ** clockwise direction: 1;
 */
@@ -43,44 +44,65 @@ void	rotate_player(t_mlx *mlx, int dir)
 	double	pln_x_old;
 
 	dx_old = mlx->prm.dx;
-	mlx->prm.dx = mlx->prm.dx * cos(dir * mlx->prm.r_spd) - mlx->prm.dy * sin(dir * mlx->prm.r_spd);
-	mlx->prm.dy = dx_old * sin(dir * mlx->prm.r_spd) + mlx->prm.dy * cos(dir * mlx->prm.r_spd);
+	mlx->prm.dx = mlx->prm.dx * cos(dir * mlx->prm.r_spd) \
+					- mlx->prm.dy * sin(dir * mlx->prm.r_spd);
+	mlx->prm.dy = dx_old * sin(dir * mlx->prm.r_spd) \
+					+ mlx->prm.dy * cos(dir * mlx->prm.r_spd);
 	pln_x_old = mlx->prm.pln_x;
-	mlx->prm.pln_x = mlx->prm.pln_x * cos(dir * mlx->prm.r_spd) - mlx->prm.pln_y * sin(dir * mlx->prm.r_spd);
-	mlx->prm.pln_y = pln_x_old * sin(dir * mlx->prm.r_spd) + mlx->prm.pln_y * cos(dir * mlx->prm.r_spd);
+	mlx->prm.pln_x = mlx->prm.pln_x * cos(dir * mlx->prm.r_spd) \
+					- mlx->prm.pln_y * sin(dir * mlx->prm.r_spd);
+	mlx->prm.pln_y = pln_x_old * sin(dir * mlx->prm.r_spd) \
+					+ mlx->prm.pln_y * cos(dir * mlx->prm.r_spd);
 }
 
+/*
+** move_player_front_back()
+** W - front direction: 1;
+** S - back direction: -1;
+ */
+
+void	move_player_front_back(t_mlx *mlx, int dir)
+{
+	double mv_x;
+	double mv_y;
+
+	mv_x = mlx->prm.dx * mlx->prm.m_spd;
+	mv_y = mlx->prm.dy * mlx->prm.m_spd;
+	if (mlx->map[(int)(mlx->prm.py)][(int)(mlx->prm.px + (dir * mv_x))] != '1')
+		mlx->prm.px += (dir * mv_x);
+	if (mlx->map[(int)(mlx->prm.py + (dir * mv_y))][(int)(mlx->prm.px)] != '1')
+		mlx->prm.py += (dir * mv_y);
+}
+
+/*
+** move_player_left_right()
+** A - left direction: -1;
+** D - right direction: 1;
+*/
+
+void	move_player_left_right(t_mlx *mlx, int dir)
+{
+	double mv_x;
+	double mv_y;
+
+	mv_x = mlx->prm.pln_x * mlx->prm.m_spd;
+	mv_y = mlx->prm.pln_y * mlx->prm.m_spd;
+	if (mlx->map[(int)(mlx->prm.py)][(int)(mlx->prm.px + (dir * mv_x))] != '1')
+		mlx->prm.px += (dir * mv_x);
+	if (mlx->map[(int)(mlx->prm.py + (dir * mv_y))][(int)(mlx->prm.px)] != '1')
+		mlx->prm.py += (dir * mv_y);
+}
 
 int     key_press(int keycode, t_mlx *mlx)
 {
-	if (keycode == KEY_W)
-	{
-		if (mlx->map[(int)(mlx->prm.py)][(int)(mlx->prm.px + mlx->prm.dx * mlx->prm.m_spd)] != '1')
-			mlx->prm.px += mlx->prm.dx * mlx->prm.m_spd;
-		if (mlx->map[(int)(mlx->prm.py + mlx->prm.dy * mlx->prm.m_spd)][(int)(mlx->prm.px)] != '1')
-			mlx->prm.py += mlx->prm.dy * mlx->prm.m_spd;
-	}
-	if (keycode == KEY_S)
-	{
-		if (mlx->map[(int)(mlx->prm.py)][(int)(mlx->prm.px - mlx->prm.dx * mlx->prm.m_spd)] != '1')
-			mlx->prm.px -= mlx->prm.dx * mlx->prm.m_spd;
-		if (mlx->map[(int)(mlx->prm.py - mlx->prm.dy * mlx->prm.m_spd)][(int)(mlx->prm.px)] != '1')
-			mlx->prm.py -= mlx->prm.dy * mlx->prm.m_spd;
-	}
+	if (keycode == KEY_W || keycode == KEY_UP)
+		move_player_front_back(mlx, 1);
+	if (keycode == KEY_S || keycode == KEY_DN)
+		move_player_front_back(mlx, -1);
 	if (keycode == KEY_A)
-	{
-		if (mlx->map[(int)(mlx->prm.py)][(int)(mlx->prm.px - mlx->prm.pln_x * mlx->prm.m_spd)] != '1')
-			mlx->prm.px -= mlx->prm.pln_x * mlx->prm.m_spd;
-		if (mlx->map[(int)(mlx->prm.py - mlx->prm.pln_y * mlx->prm.m_spd)][(int)(mlx->prm.px)] != '1')
-			mlx->prm.py -= mlx->prm.pln_y * mlx->prm.m_spd;
-	}
+		move_player_left_right(mlx, -1);
 	if (keycode == KEY_D)
-	{
-		if (mlx->map[(int)(mlx->prm.py)][(int)(mlx->prm.px + mlx->prm.pln_x * mlx->prm.m_spd)] != '1')
-			mlx->prm.px += mlx->prm.pln_x * mlx->prm.m_spd;
-		if (mlx->map[(int)(mlx->prm.py + mlx->prm.pln_y * mlx->prm.m_spd)][(int)(mlx->prm.px)] != '1')
-			mlx->prm.py += mlx->prm.pln_y * mlx->prm.m_spd;
-	}
+		move_player_left_right(mlx, 1);
 	if (keycode == KEY_RA)
 		rotate_player(mlx, 1);
 	if (keycode == KEY_LA)
