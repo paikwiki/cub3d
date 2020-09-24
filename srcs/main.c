@@ -6,11 +6,11 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 14:07:52 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 18:30:47 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/main.h"
+#include "../includes/cub3d.h"
 
 int		main_loop(t_mlx *mlx)
 {

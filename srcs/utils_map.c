@@ -6,11 +6,11 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:31:10 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/21 11:39:40 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 18:30:47 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/main.h"
+#include "../includes/cub3d.h"
 
 int		get_wall_char(char **map, int x_start, int y_start)
 {

@@ -6,11 +6,11 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:39:42 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/22 10:22:03 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 18:30:47 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/main.h"
+#include "../includes/cub3d.h"
 
 void	get_info_texture(char *line, t_note *note, int idx)
 {

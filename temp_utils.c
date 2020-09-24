@@ -6,11 +6,11 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:37:29 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/23 16:20:08 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 18:30:47 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/main.h"
+#include "includes/cub3d.h"
 
 void	ver_line(t_mlx *mlx, int x, int y1, int y2, int color)
 {
