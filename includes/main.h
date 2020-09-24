@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/23 20:30:43 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 12:10:02 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <limits.h>
 # include <math.h>
 # include <errno.h>
+# include "keys.h"
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
 # include "../gnl/get_next_line.h"
@@ -31,14 +32,6 @@
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_RELEASE	3
 # define X_EVENT_KEY_EXIT		17
-
-# define KEY_A 0
-# define KEY_D 2
-# define KEY_S 1
-# define KEY_W 13
-# define KEY_RA 124
-# define KEY_LA 123
-# define KEY_ESC 53
 
 typedef struct	s_img
 {
