@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_key_event.c                                 :+:      :+:    :+:   */
+/*   handle_key.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:17:09 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 18:30:47 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 21:01:28 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	move_player_left_right(t_mlx *mlx, int dir)
 		mlx->prm.py += (dir * mv_y);
 }
 
-int			key_press(int keycode, t_mlx *mlx)
+int			handle_key(int keycode, t_mlx *mlx)
 {
 	if (keycode == KEY_W || keycode == KEY_UP)
 		move_player_front_back(mlx, 1);

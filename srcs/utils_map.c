@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_utils_map.c                                  :+:      :+:    :+:   */
+/*   utils_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/18 16:31:10 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 18:30:47 by paikwiki         ###   ########.fr       */
+/*   Created: 2020/09/18 16:36:02 by paikwiki          #+#    #+#             */
+/*   Updated: 2020/09/24 21:28:40 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,96 +19,78 @@ int		get_wall_char(char **map, int x_start, int y_start)
 	else if (map[y_start][x_start] == '1')
 		return (y_start);
 	else
-		exit_puterr("Check the outer wall.");
+		ft_exit_puterr("Check the outer wall.");
 	return (0);
 }
 
-void	check_mapline_horizon(char **map, int xs, int xe, int y)
+char	check_valid_map_char(char chr)
 {
-	int		start;
-	int		end;
+	if (ft_strchr(" 012NSWE", chr) == 0)
+		ft_exit_puterr("Not valid char.");
+	return (chr);
+}
 
-	start = xs + 1;
-	end = xe - 1;
-	while (start < end)
+void	set_map(char **map, t_note *note, t_list **lines)
+{
+	int		idx;
+	int		idx_map;
+	t_list	*crr_item;
+	char	*line;
+
+	idx_map = -1;
+	while (++idx_map > -1)
 	{
-		if (map[y][start] == ' ')
+		crr_item = *lines;
+		idx = 0;
+		line = crr_item->content;
+		while (line[idx] != '\0')
 		{
-			if (map[y][start - 1] == '1' || map[y][start - 1] == ' ' ||
-				map[y][start + 1] == '1' || map[y][start + 1] == ' ')
-				;
-			else
-				exit_puterr("check_mapline_horizon : Wrong map");
+			map[idx_map][idx] = check_valid_map_char(line[idx]);
+			if (is_player_pos(map[idx_map][idx++]) == TRUE)
+			{
+				get_info_player_pos(note, map, idx - 1, idx_map);
+				map[idx_map][idx - 1] = '0';
+			}
 		}
-		start++;
+		if ((*lines)->next == 0)
+			return ;
+		free((*lines)->content);
+		lines = &((crr_item)->next);
 	}
 }
 
-void	check_mapline_vertical(char **map, int ys, int ye, int x)
+void	process_map(t_mlx *mlx, t_note *note, t_list **lines)
 {
-	int		start;
-	int		end;
+	init_map(mlx, note);
+	set_map(mlx->map, note, lines);
+	check_map(mlx->map, note);
+}
 
-	start = ys + 1;
-	end = ye - 1;
-	while (start < end)
+void	read_cub_file(char *file_path, t_note *note, t_list **lines)
+{
+	int		fd;
+	char	*line;
+
+	if ((fd = open(file_path, O_RDONLY)) > 0)
 	{
-		if (map[start][x] == ' ')
+		while (note->is_done == FALSE)
 		{
-			if (map[start - 1][x] == '1' || map[start - 1][x] == ' ' ||
-				map[start + 1][x] == '1' || map[start + 1][x] == ' ')
-				;
+			if ((note->c_rd = get_next_line(fd, &line)) <= 0)
+				note->is_done = TRUE;
+			if (note->is_map == TRUE)
+			{
+				note->map_width = (int)ft_strlen(line) > note->map_width ?
+						(int)ft_strlen(line) : note->map_width;
+				if (!lines)
+					*lines = ft_lstnew(line);
+				else
+					ft_lstadd_back(lines, ft_lstnew(line));
+			}
 			else
-				exit_puterr("check_mapline_vertical : Wrong map");
+				generate_info(line, note);
 		}
-		start++;
+		note->map_height = ft_lstsize(*lines);
 	}
-}
-
-void	check_map_horizon(char **map, t_note *note)
-{
-	int		x_start;
-	int		y_start;
-	int		mapline_start;
-	int		mapline_end;
-
-	y_start = 0;
-	while (y_start < note->map_height)
-	{
-		x_start = 0;
-		mapline_start = -1;
-		mapline_end = -1;
-		while (x_start < note->map_width && mapline_start == -1)
-			mapline_start = get_wall_char(map, x_start++, y_start);
-		x_start = note->map_width - 1;
-		while (x_start > 0 && mapline_end == -1)
-			mapline_end = get_wall_char(map, x_start--, y_start);
-		if (mapline_start != -1)
-			check_mapline_horizon(map, mapline_start, mapline_end, y_start);
-		y_start++;
-	}
-}
-
-void	check_map_vertical(char **map, t_note *note)
-{
-	int		x_start;
-	int		y_start;
-	int		mapline_start;
-	int		mapline_end;
-
-	x_start = 0;
-	while (x_start < note->map_width)
-	{
-		y_start = 0;
-		mapline_start = -1;
-		mapline_end = -1;
-		while (y_start < note->map_height && mapline_start == -1)
-			mapline_start = get_wall_char(map, x_start, y_start++);
-		y_start = note->map_height - 1;
-		while (y_start > 0 && mapline_end == -1)
-			mapline_end = get_wall_char(map, x_start, y_start--);
-		if (mapline_start != -1)
-			check_mapline_vertical(map, mapline_start, mapline_end, x_start);
-		x_start++;
-	}
+	else
+		ft_exit_puterr("Fail to open a map file.");
 }

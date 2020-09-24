@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 18:37:21 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 21:27:09 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@
 ** ============================================================================
 */
 
-int				count_info(t_note *note);
 void			check_isdigit_all(char *str);
-void			exit_puterr(const char *msg);
+void			ft_exit_puterr(const char *msg);
 void			ft_putstr(char *str);
 int				ft_exit(int exit_val);
 
@@ -52,29 +51,8 @@ int				ft_exit(int exit_val);
 ** ============================================================================
 */
 
-void			get_info_texture(char *line, t_note *note, int idx);
-void			get_info_resolution(char *line, t_note *note);
-void			generate_info(char *line, t_note *note);
-
-/*
-** ============================================================================
-**   utils_info2.c
-** ============================================================================
-*/
-
-int				get_int_from_hexstr(char *rgb_hex);
-void			proc_parse_hexstr_from_int(char *rgb_hex, char *temp, int idx);
-char			*parse_hexstr_from_int(int *dest);
-void			get_rgb_int(int *dest, char **raw_values);
-void			get_info_ceil_floor(char *line, t_note *note);
-
-/*
-** ============================================================================
-**   utils_info3.c
-** ============================================================================
-*/
-
-int				atoi_hexchar(char chr);
+int				count_info(t_note *note);
+int				char_to_hexadecimal(char chr);
 void			check_rgb_range(int value);
 
 /*
@@ -84,21 +62,10 @@ void			check_rgb_range(int value);
 */
 
 int				get_wall_char(char **map, int x_start, int y_start);
-void			check_map_horizon(char **map, t_note *note);
-void			check_map_vertical(char **map, t_note *note);
-void			check_mapline_horizon(char **map, int xs, int xe, int y);
-void			check_mapline_vertical(char **map, int ys, int ye, int x);
-
-/*
-** ============================================================================
-**   utils_map2.c
-** ============================================================================
-*/
-
 char			check_valid_map_char(char chr);
 void			set_map(char **map, t_note *note, t_list **lines);
 void			process_map(t_mlx *mlx, t_note *note, t_list **lines);
-void			get_map_file(char *file_path, t_note *note, t_list **lines);
+void			read_cub_file(char *file_path, t_note *note, t_list **lines);
 
 /*
 ** ============================================================================
@@ -131,11 +98,35 @@ void			draw_floor_ceiling(t_mlx *mlx);
 
 /*
 ** ============================================================================
-**   handle_key_event.c
+**   generate_info.c
 ** ============================================================================
 */
 
-int				key_press(int keycode, t_mlx *mlx);
+void			generate_info(char *line, t_note *note);
+
+/*
+** ============================================================================
+**   get_info_ceil_floor.c
+** ============================================================================
+*/
+
+void			get_info_ceil_floor(char *line, t_note *note);
+
+/*
+** ============================================================================
+**   check_map.c
+** ============================================================================
+*/
+
+void			check_map(char **map, t_note *note);
+
+/*
+** ============================================================================
+**   handle_key.c
+** ============================================================================
+*/
+
+int				handle_key(int keycode, t_mlx *mlx);
 
 /*
 ** ============================================================================

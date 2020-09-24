@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 14:07:28 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 18:30:47 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 21:41:48 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,51 @@ static void	set_raycast_note(t_raycast_note *rc, t_mlx *mlx, int idx)
 	rc->draw_end = 0;
 }
 
+static void	calc_sidedist(t_mlx *mlx, t_raycast_note *rc)
+{
+	if (rc->rd_x < 0)
+	{
+		rc->st_x = -1;
+		rc->side_dx = (mlx->prm.px - rc->mx) * rc->delta_dx;
+	}
+	else
+	{
+		rc->st_x = 1;
+		rc->side_dx = (rc->mx + 1.0 - mlx->prm.px) * rc->delta_dx;
+	}
+	if (rc->rd_y < 0)
+	{
+		rc->st_y = -1;
+		rc->side_dy = (mlx->prm.py - rc->my) * rc->delta_dy;
+	}
+	else
+	{
+		rc->st_y = 1;
+		rc->side_dy = (rc->my + 1.0 - mlx->prm.py) * rc->delta_dy;
+	}
+}
+
+static void	calc_deltadist(t_mlx *mlx, t_raycast_note *rc)
+{
+	while (rc->hit == 0)
+	{
+		if (rc->side_dx < rc->side_dy)
+		{
+			rc->side_dx += rc->delta_dx;
+			rc->mx += rc->st_x;
+			rc->side = 0;
+		}
+		else
+		{
+			rc->side_dy += rc->delta_dy;
+			rc->my += rc->st_y;
+			rc->side = 1;
+		}
+		if (mlx->map[rc->my][rc->mx] > '0')
+			rc->hit = 1;
+	}
+}
+
 void		raycasting(t_mlx *mlx)
 {
 	t_raycast_note	rc;
@@ -43,43 +88,8 @@ void		raycasting(t_mlx *mlx)
 	while (idx < mlx->info.w)
 	{
 		set_raycast_note(&rc, mlx, idx);
-		if (rc.rd_x < 0)
-		{
-			rc.st_x = -1;
-			rc.side_dx = (mlx->prm.px - rc.mx) * rc.delta_dx;
-		}
-		else
-		{
-			rc.st_x = 1;
-			rc.side_dx = (rc.mx + 1.0 - mlx->prm.px) * rc.delta_dx;
-		}
-		if (rc.rd_y < 0)
-		{
-			rc.st_y = -1;
-			rc.side_dy = (mlx->prm.py - rc.my) * rc.delta_dy;
-		}
-		else
-		{
-			rc.st_y = 1;
-			rc.side_dy = (rc.my + 1.0 - mlx->prm.py) * rc.delta_dy;
-		}
-		while (rc.hit == 0)
-		{
-			if (rc.side_dx < rc.side_dy)
-			{
-				rc.side_dx += rc.delta_dx;
-				rc.mx += rc.st_x;
-				rc.side = 0;
-			}
-			else
-			{
-				rc.side_dy += rc.delta_dy;
-				rc.my += rc.st_y;
-				rc.side = 1;
-			}
-			if (mlx->map[rc.my][rc.mx] > '0')
-				rc.hit = 1;
-		}
+		calc_sidedist(mlx, &rc);
+		calc_deltadist(mlx, &rc);
 		if (rc.side == 0)
 			rc.pp_walld = (rc.mx - mlx->prm.px + (1 - rc.st_x) / 2) / rc.rd_x;
 		else
@@ -94,7 +104,6 @@ void		raycasting(t_mlx *mlx)
 		if (rc.side == 1)
 			rc.color = rc.color / 2;
 		ver_line(mlx, idx, rc.draw_start, rc.draw_end, rc.color);
-//		mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img.ptr, 0, 0);
 		idx++;
 	}
 }

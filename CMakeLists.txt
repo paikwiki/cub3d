@@ -35,13 +35,13 @@ add_executable(cub3D
         gnl/get_next_line.h
         srcs/main.c
         srcs/utils.c
+        srcs/check_map.c
         srcs/utils_map.c
-        srcs/utils_map2.c
-        srcs/utils_info.c
+        srcs/generate_info.c
         srcs/utils_player.c
-        srcs/utils_info2.c
-        srcs/utils_info3.c
-        srcs/handle_key_event.c
+        srcs/get_info_ceil_floor.c
+        srcs/utils_info.c
+        srcs/handle_key.c
         srcs/utils_inits.c
         srcs/raycasting.c
         temp_utils.c)
