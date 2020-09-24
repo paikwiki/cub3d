@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 12:10:02 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 12:10:18 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,13 @@ void			get_map_file(char *file_path, t_note *note, t_list **lines);
 int				is_player_pos(char chr);
 void			get_info_player_pos(t_note *note, char **map, int x, int y);
 
+/*
+** ============================================================================
+**   handle_key_event.c
+** ============================================================================
+*/
+
+int     key_press(int keycode, t_mlx *mlx);
 /*
 ** ============================================================================
 **   temp_utils.c
