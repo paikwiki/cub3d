@@ -6,12 +6,12 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 13:11:52 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 13:38:09 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
-#include <stdio.h>
+
 void	process_map(t_mlx *mlx, t_note *note, t_list **lines)
 {
 	init_map(mlx, note);
@@ -20,7 +20,7 @@ void	process_map(t_mlx *mlx, t_note *note, t_list **lines)
 	check_map_vertical(mlx->map, note);
 }
 
-void    init_param(t_mlx *mlx, double px, double py)
+void	init_param(t_mlx *mlx, double px, double py)
 {
 	mlx->prm.px = px + 0.5;
 	mlx->prm.py = py + 0.5;
@@ -32,7 +32,7 @@ void    init_param(t_mlx *mlx, double px, double py)
 	mlx->prm.pln_y = 0;
 }
 
-void	verLine(t_mlx *mlx, int x, int y1, int y2, int color)
+void	ver_line(t_mlx *mlx, int x, int y1, int y2, int color)
 {
 	int	y;
 
@@ -61,9 +61,9 @@ void	set_raycast_note(t_raycast_note *rc, t_mlx *mlx, int idx)
 	rc->hit = 0;
 	rc->side = 0;
 	rc->color = 0x0000FF;
-	rc->lineHeight = 0;
-	rc->drawStart = 0;
-	rc->drawEnd = 0;
+	rc->line_height = 0;
+	rc->draw_start = 0;
+	rc->draw_end = 0;
 }
 
 void	raycasting(t_mlx *mlx)
@@ -116,16 +116,16 @@ void	raycasting(t_mlx *mlx)
 			rc.pp_walld = (rc.mx - mlx->prm.px + (1 - rc.st_x) / 2) / rc.rd_x;
 		else
 			rc.pp_walld = (rc.my - mlx->prm.py + (1 - rc.st_y) / 2) / rc.rd_y;
-		rc.lineHeight = (int)(mlx->info.h / rc.pp_walld);
-		rc.drawStart = -rc.lineHeight / 2 + mlx->info.h / 2;
-		rc.drawEnd = rc.lineHeight / 2 + mlx->info.h / 2;
-		if(rc.drawStart < 0)
-			rc.drawStart = 0;
-		if (rc.drawEnd >= mlx->info.h)
-			rc.drawEnd = mlx->info.h - 1;
+		rc.line_height = (int)(mlx->info.h / rc.pp_walld);
+		rc.draw_start = -rc.line_height / 2 + mlx->info.h / 2;
+		rc.draw_end = rc.line_height / 2 + mlx->info.h / 2;
+		if (rc.draw_start < 0)
+			rc.draw_start = 0;
+		if (rc.draw_end >= mlx->info.h)
+			rc.draw_end = mlx->info.h - 1;
 		if (rc.side == 1)
 			rc.color = rc.color / 2;
-		verLine(mlx, idx, rc.drawStart, rc.drawEnd, rc.color);
+		ver_line(mlx, idx, rc.draw_start, rc.draw_end, rc.color);
 //		mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img.ptr, 0, 0);
 		idx++;
 	}
@@ -134,7 +134,7 @@ void	raycasting(t_mlx *mlx)
 void	draw_floor_ceiling(t_mlx *mlx)
 {
 	int		cnt_w;
-	int 	cnt_h;
+	int		cnt_h;
 
 	cnt_h = -1;
 	while (++cnt_h < (mlx->info.h / 2) && (cnt_w = -1) == -1)
@@ -160,7 +160,7 @@ int		ft_exit(int exit_val)
 	return (exit_val);
 }
 
-void 	init_mlx(t_mlx *mlx, t_note *note)
+void	init_mlx(t_mlx *mlx, t_note *note)
 {
 	init_param(mlx, note->player_xy[0], note->player_xy[1]);
 	mlx->info.w = note->info_r[0];
@@ -168,10 +168,10 @@ void 	init_mlx(t_mlx *mlx, t_note *note)
 	mlx->info.color_f = note->rgb_floor;
 	mlx->info.color_c = note->rgb_ceiling;
 	mlx->ptr = mlx_init();
-	mlx->win = mlx_new_window(mlx->ptr, mlx->info.w,
-							  mlx->info.h, "cub3D");
+	mlx->win = mlx_new_window(mlx->ptr, mlx->info.w, \
+								mlx->info.h, "cub3D");
 	mlx->img.ptr = mlx_new_image(mlx->ptr, mlx->info.w, mlx->info.h);
-	mlx->img.data = (int *)mlx_get_data_addr(mlx->img.ptr,
+	mlx->img.data = (int *)mlx_get_data_addr(mlx->img.ptr, \
 			&mlx->img.bpp, &mlx->img.size_line, &mlx->img.endian);
 }
 

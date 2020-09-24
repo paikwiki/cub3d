@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 12:10:18 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 13:34:27 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct	s_img
 	int		endian;
 }				t_img;
 
-typedef struct s_param
+typedef struct	s_param
 {
 	double	px;
 	double	py;
@@ -56,8 +56,8 @@ typedef struct s_param
 
 typedef struct	s_info
 {
-	int 	w;
-	int 	h;
+	int		w;
+	int		h;
 	int		color_c;
 	int		color_f;
 }				t_info;
@@ -66,7 +66,7 @@ typedef struct	s_mlx
 {
 	void		*ptr;
 	void		*win;
-	char 		**map;
+	char		**map;
 	t_img		img;
 	t_info		info;
 	t_param		prm;
@@ -108,9 +108,9 @@ typedef struct	s_raycast_note
 	int		hit;
 	int		side;
 	int		color;
-	int 	lineHeight;
-	int 	drawStart;
-	int 	drawEnd;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
 }				t_raycast_note;
 
 /*
@@ -194,7 +194,7 @@ void			get_info_player_pos(t_note *note, char **map, int x, int y);
 ** ============================================================================
 */
 
-int     key_press(int keycode, t_mlx *mlx);
+int				key_press(int keycode, t_mlx *mlx);
 /*
 ** ============================================================================
 **   temp_utils.c

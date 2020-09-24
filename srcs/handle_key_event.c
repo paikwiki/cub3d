@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:17:09 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 13:17:09 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 13:22:57 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	rotate_player(t_mlx *mlx, int dir)
 ** move_player_front_back()
 ** W - front direction: 1;
 ** S - back direction: -1;
- */
+*/
 
 static void	move_player_front_back(t_mlx *mlx, int dir)
 {
@@ -73,7 +73,7 @@ static void	move_player_left_right(t_mlx *mlx, int dir)
 		mlx->prm.py += (dir * mv_y);
 }
 
-int     key_press(int keycode, t_mlx *mlx)
+int			key_press(int keycode, t_mlx *mlx)
 {
 	if (keycode == KEY_W || keycode == KEY_UP)
 		move_player_front_back(mlx, 1);
