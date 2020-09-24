@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:21:54 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 13:55:37 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 14:06:13 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	check_isdigit_all(char *str)
 		idx++;
 	}
 }
-
 
 int		ft_exit(int exit_val)
 {
