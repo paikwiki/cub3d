@@ -6,43 +6,11 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 13:38:09 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 13:56:48 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
-
-void	process_map(t_mlx *mlx, t_note *note, t_list **lines)
-{
-	init_map(mlx, note);
-	set_map(mlx->map, note, lines);
-	check_map_horizon(mlx->map, note);
-	check_map_vertical(mlx->map, note);
-}
-
-void	init_param(t_mlx *mlx, double px, double py)
-{
-	mlx->prm.px = px + 0.5;
-	mlx->prm.py = py + 0.5;
-	mlx->prm.dx = 0;
-	mlx->prm.dy = -1;
-	mlx->prm.m_spd = 0.1;
-	mlx->prm.r_spd = 0.1;
-	mlx->prm.pln_x = 0.66;
-	mlx->prm.pln_y = 0;
-}
-
-void	ver_line(t_mlx *mlx, int x, int y1, int y2, int color)
-{
-	int	y;
-
-	y = y1;
-	while (y <= y2)
-	{
-		mlx_pixel_put(mlx->ptr, mlx->win, x, y, color);
-		y++;
-	}
-}
 
 void	set_raycast_note(t_raycast_note *rc, t_mlx *mlx, int idx)
 {
@@ -152,27 +120,6 @@ int		main_loop(t_mlx *mlx)
 	draw_floor_ceiling(mlx);
 	raycasting(mlx);
 	return (0);
-}
-
-int		ft_exit(int exit_val)
-{
-	exit(exit_val);
-	return (exit_val);
-}
-
-void	init_mlx(t_mlx *mlx, t_note *note)
-{
-	init_param(mlx, note->player_xy[0], note->player_xy[1]);
-	mlx->info.w = note->info_r[0];
-	mlx->info.h = note->info_r[1];
-	mlx->info.color_f = note->rgb_floor;
-	mlx->info.color_c = note->rgb_ceiling;
-	mlx->ptr = mlx_init();
-	mlx->win = mlx_new_window(mlx->ptr, mlx->info.w, \
-								mlx->info.h, "cub3D");
-	mlx->img.ptr = mlx_new_image(mlx->ptr, mlx->info.w, mlx->info.h);
-	mlx->img.data = (int *)mlx_get_data_addr(mlx->img.ptr, \
-			&mlx->img.bpp, &mlx->img.size_line, &mlx->img.endian);
 }
 
 int		main(int argc, char **argv)

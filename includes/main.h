@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 13:34:27 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/24 13:59:15 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,8 @@ typedef struct	s_raycast_note
 int				count_info(t_note *note);
 void			check_isdigit_all(char *str);
 void			exit_puterr(const char *msg);
-void			init_note(t_note *note);
 void			ft_putstr(char *str);
+int				ft_exit(int exit_val);
 
 /*
 ** ============================================================================
@@ -174,10 +174,21 @@ void			check_mapline_vertical(char **map, int ys, int ye, int x);
 ** ============================================================================
 */
 
-void			init_map(t_mlx *mlx, t_note *note);
 char			check_valid_map_char(char chr);
 void			set_map(char **map, t_note *note, t_list **lines);
+void			process_map(t_mlx *mlx, t_note *note, t_list **lines);
 void			get_map_file(char *file_path, t_note *note, t_list **lines);
+
+/*
+** ============================================================================
+**   utils_inits.c
+** ============================================================================
+*/
+
+void			init_map(t_mlx *mlx, t_note *note);
+void			init_mlx(t_mlx *mlx, t_note *note);
+void			init_param(t_mlx *mlx, double px, double py);
+void			init_note(t_note *note);
 
 /*
 ** ============================================================================
@@ -195,11 +206,13 @@ void			get_info_player_pos(t_note *note, char **map, int x, int y);
 */
 
 int				key_press(int keycode, t_mlx *mlx);
+
 /*
 ** ============================================================================
 **   temp_utils.c
 ** ============================================================================
 */
 
+void			ver_line(t_mlx *mlx, int x, int y1, int y2, int color);
 void			put_map(char **map);
 #endif
