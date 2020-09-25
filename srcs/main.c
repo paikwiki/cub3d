@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/25 13:46:49 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/25 16:18:01 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ void			load_texture(t_mlx *mlx)
 	t_img	img;
 
 	load_image(mlx, mlx->texture[1], mlx->info.tex_no, &img);
-	load_image(mlx, mlx->texture[2], mlx->info.tex_s, &img);
+	load_image(mlx, mlx->texture[2], mlx->info.tex_ea, &img);
+	load_image(mlx, mlx->texture[3], mlx->info.tex_so, &img);
+	load_image(mlx, mlx->texture[4], mlx->info.tex_we, &img);
+	load_image(mlx, mlx->texture[5], mlx->info.tex_s, &img);
 }
 
 int				main(int argc, char **argv)
