@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 18:36:27 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 18:36:29 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/25 12:30:23 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct	s_img
 	int		size_line;
 	int		bpp;
 	int		endian;
+	int		img_width;
+	int		img_height;
 }				t_img;
 
 typedef struct	s_param
@@ -47,6 +49,8 @@ typedef struct	s_mlx
 	void		*ptr;
 	void		*win;
 	char		**map;
+	int			**buf;
+	int			**texture;
 	t_img		img;
 	t_info		info;
 	t_param		prm;
@@ -87,7 +91,6 @@ typedef struct	s_raycast_note
 	int		st_y;
 	int		hit;
 	int		side;
-	int		color;
 	int		line_height;
 	int		draw_start;
 	int		draw_end;

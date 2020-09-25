@@ -12,6 +12,27 @@
 
 #include "../includes/cub3d.h"
 
+void	init_note(t_note *note)
+{
+	note->c_rd = 0;
+	note->is_map = 0;
+	note->is_done = 0;
+	note->info_r[0] = -1;
+	note->info_r[1] = -1;
+	note->info_no = 0;
+	note->info_so = 0;
+	note->info_we = 0;
+	note->info_ea = 0;
+	note->info_s = 0;
+	note->rgb_ceiling = -1;
+	note->rgb_floor = -1;
+	note->player_xy[0] = -1;
+	note->player_xy[1] = -1;
+	note->player_dir = ' ';
+	note->map_width = 0;
+	note->map_height = 0;
+}
+
 void	check_isdigit_all(char *str)
 {
 	size_t idx;
