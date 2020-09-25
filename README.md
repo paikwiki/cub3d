@@ -10,6 +10,10 @@
 - [taelee42/mlx_example](https://github.com/taelee42/mlx_example)
 - [Raycasting Basics with JavaScript](https://courses.pikuma.com/courses/raycasting)
 
+## 유용한 툴 모음
+
+- [humblEgo/cub3D_map_tester](https://github.com/humblEgo/cub3D_map_tester)
+
 ## 다른 카뎃의 Cub3d 살펴보기
 
 - [khcho902/cub3D](https://github.com/khcho902/cub3D)
