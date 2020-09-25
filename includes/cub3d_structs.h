@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 18:36:27 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/25 12:30:23 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/25 13:43:55 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ typedef struct	s_info
 	int		h;
 	int		color_c;
 	int		color_f;
+	char	*tex_no;
+	char	*tex_so;
+	char	*tex_we;
+	char	*tex_ea;
+	char	*tex_s;
 }				t_info;
 
 typedef struct	s_mlx

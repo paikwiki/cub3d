@@ -6,22 +6,19 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:53:45 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/25 12:33:14 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/25 14:08:42 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	init_param(t_mlx *mlx, double px, double py)
+static void	init_param(t_mlx *mlx, t_note *note)
 {
-	mlx->prm.px = px + 0.5;
-	mlx->prm.py = py + 0.5;
-	mlx->prm.dx = 0;
-	mlx->prm.dy = -1;
+	mlx->prm.px = note->player_xy[0] + 0.5;
+	mlx->prm.py = note->player_xy[1] + 0.5;
 	mlx->prm.m_spd = 0.1;
 	mlx->prm.r_spd = 0.1;
-	mlx->prm.pln_x = 0.66;
-	mlx->prm.pln_y = 0;
+	set_player_dir(mlx, note);
 }
 
 static void	init_texture_buffer(t_mlx *mlx)
@@ -81,11 +78,16 @@ static void	init_texture(t_mlx *mlx)
 
 void		init_mlx(t_mlx *mlx, t_note *note)
 {
-	init_param(mlx, note->player_xy[0], note->player_xy[1]);
+	init_param(mlx, note);
 	mlx->info.w = note->info_r[0];
 	mlx->info.h = note->info_r[1];
 	mlx->info.color_f = note->rgb_floor;
 	mlx->info.color_c = note->rgb_ceiling;
+	mlx->info.tex_no = note->info_no;
+	mlx->info.tex_so = note->info_so;
+	mlx->info.tex_ea = note->info_ea;
+	mlx->info.tex_we = note->info_we;
+	mlx->info.tex_s = note->info_s;
 	mlx->ptr = mlx_init();
 	mlx->win = mlx_new_window(mlx->ptr, mlx->info.w, \
 								mlx->info.h, "cub3D");
