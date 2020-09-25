@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/25 11:39:57 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/25 12:46:48 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void			read_cub_file(char *file_path, t_note *note, t_list **lines);
 */
 
 int				is_player_pos(char chr);
-void			get_info_player_pos(t_note *note, char **map, int x, int y);
+void			generate_info_p_pos(t_note *note, char **map, int x, int y);
 
 /*
 ** ============================================================================

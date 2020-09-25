@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:36:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 21:28:40 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/25 12:46:48 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	set_map(char **map, t_note *note, t_list **lines)
 			map[idx_map][idx] = check_valid_map_char(line[idx]);
 			if (is_player_pos(map[idx_map][idx++]) == TRUE)
 			{
-				get_info_player_pos(note, map, idx - 1, idx_map);
+				generate_info_p_pos(note, map, idx - 1, idx_map);
 				map[idx_map][idx - 1] = '0';
 			}
 		}
