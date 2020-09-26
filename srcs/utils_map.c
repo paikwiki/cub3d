@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:36:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/26 17:13:17 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/26 17:15:05 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	set_map(char **map, t_note *note, t_list **lines)
 		}
 		if ((*lines)->next == 0)
 			return ;
-		free((*lines)->content);
+//		free((*lines)->content);
 		lines = &((crr_item)->next);
 	}
 }

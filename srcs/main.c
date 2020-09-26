@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/26 19:46:59 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/27 02:40:42 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int				main(int argc, char **argv)
 	read_cub_file(argv[1], &note, &lines);
 	if (note.is_map == FALSE)
 		ft_exit_puterr("Fail to get information of map.");
-	mlx = (t_mlx *)malloc(sizeof(t_mlx));
+	if((mlx = (t_mlx *)malloc(sizeof(t_mlx))) == 0)
+		return (0);
 	process_map(mlx, &note, &lines);
 	free(lines);
 	init_mlx(mlx, &note);

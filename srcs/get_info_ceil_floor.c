@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 10:19:27 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 21:06:47 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/27 01:33:47 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char		*int_to_hexstring(int *dest)
 		proc_int_to_hexstring(rgb_hex, temp, idx);
 		idx++;
 	}
-	free(temp);
+//	free(temp);
 	return (rgb_hex);
 }
 

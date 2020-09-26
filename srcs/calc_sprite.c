@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 22:40:00 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/26 23:42:48 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/27 02:51:56 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 void 	sort_sprite_by_dist(t_mlx *mlx)
 {
-	int idx;
-	int end;
+	int			idx;
+	int			end;
+	t_sprite	*temp_sprite;
 
-	t_sprite *temp_sprite;
-
-	if ((temp_sprite = (t_sprite *)malloc(sizeof(t_sprite))) == 0) ////////////
-		return ;
+//	if ((temp_sprite = (t_sprite *)malloc(sizeof(t_sprite))) == 0) ////////////
+//		return ;
 
 	end = mlx->info.cnt_sprite;
 	while (end > 0)
@@ -28,7 +27,7 @@ void 	sort_sprite_by_dist(t_mlx *mlx)
 		idx = 0;
 		while (idx < end - 1)
 		{
-			if (mlx->info.sprites[idx]->distance > mlx->info.sprites[idx + 1]->distance)
+			if (mlx->info.sprites[idx]->distance < mlx->info.sprites[idx + 1]->distance)
 			{
 				temp_sprite = mlx->info.sprites[idx];
 				mlx->info.sprites[idx] = mlx->info.sprites[idx + 1];
@@ -45,7 +44,7 @@ void 	sort_sprite_by_dist(t_mlx *mlx)
 //	free(temp_sprite);
 }
 
-void 	calc_sprite(t_mlx *mlx, t_raycast_note *rc, int idx)
+void 	calc_sprite(t_mlx *mlx)
 {
 	int	idx_sprite;
 
@@ -65,8 +64,4 @@ void 	calc_sprite(t_mlx *mlx, t_raycast_note *rc, int idx)
 //			   idx_sprite, mlx->info.sprites[idx_sprite]->distance);
 		idx_sprite++;
 	}
-
-	sort_sprite_by_dist(mlx);
-	if (!mlx || !rc || idx < 0)
-		ft_exit_puterr("test");
 }

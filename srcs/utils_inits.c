@@ -6,20 +6,11 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:53:45 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/26 23:40:18 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/27 03:01:13 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-static void	init_param(t_mlx *mlx, t_note *note)
-{
-	mlx->prm.px = note->player_xy[0] + 0.5;
-	mlx->prm.py = note->player_xy[1] + 0.5;
-	mlx->prm.m_spd = 0.1;
-	mlx->prm.r_spd = 0.1;
-	set_player_dir(mlx, note);
-}
 
 static void	init_texture_buffer(t_mlx *mlx)
 {
@@ -76,12 +67,8 @@ static void	init_texture(t_mlx *mlx)
 	}
 }
 
-void		init_mlx(t_mlx *mlx, t_note *note)
+void		init_info(t_mlx *mlx, t_note *note)
 {
-	int		idx;
-	t_list	*crr_item;
-
-	init_param(mlx, note);
 	mlx->info.w = note->info_r[0];
 	mlx->info.h = note->info_r[1];
 	mlx->info.color_f = note->rgb_floor;
@@ -94,18 +81,37 @@ void		init_mlx(t_mlx *mlx, t_note *note)
 	mlx->info.cnt_sprite = ft_lstsize(note->sprites);
 	if ((mlx->info.sprites = (t_sprite **)malloc((sizeof(t_sprite *) * mlx->info.cnt_sprite))) == 0)
 		return ;
-	if ((mlx->info.z_buffer = (double *)malloc(sizeof(int) * mlx->info.w)) == 0)
+	if ((mlx->info.z_buffer = (double *)malloc(sizeof(double) * note->info_r[0])) == 0)
 		return ;
+}
+
+static void	init_param(t_mlx *mlx, t_note *note)
+{
+	mlx->prm.px = note->player_xy[0] + 0.5;
+	mlx->prm.py = note->player_xy[1] + 0.5;
+	mlx->prm.m_spd = 0.1;
+	mlx->prm.r_spd = 0.1;
+	set_player_dir(mlx, note);
+}
+
+void		init_mlx(t_mlx *mlx, t_note *note)
+{
+	int		idx;
+	t_list	*crr_item;
+
+	init_param(mlx, note);
+	init_info(mlx, note);
 	idx = 0;
 	crr_item = note->sprites;
 	while (idx < mlx->info.cnt_sprite)
 	{
+		if ((mlx->info.sprites[idx] = (t_sprite *)malloc(sizeof(t_sprite))) == 0)
+			return;
 		mlx->info.sprites[idx] = crr_item->content;
 		crr_item = (t_list *)crr_item->next;
 		idx++;
 	}
 	free(note->sprites);
-
 //	printf("info.sprites[0]->x,y: %f,%f\n",
 //			(double)mlx->info.sprites[0]->x, (double)mlx->info.sprites[0]->y);
 //	printf("info.sprites[1]->x,y: %f,%f\n",
@@ -114,11 +120,6 @@ void		init_mlx(t_mlx *mlx, t_note *note)
 //		   (double)mlx->info.sprites[2]->x, (double)mlx->info.sprites[2]->y);
 //	printf("info.sprites[3]->x,y: %f,%f\n",
 //		   (double)mlx->info.sprites[3]->x, (double)mlx->info.sprites[3]->y);
-
-	if (((int *)malloc((sizeof(int) * mlx->info.cnt_sprite))) == 0)
-		return ;
-	if (((int *)malloc((sizeof(int) * mlx->info.cnt_sprite))) == 0)
-		return ;
 	mlx->ptr = mlx_init();
 	mlx->win = mlx_new_window(mlx->ptr, mlx->info.w, \
 								mlx->info.h, "cub3D");
@@ -135,12 +136,14 @@ void		init_map(t_mlx *mlx, t_note *note)
 	int		idx;
 	int		idx_sub;
 
-	mlx->map = (char **)malloc(sizeof(char *) * note->map_height + 1);
+	if((mlx->map = (char **)malloc(sizeof(char *) * note->map_height + 1)) == 0)
+		return;
 	mlx->map[note->map_height] = 0;
 	idx = 0;
 	while (idx < note->map_height)
 	{
-		line = (char *)malloc((sizeof(char) * note->map_width) + 1);
+		if((line = (char *)malloc((sizeof(char) * note->map_width) + 1)) == 0)
+			return;
 		line[note->map_width] = '\0';
 		idx_sub = 0;
 		while (idx_sub < note->map_width)
@@ -148,4 +151,5 @@ void		init_map(t_mlx *mlx, t_note *note)
 		mlx->map[idx] = line;
 		idx++;
 	}
+	free(line);
 }

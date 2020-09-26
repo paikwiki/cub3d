@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 14:07:28 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/26 23:52:18 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/27 03:04:01 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void			raycasting(t_mlx *mlx)
 	t_raycast_note	rc;
 	int				idx;
 
+
+
 	idx = 0;
 	while (idx < mlx->info.w)
 	{
@@ -106,8 +108,81 @@ void			raycasting(t_mlx *mlx)
 		calc_line_height(mlx, &rc);
 		calc_floor_ceiling(mlx, &rc, idx);
 		calc_wall(mlx, &rc, idx);
-		calc_sprite(mlx, &rc, idx);
 		mlx->info.z_buffer[idx] = rc.pp_walld;
+		calc_sprite(mlx);
+		sort_sprite_by_dist(mlx);
 		idx++;
+	}
+
+
+	// TEMPORARY VARIABLES
+	double spriteX;
+	double spriteY;
+	double invDet;
+	double transformX;
+	double transformY;
+	int spriteScreenX;
+	int spriteHeight;
+	int drawStartY;
+	int drawEndY;
+	int spriteWidth;
+	int drawStartX;
+	int drawEndX;
+	int texX;
+	int d;
+	int texY;
+	int color;
+	for(int i = 0; i < mlx->info.cnt_sprite; i++)
+	{
+		//translate sprite position to relative to camera
+		spriteX = mlx->info.sprites[i]->x - mlx->prm.px;
+		spriteY = mlx->info.sprites[i]->y - mlx->prm.py;
+
+		//transform sprite with the inverse camera matrix
+		// [ planeX   dirX ] -1                          s             [ dirY      -dirX ]
+		// [               ]       =  1/(planeX*dirY-dirX*planeY) *   [                 ]
+		// [ planeY   dirY ]                                          [ -planeY  planeX ]
+		invDet = 1.0 / (mlx->prm.pln_x * mlx->prm.dy - mlx->prm.dx * mlx->prm.pln_y); //required for correct matrix multiplication
+
+		transformX = invDet * (mlx->prm.dy * spriteX - mlx->prm.dx * spriteY);
+		transformY = invDet * (-mlx->prm.pln_y * spriteX + mlx->prm.pln_x * spriteY); //this is actually the depth inside the screen, that what Z is in 3D, the distance of sprite to player, matching sqrt(spriteDistance[i])
+
+		spriteScreenX = (int)((mlx->info.w / 2) * (1 + transformX / transformY));
+
+		//calculate height of the sprite on screen
+		spriteHeight = (int)fabs((mlx->info.h / transformY)); //using "transformY" instead of the real distance prevents fisheye
+
+		drawStartY = -spriteHeight / 2 + mlx->info.h / 2;
+		if(drawStartY < 0) drawStartY = 0;
+		drawEndY = spriteHeight / 2 + mlx->info.h / 2;
+		if(drawEndY >= mlx->info.h) drawEndY = mlx->info.h - 1;
+
+		//calculate width of the sprite
+		spriteWidth = (int)fabs((mlx->info.h / transformY));
+		drawStartX = -spriteWidth / 2 + spriteScreenX;
+		if(drawStartX < 0) drawStartX = 0;
+		drawEndX = spriteWidth / 2 + spriteScreenX;
+		if(drawEndX >= mlx->info.w) drawEndX = mlx->info.w - 1;
+
+		//loop through every vertical stripe of the sprite on screen
+		for(int stripe = drawStartX; stripe < drawEndX; stripe++)
+		{
+			texX = (int)((256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * TEX_WIDTH / spriteWidth) / 256);
+
+			//the conditions in the if are:
+			//1) it's in front of camera plane so you don't see things behind you
+			//2) it's on the screen (left)
+			//3) it's on the screen (right)
+			//4) ZBuffer, with perpendicular distance
+			if(transformY > 0 && stripe > 0 && stripe < mlx->info.w && transformY < mlx->info.z_buffer[stripe])
+				for(int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
+				{
+//						d = (y-vMoveScreen) * 256 - mlx->info.h * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
+					d = (y) * 256 - mlx->info.h * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
+					texY = ((d * TEX_HEIGHT) / spriteHeight) / 256;
+					color = mlx->texture[5][TEX_WIDTH * texY + texX]; //get current color from the texture
+					if((color & 0x00FFFFFF) != 0) mlx->buf[y][stripe] = color; //paint pixel if it isn't black, black is the invisible color
+				}
+		}
 	}
 }
