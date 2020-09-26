@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:53:45 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/25 15:13:14 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/26 20:39:54 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ static void	init_texture(t_mlx *mlx)
 
 void		init_mlx(t_mlx *mlx, t_note *note)
 {
+	int		idx;
+	t_list	*crr_item;
+
 	init_param(mlx, note);
 	mlx->info.w = note->info_r[0];
 	mlx->info.h = note->info_r[1];
@@ -88,6 +91,32 @@ void		init_mlx(t_mlx *mlx, t_note *note)
 	mlx->info.tex_ea = note->info_ea;
 	mlx->info.tex_we = note->info_we;
 	mlx->info.tex_s = note->info_s;
+	mlx->info.cnt_sprite = ft_lstsize(note->sprites);
+	if ((mlx->info.sprites = (t_sprite **)malloc((sizeof(t_sprite *) * mlx->info.cnt_sprite))) == 0)
+		return ;
+	idx = 0;
+	crr_item = note->sprites;
+	while (idx < mlx->info.cnt_sprite)
+	{
+		mlx->info.sprites[idx] = crr_item->content;
+		crr_item = (t_list *)crr_item->next;
+		idx++;
+	}
+	free(note->sprites);
+
+//	printf("info.sprites[0]->x,y: %f,%f\n",
+//			(double)mlx->info.sprites[0]->x, (double)mlx->info.sprites[0]->y);
+//	printf("info.sprites[1]->x,y: %f,%f\n",
+//		   (double)mlx->info.sprites[1]->x, (double)mlx->info.sprites[1]->y);
+//	printf("info.sprites[2]->x,y: %f,%f\n",
+//		   (double)mlx->info.sprites[2]->x, (double)mlx->info.sprites[2]->y);
+//	printf("info.sprites[3]->x,y: %f,%f\n",
+//		   (double)mlx->info.sprites[3]->x, (double)mlx->info.sprites[3]->y);
+
+	if ((mlx->info.spr_order = (int *)malloc((sizeof(int) * mlx->info.cnt_sprite))) == 0)
+		return ;
+	if ((mlx->info.spr_dist = (int *)malloc((sizeof(int) * mlx->info.cnt_sprite))) == 0)
+		return ;
 	mlx->ptr = mlx_init();
 	mlx->win = mlx_new_window(mlx->ptr, mlx->info.w, \
 								mlx->info.h, "cub3D");

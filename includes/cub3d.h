@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/25 13:37:56 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/26 17:10:48 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
 # include "../gnl/get_next_line.h"
+
+# include <stdio.h>
 
 # define FALSE 0
 # define TRUE 1
@@ -79,6 +81,14 @@ char			check_valid_map_char(char chr);
 void			set_map(char **map, t_note *note, t_list **lines);
 void			process_map(t_mlx *mlx, t_note *note, t_list **lines);
 void			read_cub_file(char *file_path, t_note *note, t_list **lines);
+
+/*
+** ============================================================================
+**   utils_sprite.c
+** ============================================================================
+*/
+
+void			generate_info_sprite_pos(t_note *note, char **map, int x, int y);
 
 /*
 ** ============================================================================

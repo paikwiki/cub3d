@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:36:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/25 12:46:48 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/26 17:13:17 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ char	check_valid_map_char(char chr)
 	return (chr);
 }
 
+int 	is_sprite_pos(char chr)
+{
+	if (chr == '2')
+		return TRUE;
+	return FALSE;
+}
+
 void	set_map(char **map, t_note *note, t_list **lines)
 {
 	int		idx;
@@ -46,11 +53,17 @@ void	set_map(char **map, t_note *note, t_list **lines)
 		while (line[idx] != '\0')
 		{
 			map[idx_map][idx] = check_valid_map_char(line[idx]);
-			if (is_player_pos(map[idx_map][idx++]) == TRUE)
+			if (is_sprite_pos(map[idx_map][idx]) == TRUE)
 			{
-				generate_info_p_pos(note, map, idx - 1, idx_map);
-				map[idx_map][idx - 1] = '0';
+				generate_info_sprite_pos(note, map, idx, idx_map);
+				map[idx_map][idx] = '0';
 			}
+			else if (is_player_pos(map[idx_map][idx]) == TRUE)
+			{
+				generate_info_p_pos(note, map, idx, idx_map);
+				map[idx_map][idx] = '0';
+			}
+			idx++;
 		}
 		if ((*lines)->next == 0)
 			return ;

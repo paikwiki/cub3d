@@ -6,12 +6,21 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 18:36:27 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/25 15:11:54 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/26 20:10:08 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_STRUCTS_H
 # define CUB3D_STRUCTS_H
+
+# include "../libft/libft.h"
+
+typedef struct	s_sprite
+{
+	double		x;
+	double		y;
+	double		distance;
+}				t_sprite;
 
 typedef struct	s_img
 {
@@ -38,15 +47,19 @@ typedef struct	s_param
 
 typedef struct	s_info
 {
-	int		w;
-	int		h;
-	int		color_c;
-	int		color_f;
-	char	*tex_no;
-	char	*tex_so;
-	char	*tex_we;
-	char	*tex_ea;
-	char	*tex_s;
+	int			w;
+	int			h;
+	int			color_c;
+	int			color_f;
+	int			cnt_sprite;
+	int			*spr_order;
+	int			*spr_dist;
+	t_sprite	**sprites;
+	char		*tex_no;
+	char		*tex_so;
+	char		*tex_we;
+	char		*tex_ea;
+	char		*tex_s;
 }				t_info;
 
 typedef struct	s_mlx
@@ -78,6 +91,7 @@ typedef struct	s_note
 	char	player_dir;
 	int		map_width;
 	int		map_height;
+	t_list	*sprites;
 }				t_note;
 
 typedef struct	s_raycast_note
