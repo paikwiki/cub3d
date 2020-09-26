@@ -75,7 +75,7 @@ static void		calc_floor_ceiling(t_mlx *mlx, t_raycast_note *rc, int x)
 	}
 }
 
-static	void	calc_line_height(t_mlx *mlx, t_raycast_note *rc)
+static void		calc_line_height(t_mlx *mlx, t_raycast_note *rc)
 {
 	if (rc->side == 0)
 		rc->pp_walld = \
@@ -106,6 +106,7 @@ void			raycasting(t_mlx *mlx)
 		calc_line_height(mlx, &rc);
 		calc_floor_ceiling(mlx, &rc, idx);
 		calc_wall(mlx, &rc, idx);
+		calc_sprite(mlx, &rc, idx);
 		idx++;
 	}
 }

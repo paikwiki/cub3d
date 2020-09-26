@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/26 19:46:52 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/26 19:46:59 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int				main(int argc, char **argv)
 	process_map(mlx, &note, &lines);
 	free(lines);
 	init_mlx(mlx, &note);
-	printf("sprites: %d\n", (int)(ft_lstsize(note.sprites)));
 	load_texture(mlx);
 	mlx->img.ptr = mlx_new_image(mlx->ptr, mlx->info.w, mlx->info.h);
 	mlx->img.data = (int *)mlx_get_data_addr(mlx->img.ptr, \

@@ -46,6 +46,6 @@ add_executable(cub3D
         srcs/raycasting.c
         srcs/utils_raycasting.c
         srcs/utils_sprite.c
-        temp_utils.c)
+        temp_utils.c srcs/calc_sprite.c)
 
 target_link_libraries(cub3D "-framework OpenGL -framework AppKit")

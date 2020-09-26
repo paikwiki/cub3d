@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/26 17:10:48 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/26 17:17:07 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,14 @@ char			check_valid_map_char(char chr);
 void			set_map(char **map, t_note *note, t_list **lines);
 void			process_map(t_mlx *mlx, t_note *note, t_list **lines);
 void			read_cub_file(char *file_path, t_note *note, t_list **lines);
+
+/*
+** ============================================================================
+**   calc_sprite.c
+** ============================================================================
+*/
+
+void 			calc_sprite(t_mlx *mlx, t_raycast_note *rc, int idx);
 
 /*
 ** ============================================================================
