@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 18:36:27 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/26 20:10:08 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/26 23:40:18 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,8 @@ typedef struct	s_info
 	int			color_c;
 	int			color_f;
 	int			cnt_sprite;
-	int			*spr_order;
-	int			*spr_dist;
 	t_sprite	**sprites;
+	double		*z_buffer;
 	char		*tex_no;
 	char		*tex_so;
 	char		*tex_we;

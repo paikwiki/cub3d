@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:53:45 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/26 20:39:54 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/26 23:40:18 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void		init_mlx(t_mlx *mlx, t_note *note)
 	mlx->info.cnt_sprite = ft_lstsize(note->sprites);
 	if ((mlx->info.sprites = (t_sprite **)malloc((sizeof(t_sprite *) * mlx->info.cnt_sprite))) == 0)
 		return ;
+	if ((mlx->info.z_buffer = (double *)malloc(sizeof(int) * mlx->info.w)) == 0)
+		return ;
 	idx = 0;
 	crr_item = note->sprites;
 	while (idx < mlx->info.cnt_sprite)
@@ -113,9 +115,9 @@ void		init_mlx(t_mlx *mlx, t_note *note)
 //	printf("info.sprites[3]->x,y: %f,%f\n",
 //		   (double)mlx->info.sprites[3]->x, (double)mlx->info.sprites[3]->y);
 
-	if ((mlx->info.spr_order = (int *)malloc((sizeof(int) * mlx->info.cnt_sprite))) == 0)
+	if (((int *)malloc((sizeof(int) * mlx->info.cnt_sprite))) == 0)
 		return ;
-	if ((mlx->info.spr_dist = (int *)malloc((sizeof(int) * mlx->info.cnt_sprite))) == 0)
+	if (((int *)malloc((sizeof(int) * mlx->info.cnt_sprite))) == 0)
 		return ;
 	mlx->ptr = mlx_init();
 	mlx->win = mlx_new_window(mlx->ptr, mlx->info.w, \

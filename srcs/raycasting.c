@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 14:07:28 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/25 11:34:29 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/26 23:52:18 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void			raycasting(t_mlx *mlx)
 		calc_floor_ceiling(mlx, &rc, idx);
 		calc_wall(mlx, &rc, idx);
 		calc_sprite(mlx, &rc, idx);
+		mlx->info.z_buffer[idx] = rc.pp_walld;
 		idx++;
 	}
 }

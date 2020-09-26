@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 22:40:00 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/26 23:34:15 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/26 23:42:48 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void 	sort_sprite_by_dist(t_mlx *mlx)
 
 	t_sprite *temp_sprite;
 
-	if ((temp_sprite = (t_sprite *)malloc(sizeof(t_sprite))) == 0)
+	if ((temp_sprite = (t_sprite *)malloc(sizeof(t_sprite))) == 0) ////////////
 		return ;
 
 	end = mlx->info.cnt_sprite;
@@ -42,7 +42,7 @@ void 	sort_sprite_by_dist(t_mlx *mlx)
 //		printf("info.sprites[2]->distance: %f\n", mlx->info.sprites[2]->distance);
 //		printf("info.sprites[3]->distance: %f\n", mlx->info.sprites[3]->distance);
 	}
-	free(temp_sprite);
+//	free(temp_sprite);
 }
 
 void 	calc_sprite(t_mlx *mlx, t_raycast_note *rc, int idx)
