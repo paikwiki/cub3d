@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:53:45 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/27 03:01:13 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/27 03:02:43 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void		init_mlx(t_mlx *mlx, t_note *note)
 		crr_item = (t_list *)crr_item->next;
 		idx++;
 	}
-	free(note->sprites);
+//	free(note->sprites);
 //	printf("info.sprites[0]->x,y: %f,%f\n",
 //			(double)mlx->info.sprites[0]->x, (double)mlx->info.sprites[0]->y);
 //	printf("info.sprites[1]->x,y: %f,%f\n",
