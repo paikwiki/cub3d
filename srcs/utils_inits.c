@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:53:45 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/28 19:33:47 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/28 22:45:10 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	init_texture_buffer(t_game *game)
 	if ((game->buf = (int **)malloc(sizeof(int *) * game->info.h)) == 0)
 		ft_exit_puterr("Fail to allocate memory for texture buffer");
 	idx = 0;
-	while (idx < game->info.w)
+	while (idx < game->info.h)
 	{
 		if ((game->buf[idx] = (int *)malloc(sizeof(int) * game->info.w)) == 0)
 			ft_exit_puterr("Fail to allocate memory for texture buffer");
@@ -44,10 +44,10 @@ static void	init_texture(t_game *game)
 	int idx;
 	int idx_sub;
 
-	if (!(game->texture = (int **)malloc(sizeof(int *) * 8)))
+	if (!(game->texture = (int **)malloc(sizeof(int *) * 5)))
 		ft_exit_puterr("Fail to allocate memory for mlx");
 	idx = 0;
-	while (idx < 8)
+	while (idx < 5)
 	{
 		if (!(game->texture[idx] = (int *)malloc(sizeof(int) * \
 				(TEX_HEIGHT * TEX_WIDTH))))
@@ -55,7 +55,7 @@ static void	init_texture(t_game *game)
 		idx++;
 	}
 	idx = 0;
-	while (idx < 8)
+	while (idx < 5)
 	{
 		idx_sub = 0;
 		while (idx_sub < TEX_HEIGHT * TEX_WIDTH)
@@ -146,13 +146,12 @@ void		init_map(t_game *game, t_note *note)
 	int		idx;
 	int		idx_sub;
 
-	if((game->map = (char **)malloc(sizeof(char *) * note->map_height + 1)) == 0)
+	if((game->map = (char **)malloc(sizeof(char *) * note->map_height)) == 0)
 		return;
-	game->map[note->map_height] = 0;
 	idx = 0;
 	while (idx < note->map_height)
 	{
-		if((line = (char *)malloc((sizeof(char) * note->map_width) + 1)) == 0)
+		if((line = (char *)malloc(sizeof(char) * note->map_width  + 1)) == 0)
 			return;
 		line[note->map_width] = '\0';
 		idx_sub = 0;

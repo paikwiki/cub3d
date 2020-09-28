@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/28 20:59:58 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/28 21:00:00 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ void			load_texture(t_game *game)
 {
 	t_img	img;
 
-	load_image(game, game->texture[1], game->info.tex_no, &img);
-	load_image(game, game->texture[2], game->info.tex_ea, &img);
-	load_image(game, game->texture[3], game->info.tex_so, &img);
-	load_image(game, game->texture[4], game->info.tex_we, &img);
-	load_image(game, game->texture[5], game->info.tex_s, &img);
+	load_image(game, game->texture[0], game->info.tex_no, &img);
+	load_image(game, game->texture[1], game->info.tex_ea, &img);
+	load_image(game, game->texture[2], game->info.tex_so, &img);
+	load_image(game, game->texture[3], game->info.tex_we, &img);
+	load_image(game, game->texture[4], game->info.tex_s, &img);
 }
 
 int				main(int argc, char **argv)

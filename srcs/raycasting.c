@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 14:07:28 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/28 20:57:45 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/28 22:57:07 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ void			raycasting(t_game *game)
 //						d = (y-vMoveScreen) * 256 - mlx->info.h * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
 					d = (y) * 256 - game->info.h * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
 					texY = ((d * TEX_HEIGHT) / spriteHeight) / 256;
-					color = game->texture[5][TEX_WIDTH * texY + texX]; //get current color from the texture
+					color = game->texture[4][TEX_WIDTH * texY + texX]; //get current color from the texture
 					if((color & 0x00FFFFFF) != 0) game->buf[y][stripe] = color; //paint pixel if it isn't black, black is the invisible color
 				}
 		}

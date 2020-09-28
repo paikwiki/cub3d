@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 11:32:22 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/28 18:53:43 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/28 22:54:15 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,35 @@
 ** so: rc->side == 1
 */
 
-static char		get_tex_num(t_game *game, t_raycast_note *rc)
+static int		get_tex_num(t_game *game, t_raycast_note *rc)
 {
-	char	tex_num;
+	int	tex_num;
 
+//	if (game->map[rc->my][rc->mx] == '2')
+//		tex_num = '5';
+//	else
+//	{
+//		if (rc->side == 0 && rc->rd_x < 0)
+//			tex_num = game->map[rc->my][rc->mx] + 3;
+//		else if (rc->side == 0)
+//			tex_num = game->map[rc->my][rc->mx] + 1;
+//		if (rc->side == 1 && rc->rd_y < 0)
+//			tex_num = game->map[rc->my][rc->mx];
+//		else if (rc->side == 1)
+//			tex_num = game->map[rc->my][rc->mx] + 2;
+//	}
 	if (game->map[rc->my][rc->mx] == '2')
-		tex_num = '5';
+		tex_num = 4;
 	else
 	{
 		if (rc->side == 0 && rc->rd_x < 0)
-			tex_num = game->map[rc->my][rc->mx] + 3;
+			tex_num = 2;
 		else if (rc->side == 0)
-			tex_num = game->map[rc->my][rc->mx] + 1;
+			tex_num = 1;
 		if (rc->side == 1 && rc->rd_y < 0)
-			tex_num = game->map[rc->my][rc->mx];
+			tex_num = 0;
 		else if (rc->side == 1)
-			tex_num = game->map[rc->my][rc->mx] + 2;
+			tex_num = 3;
 	}
 	return (tex_num);
 }
@@ -42,7 +55,7 @@ static char		get_tex_num(t_game *game, t_raycast_note *rc)
 static void		proc_calc_wall(t_game *game, t_raycast_note *rc, \
 		int win_x, int tex_x)
 {
-	char	tex_num;
+	int		tex_num;
 	double	step;
 	double	tex_pos;
 	int		win_y;
@@ -57,7 +70,7 @@ static void		proc_calc_wall(t_game *game, t_raycast_note *rc, \
 		tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
 		tex_pos += step;
 		game->buf[win_y][win_x] = \
-				game->texture[(int)(tex_num - 48)][TEX_HEIGHT * tex_y + tex_x];
+				game->texture[tex_num][TEX_HEIGHT * tex_y + tex_x];
 		if (rc->side == 0)
 			game->buf[win_y][win_x] = (game->buf[win_y][win_x] >> 1) & 7829367;
 		win_y++;
