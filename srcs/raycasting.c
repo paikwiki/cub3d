@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 14:07:28 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/28 18:53:43 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/28 20:57:45 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		calc_sidedist(t_game *game, t_raycast_note *rc)
 	}
 }
 
-static void		calc_deltadist(t_game *mlx, t_raycast_note *rc)
+static void		calc_deltadist(t_game *game, t_raycast_note *rc)
 {
 	while (rc->hit == 0)
 	{
@@ -52,44 +52,44 @@ static void		calc_deltadist(t_game *mlx, t_raycast_note *rc)
 			rc->my += rc->st_y;
 			rc->side = 1;
 		}
-		if (mlx->map[rc->my][rc->mx] > '0')
+		if (game->map[rc->my][rc->mx] > '0')
 			rc->hit = 1;
 	}
 }
 
-static void		calc_floor_ceiling(t_game *mlx, t_raycast_note *rc, int x)
+static void		calc_floor_ceiling(t_game *game, t_raycast_note *rc, int x)
 {
 	int y;
 
 	y = 0;
 	while (y < rc->draw_start)
 	{
-		mlx->buf[y][x] = mlx->info.color_c;
+		game->buf[y][x] = game->info.color_c;
 		y++;
 	}
 	y = rc->draw_end;
-	while (y < mlx->info.h - 1)
+	while (y < game->info.h - 1)
 	{
-		mlx->buf[y][x] = mlx->info.color_f;
+		game->buf[y][x] = game->info.color_f;
 		y++;
 	}
 }
 
-static void		calc_line_height(t_game *mlx, t_raycast_note *rc)
+static void		calc_line_height(t_game *game, t_raycast_note *rc)
 {
 	if (rc->side == 0)
 		rc->pp_walld = \
-				(rc->mx - mlx->prm.px + (1 - rc->st_x) / 2) / rc->rd_x;
+				(rc->mx - game->prm.px + (1 - rc->st_x) / 2) / rc->rd_x;
 	else
 		rc->pp_walld = \
-				(rc->my - mlx->prm.py + (1 - rc->st_y) / 2) / rc->rd_y;
-	rc->line_height = (int)(mlx->info.h / rc->pp_walld);
-	rc->draw_start = -rc->line_height / 2 + mlx->info.h / 2;
-	rc->draw_end = rc->line_height / 2 + mlx->info.h / 2;
+				(rc->my - game->prm.py + (1 - rc->st_y) / 2) / rc->rd_y;
+	rc->line_height = (int)(game->info.h / rc->pp_walld);
+	rc->draw_start = -rc->line_height / 2 + game->info.h / 2;
+	rc->draw_end = rc->line_height / 2 + game->info.h / 2;
 	if (rc->draw_start < 0)
 		rc->draw_start = 0;
-	if (rc->draw_end >= mlx->info.h)
-		rc->draw_end = mlx->info.h - 1;
+	if (rc->draw_end >= game->info.h)
+		rc->draw_end = game->info.h - 1;
 }
 
 void			raycasting(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 10:19:27 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/27 01:33:47 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/28 19:49:35 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void		proc_int_to_hexstring(char *rgb_hex, char *temp, int idx)
 		rgb_hex[idx * 2 + 2] = '0';
 		rgb_hex[idx * 2 + 3] = temp[0];
 	}
+	free(temp);
 }
 
 static char		*int_to_hexstring(int *dest)
@@ -44,7 +45,6 @@ static char		*int_to_hexstring(int *dest)
 		proc_int_to_hexstring(rgb_hex, temp, idx);
 		idx++;
 	}
-//	free(temp);
 	return (rgb_hex);
 }
 
@@ -72,6 +72,7 @@ static void		generate_rgb_to_int(int *dest, char **raw_values)
 		value = ft_atoi(raw_values[idx]);
 		check_rgb_range(value);
 		dest[idx] = value;
+//		free(raw_values[idx]);
 		idx++;
 	}
 }
@@ -85,15 +86,17 @@ void			get_info_ceil_floor(char *line, t_note *note)
 
 	raw_str = ft_strndup((char *)&line[2], ft_strlen((const char *)&line[2]));
 	raw_values = ft_split(raw_str, ',');
+	free(raw_str);
 	rgb_hex = NULL;
 	generate_rgb_to_int(rgb, raw_values);
+	free(raw_values[0]);
+	free(raw_values[1]);
+	free(raw_values[2]);
+	free(raw_values);
 	rgb_hex = int_to_hexstring(rgb);
 	if (ft_strncmp((const char *)line, "F ", 2) == 0)
 		note->rgb_floor = hexstring_to_int(rgb_hex);
 	else
 		note->rgb_ceiling = hexstring_to_int(rgb_hex);
-	free(raw_values[0]);
-	free(raw_values[1]);
-	free(raw_values[2]);
-	free(raw_values);
+	free(rgb_hex);
 }

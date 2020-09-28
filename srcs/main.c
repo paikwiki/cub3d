@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/28 19:04:24 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/28 20:59:58 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,15 @@ void			load_image(t_game *game, int *texture, char *path, t_img *img)
 	mlx_destroy_image(game->mlx, img->img_ptr);
 }
 
-void			load_texture(t_game *mlx)
+void			load_texture(t_game *game)
 {
 	t_img	img;
 
-	load_image(mlx, mlx->texture[1], mlx->info.tex_no, &img);
-	load_image(mlx, mlx->texture[2], mlx->info.tex_ea, &img);
-	load_image(mlx, mlx->texture[3], mlx->info.tex_so, &img);
-	load_image(mlx, mlx->texture[4], mlx->info.tex_we, &img);
-	load_image(mlx, mlx->texture[5], mlx->info.tex_s, &img);
+	load_image(game, game->texture[1], game->info.tex_no, &img);
+	load_image(game, game->texture[2], game->info.tex_ea, &img);
+	load_image(game, game->texture[3], game->info.tex_so, &img);
+	load_image(game, game->texture[4], game->info.tex_we, &img);
+	load_image(game, game->texture[5], game->info.tex_s, &img);
 }
 
 int				main(int argc, char **argv)
@@ -98,5 +98,8 @@ int				main(int argc, char **argv)
 	mlx_hook(game->win, X_EVENT_KEY_PRESS, 0, &handle_key, game);
 	mlx_loop_hook(game->mlx, &main_loop, game);
 	mlx_loop(game->mlx);
+	free(game->info.z_buffer);
+	free(game->map);
+	free(game);
 	return (0);
 }

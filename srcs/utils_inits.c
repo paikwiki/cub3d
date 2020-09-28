@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:53:45 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/28 19:04:24 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/28 19:33:47 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,16 @@ void		init_info(t_game *game, t_note *note)
 		return ;
 	if ((game->info.z_buffer = (double *)malloc(sizeof(double) * note->info_r[0])) == 0)
 		return ;
+	note->info_no = 0;
+	free(note->info_no);
+	note->info_so = 0;
+	free(note->info_so);
+	note->info_ea = 0;
+	free(note->info_ea);
+	note->info_we = 0;
+	free(note->info_we);
+	note->info_s = 0;
+	free(note->info_s);
 }
 
 static void	init_param(t_game *game, t_note *note)

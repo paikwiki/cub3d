@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:39:42 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/27 01:33:47 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/28 19:24:36 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static void	get_info_resolution(char *line, t_note *note)
 	raw_str = ft_strndup((char *)&line[2], ft_strlen((const char *)&line[2]));
 	check_rawstr_resolution(raw_str);
 	raw_values = ft_split(raw_str, ' ');
+	free(raw_str);
 	idx = 0;
 	while (idx < 2)
 	{
@@ -108,5 +109,6 @@ void		generate_info(char *line, t_note *note)
 			ft_strncmp((const char *)line, "EA ", 3) == 0 ||
 			ft_strncmp((const char *)line, "NO ", 3) == 0)
 		get_info_texture(line, note, 3);
+	free(line);
 	note->is_map = count_info(note) < 8 ? FALSE : TRUE;
 }
