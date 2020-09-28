@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:53:45 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/28 18:53:43 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/28 19:04:24 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,11 +120,11 @@ void		init_game(t_game *game, t_note *note)
 //		   (double)mlx->info.sprites[2]->x, (double)mlx->info.sprites[2]->y);
 //	printf("info.sprites[3]->x,y: %f,%f\n",
 //		   (double)mlx->info.sprites[3]->x, (double)mlx->info.sprites[3]->y);
-	game->ptr = mlx_init();
-	game->win = mlx_new_window(game->ptr, game->info.w, \
+	game->mlx = mlx_init();
+	game->win = mlx_new_window(game->mlx, game->info.w, \
 								game->info.h, "cub3D");
-	game->img.ptr = mlx_new_image(game->ptr, game->info.w, game->info.h);
-	game->img.data = (int *)mlx_get_data_addr(game->img.ptr, \
+	game->img.img_ptr = mlx_new_image(game->mlx, game->info.w, game->info.h);
+	game->img.data = (int *)mlx_get_data_addr(game->img.img_ptr, \
 			&game->img.bpp, &game->img.size_line, &game->img.endian);
 	init_texture_buffer(game);
 	init_texture(game);

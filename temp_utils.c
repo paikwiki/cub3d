@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:37:29 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/24 18:30:47 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/28 18:53:43 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ver_line(t_game *game, int x, int y1, int y2, int color)
 	y = y1;
 	while (y <= y2)
 	{
-		mlx_pixel_put(game->ptr, game->win, x, y, color);
+		mlx_pixel_put(game->mlx, game->win, x, y, color);
 		y++;
 	}
 }

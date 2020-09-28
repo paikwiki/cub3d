@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/28 18:53:43 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/28 19:04:24 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			draw(t_game *game)
 		}
 		y++;
 	}
-	mlx_put_image_to_window(game->ptr, game->win, game->img.ptr, 0, 0);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img_ptr, 0, 0);
 }
 
 static int		main_loop(t_game *game)
@@ -43,9 +43,9 @@ void			load_image(t_game *game, int *texture, char *path, t_img *img)
 	int	x;
 	int	y;
 
-	img->ptr = mlx_xpm_file_to_image(game->ptr, \
+	img->img_ptr = mlx_xpm_file_to_image(game->mlx, \
 			path, &img->img_width, &img->img_height);
-	img->data = (int *)mlx_get_data_addr(img->ptr, \
+	img->data = (int *)mlx_get_data_addr(img->img_ptr, \
 			&img->bpp, &img->size_line, &img->endian);
 	y = 0;
 	while (y < img->img_height)
@@ -58,7 +58,7 @@ void			load_image(t_game *game, int *texture, char *path, t_img *img)
 		}
 		y++;
 	}
-	mlx_destroy_image(game->ptr, img->ptr);
+	mlx_destroy_image(game->mlx, img->img_ptr);
 }
 
 void			load_texture(t_game *mlx)
@@ -91,12 +91,12 @@ int				main(int argc, char **argv)
 	free(lines);
 	init_game(game, &note);
 	load_texture(game);
-	game->img.ptr = mlx_new_image(game->ptr, game->info.w, game->info.h);
-	game->img.data = (int *)mlx_get_data_addr(game->img.ptr, \
+	game->img.img_ptr = mlx_new_image(game->mlx, game->info.w, game->info.h);
+	game->img.data = (int *)mlx_get_data_addr(game->img.img_ptr, \
 			&game->img.bpp, &game->img.size_line, &game->img.endian);
 	mlx_hook(game->win, X_EVENT_KEY_EXIT, 0, &ft_exit, game);
 	mlx_hook(game->win, X_EVENT_KEY_PRESS, 0, &handle_key, game);
-	mlx_loop_hook(game->ptr, &main_loop, game);
-	mlx_loop(game->ptr);
+	mlx_loop_hook(game->mlx, &main_loop, game);
+	mlx_loop(game->mlx);
 	return (0);
 }

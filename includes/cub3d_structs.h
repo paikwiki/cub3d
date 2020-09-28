@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 18:36:27 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/27 02:11:34 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/28 19:04:24 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct	s_sprite
 
 typedef struct	s_img
 {
-	void	*ptr;
+	void	*img_ptr;
 	int		*data;
 	int		size_line;
 	int		bpp;
@@ -63,7 +63,7 @@ typedef struct	s_info
 
 typedef struct	s_game
 {
-	void		*ptr;
+	void		*mlx;
 	void		*win;
 	char		**map;
 	int			**buf;
