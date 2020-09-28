@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:53:45 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/28 22:45:10 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/28 23:27:57 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,15 +121,6 @@ void		init_game(t_game *game, t_note *note)
 		crr_item = (t_list *)crr_item->next;
 		idx++;
 	}
-//	free(note->sprites);
-//	printf("info.sprites[0]->x,y: %f,%f\n",
-//			(double)mlx->info.sprites[0]->x, (double)mlx->info.sprites[0]->y);
-//	printf("info.sprites[1]->x,y: %f,%f\n",
-//		   (double)mlx->info.sprites[1]->x, (double)mlx->info.sprites[1]->y);
-//	printf("info.sprites[2]->x,y: %f,%f\n",
-//		   (double)mlx->info.sprites[2]->x, (double)mlx->info.sprites[2]->y);
-//	printf("info.sprites[3]->x,y: %f,%f\n",
-//		   (double)mlx->info.sprites[3]->x, (double)mlx->info.sprites[3]->y);
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, game->info.w, \
 								game->info.h, "cub3D");
@@ -142,7 +133,6 @@ void		init_game(t_game *game, t_note *note)
 
 void		init_map(t_game *game, t_note *note)
 {
-	char	*line;
 	int		idx;
 	int		idx_sub;
 
@@ -151,14 +141,12 @@ void		init_map(t_game *game, t_note *note)
 	idx = 0;
 	while (idx < note->map_height)
 	{
-		if((line = (char *)malloc(sizeof(char) * note->map_width  + 1)) == 0)
+		if((game->map[idx] = (char *)malloc(sizeof(char) * note->map_width  + 1)) == 0)
 			return;
-		line[note->map_width] = '\0';
+		game->map[idx][note->map_width] = '\0';
 		idx_sub = 0;
 		while (idx_sub < note->map_width)
-			line[idx_sub++] = ' ';
-		game->map[idx] = line;
+			game->map[idx][idx_sub++] = ' ';
 		idx++;
 	}
-	free(line);
 }
