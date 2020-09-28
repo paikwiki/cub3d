@@ -72,11 +72,11 @@ void	set_map(char **map, t_note *note, t_list **lines)
 	}
 }
 
-void	process_map(t_mlx *mlx, t_note *note, t_list **lines)
+void	process_map(t_game *game, t_note *note, t_list **lines)
 {
-	init_map(mlx, note);
-	set_map(mlx->map, note, lines);
-	check_map(mlx->map, note);
+	init_map(game, note);
+	set_map(game->map, note, lines);
+	check_map(game->map, note);
 }
 
 void	read_cub_file(char *file_path, t_note *note, t_list **lines)

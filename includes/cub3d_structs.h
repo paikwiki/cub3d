@@ -61,7 +61,7 @@ typedef struct	s_info
 	char		*tex_s;
 }				t_info;
 
-typedef struct	s_mlx
+typedef struct	s_game
 {
 	void		*ptr;
 	void		*win;
@@ -71,7 +71,7 @@ typedef struct	s_mlx
 	t_img		img;
 	t_info		info;
 	t_param		prm;
-}				t_mlx;
+}				t_game;
 
 typedef struct	s_note
 {

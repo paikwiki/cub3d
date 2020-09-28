@@ -12,23 +12,23 @@
 
 #include "../includes/cub3d.h"
 
-void 	sort_sprite_by_dist(t_mlx *mlx)
+void 	sort_sprite_by_dist(t_game *game)
 {
 	int			idx;
 	int			end;
 	t_sprite	*temp_sprite;
 
-	end = mlx->info.cnt_sprite;
+	end = game->info.cnt_sprite;
 	while (end > 0)
 	{
 		idx = 0;
 		while (idx < end - 1)
 		{
-			if (mlx->info.sprites[idx]->distance < mlx->info.sprites[idx + 1]->distance)
+			if (game->info.sprites[idx]->distance < game->info.sprites[idx + 1]->distance)
 			{
-				temp_sprite = mlx->info.sprites[idx];
-				mlx->info.sprites[idx] = mlx->info.sprites[idx + 1];
-				mlx->info.sprites[idx + 1] = temp_sprite;
+				temp_sprite = game->info.sprites[idx];
+				game->info.sprites[idx] = game->info.sprites[idx + 1];
+				game->info.sprites[idx + 1] = temp_sprite;
 			}
 			idx++;
 		}
@@ -36,18 +36,18 @@ void 	sort_sprite_by_dist(t_mlx *mlx)
 	}
 }
 
-void 	calc_sprite(t_mlx *mlx)
+void 	calc_sprite(t_game *game)
 {
 	int	idx_sprite;
 
 	idx_sprite = 0;
-	while(idx_sprite < mlx->info.cnt_sprite)
+	while(idx_sprite < game->info.cnt_sprite)
 	{
-		mlx->info.sprites[idx_sprite]->distance = \
-				sqrt(((mlx->info.sprites[idx_sprite]->x - mlx->prm.px) * \
-				(mlx->info.sprites[idx_sprite]->x - mlx->prm.px)) + \
-				((mlx->info.sprites[idx_sprite]->y - mlx->prm.py) * \
-				(mlx->info.sprites[idx_sprite]->y - mlx->prm.py)));
+		game->info.sprites[idx_sprite]->distance = \
+				sqrt(((game->info.sprites[idx_sprite]->x - game->prm.px) * \
+				(game->info.sprites[idx_sprite]->x - game->prm.px)) + \
+				((game->info.sprites[idx_sprite]->y - game->prm.py) * \
+				(game->info.sprites[idx_sprite]->y - game->prm.py)));
 		idx_sprite++;
 	}
 }

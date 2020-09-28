@@ -12,30 +12,30 @@
 
 #include "../includes/cub3d.h"
 
-void	set_player_dir(t_mlx *mlx, t_note *note)
+void	set_player_dir(t_game *game, t_note *note)
 {
-	mlx->prm.dx = 0;
-	mlx->prm.dy = -1;
-	mlx->prm.pln_x = 0.66;
-	mlx->prm.pln_y = 0;
+	game->prm.dx = 0;
+	game->prm.dy = -1;
+	game->prm.pln_x = 0.66;
+	game->prm.pln_y = 0;
 	if (note->player_dir == 'S')
 	{
-		mlx->prm.dy = 1;
-		mlx->prm.pln_x = -0.66;
+		game->prm.dy = 1;
+		game->prm.pln_x = -0.66;
 	}
 	else if (note->player_dir == 'W')
 	{
-		mlx->prm.dx = -1;
-		mlx->prm.dy = 0;
-		mlx->prm.pln_x = 0;
-		mlx->prm.pln_y = -0.66;
+		game->prm.dx = -1;
+		game->prm.dy = 0;
+		game->prm.pln_x = 0;
+		game->prm.pln_y = -0.66;
 	}
 	else if (note->player_dir == 'E')
 	{
-		mlx->prm.dx = 1;
-		mlx->prm.dy = 0;
-		mlx->prm.pln_x = 0;
-		mlx->prm.pln_y = 0.66;
+		game->prm.dx = 1;
+		game->prm.dy = 0;
+		game->prm.pln_x = 0;
+		game->prm.pln_y = 0.66;
 	}
 }
 

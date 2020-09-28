@@ -67,8 +67,8 @@ void			check_rgb_range(int value);
 ** ============================================================================
 */
 
-void			init_mlx(t_mlx *mlx, t_note *note);
-void			init_map(t_mlx *mlx, t_note *note);
+void			init_game(t_game *game, t_note *note);
+void			init_map(t_game *game, t_note *note);
 
 /*
 ** ============================================================================
@@ -79,7 +79,7 @@ void			init_map(t_mlx *mlx, t_note *note);
 int				get_wall_char(char **map, int x_start, int y_start);
 char			check_valid_map_char(char chr);
 void			set_map(char **map, t_note *note, t_list **lines);
-void			process_map(t_mlx *mlx, t_note *note, t_list **lines);
+void			process_map(t_game *game, t_note *note, t_list **lines);
 void			read_cub_file(char *file_path, t_note *note, t_list **lines);
 
 /*
@@ -88,8 +88,8 @@ void			read_cub_file(char *file_path, t_note *note, t_list **lines);
 ** ============================================================================
 */
 
-void		 	sort_sprite_by_dist(t_mlx *mlx);
-void 			calc_sprite(t_mlx *mlx);
+void		 	sort_sprite_by_dist(t_game *game);
+void 			calc_sprite(t_game *game);
 
 /*
 ** ============================================================================
@@ -105,7 +105,7 @@ void			generate_info_sprite_pos(t_note *note, char **map, int x, int y);
 ** ============================================================================
 */
 
-void			set_player_dir(t_mlx *mlx, t_note *note);
+void			set_player_dir(t_game *game, t_note *note);
 int				is_player_pos(char chr);
 void			generate_info_p_pos(t_note *note, char **map, int x, int y);
 
@@ -115,8 +115,8 @@ void			generate_info_p_pos(t_note *note, char **map, int x, int y);
 ** ============================================================================
 */
 
-void			calc_wall(t_mlx *mlx, t_raycast_note *rc, int idx);
-void			set_raycast_note(t_raycast_note *rc, t_mlx *mlx, int idx);
+void			calc_wall(t_game *game, t_raycast_note *rc, int idx);
+void			set_raycast_note(t_raycast_note *rc, t_game *game, int idx);
 
 /*
 ** ============================================================================
@@ -124,7 +124,7 @@ void			set_raycast_note(t_raycast_note *rc, t_mlx *mlx, int idx);
 ** ============================================================================
 */
 
-void			raycasting(t_mlx *mlx);
+void			raycasting(t_game *game);
 
 /*
 ** ============================================================================
@@ -156,7 +156,7 @@ void			check_map(char **map, t_note *note);
 ** ============================================================================
 */
 
-int				handle_key(int keycode, t_mlx *mlx);
+int				handle_key(int keycode, t_game *game);
 
 /*
 ** ============================================================================
@@ -164,6 +164,6 @@ int				handle_key(int keycode, t_mlx *mlx);
 ** ============================================================================
 */
 
-void			ver_line(t_mlx *mlx, int x, int y1, int y2, int color);
+void			ver_line(t_game *game, int x, int y1, int y2, int color);
 void			put_map(char **map);
 #endif
