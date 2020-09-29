@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:53:45 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/28 23:27:57 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/29 10:58:23 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,12 @@ void		init_info(t_game *game, t_note *note)
 	game->info.tex_we = note->info_we;
 	game->info.tex_s = note->info_s;
 	game->info.cnt_sprite = ft_lstsize(note->sprites);
-	if ((game->info.sprites = (t_sprite **)malloc((sizeof(t_sprite *) * game->info.cnt_sprite))) == 0)
-		return ;
-	if ((game->info.z_buffer = (double *)malloc(sizeof(double) * note->info_r[0])) == 0)
-		return ;
+//	if ((game->info.sprites = (t_sprite **)malloc((sizeof(t_sprite *) * game->info.cnt_sprite))) == 0)
+//		return ;
+//	if ((game->info.z_buffer = (double *)malloc(sizeof(double) * note->info_r[0])) == 0)
+//		return ;
+	game->info.sprites = (t_sprite **)ft_calloc(game->info.cnt_sprite, sizeof(t_sprite *));
+	game->info.z_buffer = (double *)ft_calloc(note->info_r[0], sizeof(double));
 	note->info_no = 0;
 	free(note->info_no);
 	note->info_so = 0;
@@ -136,13 +138,15 @@ void		init_map(t_game *game, t_note *note)
 	int		idx;
 	int		idx_sub;
 
-	if((game->map = (char **)malloc(sizeof(char *) * note->map_height)) == 0)
-		return;
+//	if((game->map = (char **)malloc(sizeof(char *) * note->map_height)) == 0)
+//		return;
+	game->map = (char **)calloc(note->map_height, sizeof(char *));
 	idx = 0;
 	while (idx < note->map_height)
 	{
-		if((game->map[idx] = (char *)malloc(sizeof(char) * note->map_width  + 1)) == 0)
-			return;
+//		if((game->map[idx] = (char *)malloc(sizeof(char) * note->map_width  + 1)) == 0)
+//			return;
+		game->map[idx] = (char *)calloc(note->map_width + 1, sizeof(char *));
 		game->map[idx][note->map_width] = '\0';
 		idx_sub = 0;
 		while (idx_sub < note->map_width)

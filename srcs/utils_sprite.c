@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 17:04:17 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/26 21:13:55 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/29 10:51:11 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ void	generate_info_sprite_pos(t_note *note, char **map, int x, int y)
 
 	if (!map)
 		ft_exit_puterr("sprite error");
-	if ((sprite = (t_sprite *)malloc(sizeof(t_sprite))) == 0)
-		return ;
+//	if ((sprite = (t_sprite *)malloc(sizeof(t_sprite))) == 0)
+//		return ;
+	sprite = (t_sprite *)ft_calloc(1, sizeof(t_sprite));
 	sprite->x = x + 0.5;
 	sprite->y = y + 0.5;
 	sprite->distance = -1;

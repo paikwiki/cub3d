@@ -30,6 +30,7 @@ add_executable(cub3D
         libft/ft_atoi.c
         libft/ft_uitoa_base.c
         libft/ft_isdigit.c
+        libft/ft_calloc.c
         libft/libft.h
         gnl/get_next_line.c
         gnl/get_next_line.h
