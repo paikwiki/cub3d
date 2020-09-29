@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:36:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/28 21:50:21 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/29 20:08:30 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,18 @@ void	set_map(char **map, t_note *note, t_list **lines)
 {
 	int		idx;
 	int		idx_map;
-	t_list	*crr_item;
-	char	*line;
+//	t_list	*crr_item;
+//	char	*line;
 
 	idx_map = -1;
 	while (++idx_map > -1)
 	{
-		crr_item = *lines;
-		line = crr_item->content;
+//		crr_item = *lines;
+//		line = (*lines)->content;
 		idx = 0;
-		while (line[idx] != '\0')
+		while (((char *)(*lines)->content)[idx] != '\0')
 		{
-			map[idx_map][idx] = check_valid_map_char(line[idx]);
+			map[idx_map][idx] = check_valid_map_char(((char *)(*lines)->content)[idx]);
 			if (is_sprite_pos(map[idx_map][idx]) == TRUE)
 			{
 				generate_info_sprite_pos(note, map, idx, idx_map);
@@ -65,17 +65,15 @@ void	set_map(char **map, t_note *note, t_list **lines)
 			}
 			idx++;
 		}
+		free((*lines)->content);
+		(*lines)->content = 0;
 		if ((*lines)->next == 0)
 			return ;
-		(*lines)->content = 0;
-		free((*lines)->content);
-		crr_item->content = 0;
-		free(crr_item->content);
-		lines = &(crr_item->next);
+//		free(*lines);
+		lines = &(*lines)->next;
 	}
-	free(line);
-	free(crr_item);
-	free(lines);
+//	free(crr_item);
+
 }
 
 void	process_map(t_game *game, t_note *note, t_list **lines)
@@ -94,7 +92,7 @@ void	read_cub_file(char *file_path, t_note *note, t_list **lines)
 	{
 		while (note->is_done == FALSE)
 		{
-			if ((note->c_rd = get_next_line(fd, &line)) <= 0)
+			if ((note->c_rd = get_next_line(fd, &line)) == 0)
 				note->is_done = TRUE;
 			if (note->is_map == TRUE)
 			{
@@ -107,8 +105,10 @@ void	read_cub_file(char *file_path, t_note *note, t_list **lines)
 			}
 			else
 				generate_info(line, note);
+//			free(line);
 		}
 		note->map_height = ft_lstsize(*lines);
+//		free(line);
 	}
 	else
 		ft_exit_puterr("Fail to open a map file.");

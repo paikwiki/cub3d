@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/29 16:56:35 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/29 19:10:07 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void			load_image(t_game *game, int *texture, char *path, t_img *img)
 		}
 		y++;
 	}
+	free(path);
 	mlx_destroy_image(game->mlx, img->img_ptr);
 }
 
@@ -98,6 +99,11 @@ int				main(int argc, char **argv)
 	mlx_hook(game->win, X_EVENT_KEY_PRESS, 0, &handle_key, game);
 	mlx_loop_hook(game->mlx, &main_loop, game);
 	mlx_loop(game->mlx);
+	free(game->mlx);
+	free(game->win);
+	free(game->texture);
+	free(game->buf);
+	free(game->map);
 	free(game->info.z_buffer);
 	free(game->map);
 	free(game);
