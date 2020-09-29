@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 22:40:00 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/28 23:55:09 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/28 23:55:47 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void 	calc_sprite(t_game *game)
 	idx_sprite = 0;
 	while(idx_sprite < game->info.cnt_sprite)
 	{
-		game->info.sprites[idx_sprite]->distance = \
+		(game->info).sprites[idx_sprite]->distance = \
 				sqrt(((game->info.sprites[idx_sprite]->x - game->prm.px) * \
 				(game->info.sprites[idx_sprite]->x - game->prm.px)) + \
 				((game->info.sprites[idx_sprite]->y - game->prm.py) * \

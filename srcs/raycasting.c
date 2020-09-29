@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 14:07:28 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/28 22:57:07 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/29 11:47:29 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,10 @@ void			raycasting(t_game *game)
 		calc_floor_ceiling(game, &rc, idx);
 		calc_wall(game, &rc, idx);
 		game->info.z_buffer[idx] = rc.pp_walld;
-		calc_sprite(game);
-		sort_sprite_by_dist(game);
 		idx++;
 	}
+	calc_sprite(game);
+	sort_sprite_by_dist(game);
 
 	// TEMPORARY VARIABLES
 	double spriteX;
