@@ -31,6 +31,7 @@ void	init_note(t_note *note)
 	note->player_dir = ' ';
 	note->map_width = 0;
 	note->map_height = 0;
+	note->sprites = 0;
 }
 
 void	check_isdigit_all(char *str)

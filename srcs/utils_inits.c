@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:53:45 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/29 15:51:01 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/29 16:53:13 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void		init_info(t_game *game, t_note *note)
 	game->info.tex_ea = note->info_ea;
 	game->info.tex_we = note->info_we;
 	game->info.tex_s = note->info_s;
-	game->info.cnt_sprite = ft_lstsize(note->sprites);
+	game->info.cnt_sprite = note->sprites == 0 ? 0 : ft_lstsize(note->sprites);
 //	if ((game->info.sprites = (t_sprite **)malloc((sizeof(t_sprite *) * game->info.cnt_sprite))) == 0)
 //		return ;
 //	if ((game->info.z_buffer = (double *)malloc(sizeof(double) * note->info_r[0])) == 0)
@@ -117,19 +117,14 @@ void		init_game(t_game *game, t_note *note)
 	game->info.sprites = (t_sprite **)ft_calloc(game->info.cnt_sprite, sizeof(t_sprite *));
 
 	crr_item = note->sprites;
-	game->info.sprites[0] = (t_sprite *)ft_calloc(1, sizeof(t_sprite));
-	game->info.sprites[0] = crr_item->content;
-	idx = 1;
+	idx = 0;
 	while (idx < game->info.cnt_sprite)
 	{
-//		if ((game->info.sprites[idx] = (t_sprite *)malloc(sizeof(t_sprite))) == 0)
-//			return;
 		game->info.sprites[idx] = (t_sprite *)ft_calloc(1, sizeof(t_sprite));
 		game->info.sprites[idx] = crr_item->content;
 		crr_item = (t_list *)crr_item->next;
 		idx++;
 	}
-//	printf("game->info.sprites[%d] x: %f\n", 1, game->info.sprites[1]->x);
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, game->info.w, \
 								game->info.h, "cub3D");
