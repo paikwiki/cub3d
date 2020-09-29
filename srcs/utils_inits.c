@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:53:45 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/29 14:54:15 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/29 15:51:01 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,6 @@ void		init_game(t_game *game, t_note *note)
 		game->info.sprites[idx] = crr_item->content;
 		crr_item = (t_list *)crr_item->next;
 		idx++;
-	}
-	for (int i = 0; i < game->info.cnt_sprite; i++)
-	{
-		printf("game->info.sprites[%d] x: %f\n", i, game->info.sprites[i]->x);
-		printf("game->info.sprites[%d] y: %f\n", i, game->info.sprites[i]->y);
 	}
 //	printf("game->info.sprites[%d] x: %f\n", 1, game->info.sprites[1]->x);
 	game->mlx = mlx_init();

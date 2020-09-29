@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 14:07:28 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/29 14:42:18 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/29 16:03:50 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,19 +130,15 @@ void			raycasting(t_game *game)
 	int texY;
 	int color;
 
-//	for (int i = 0; i < 4; i++)
-//	{
-//		printf("sprites[%d] x: %f\n", i, game->info.sprites[i]->x);
-//		printf("sprites[%d] x: %f\n", i, game->info.sprites[i]->y);
-//	}
 
 	for(int i = 0; i < game->info.cnt_sprite; i++)
 	{
 		//translate sprite position to relative to camera
-		spriteX = game->info.sprites[i]->x - game->prm.px;
-		spriteY = game->info.sprites[i]->y - game->prm.py;
-//		spriteX = i * 2 + game->prm.px;
-//		spriteY = i * 2 + game->prm.py;
+		if (game->info.sprites[i])
+		{
+			spriteX = game->info.sprites[i]->x - game->prm.px;
+			spriteY = game->info.sprites[i]->y - game->prm.py;
+		}
 
 		//transform sprite with the inverse camera matrix
 		// [ planeX   dirX ] -1                          s             [ dirY      -dirX ]
@@ -183,7 +179,6 @@ void			raycasting(t_game *game)
 			if(transformY > 0 && stripe > 0 && stripe < game->info.w && transformY < game->info.z_buffer[stripe])
 				for(int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
 				{
-//						d = (y-vMoveScreen) * 256 - mlx->info.h * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
 					d = (y) * 256 - game->info.h * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
 					texY = ((d * TEX_HEIGHT) / spriteHeight) / 256;
 					color = game->texture[4][TEX_WIDTH * texY + texX]; //get current color from the texture
