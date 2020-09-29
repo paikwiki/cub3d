@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:53:45 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/29 10:58:23 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/29 14:54:15 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void		init_info(t_game *game, t_note *note)
 //		return ;
 //	if ((game->info.z_buffer = (double *)malloc(sizeof(double) * note->info_r[0])) == 0)
 //		return ;
-	game->info.sprites = (t_sprite **)ft_calloc(game->info.cnt_sprite, sizeof(t_sprite *));
+	game->info.sprites = 0;
 	game->info.z_buffer = (double *)ft_calloc(note->info_r[0], sizeof(double));
 	note->info_no = 0;
 	free(note->info_no);
@@ -113,16 +113,28 @@ void		init_game(t_game *game, t_note *note)
 
 	init_param(game, note);
 	init_info(game, note);
-	idx = 0;
+
+	game->info.sprites = (t_sprite **)ft_calloc(game->info.cnt_sprite, sizeof(t_sprite *));
+
 	crr_item = note->sprites;
+	game->info.sprites[0] = (t_sprite *)ft_calloc(1, sizeof(t_sprite));
+	game->info.sprites[0] = crr_item->content;
+	idx = 1;
 	while (idx < game->info.cnt_sprite)
 	{
-		if ((game->info.sprites[idx] = (t_sprite *)malloc(sizeof(t_sprite))) == 0)
-			return;
+//		if ((game->info.sprites[idx] = (t_sprite *)malloc(sizeof(t_sprite))) == 0)
+//			return;
+		game->info.sprites[idx] = (t_sprite *)ft_calloc(1, sizeof(t_sprite));
 		game->info.sprites[idx] = crr_item->content;
 		crr_item = (t_list *)crr_item->next;
 		idx++;
 	}
+	for (int i = 0; i < game->info.cnt_sprite; i++)
+	{
+		printf("game->info.sprites[%d] x: %f\n", i, game->info.sprites[i]->x);
+		printf("game->info.sprites[%d] y: %f\n", i, game->info.sprites[i]->y);
+	}
+//	printf("game->info.sprites[%d] x: %f\n", 1, game->info.sprites[1]->x);
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, game->info.w, \
 								game->info.h, "cub3D");

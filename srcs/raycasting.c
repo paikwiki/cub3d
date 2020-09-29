@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 14:07:28 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/29 11:47:29 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/09/29 14:42:18 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,6 @@ void			raycasting(t_game *game)
 	t_raycast_note	rc;
 	int				idx;
 
-
-
 	idx = 0;
 	while (idx < game->info.w)
 	{
@@ -131,11 +129,20 @@ void			raycasting(t_game *game)
 	int d;
 	int texY;
 	int color;
+
+//	for (int i = 0; i < 4; i++)
+//	{
+//		printf("sprites[%d] x: %f\n", i, game->info.sprites[i]->x);
+//		printf("sprites[%d] x: %f\n", i, game->info.sprites[i]->y);
+//	}
+
 	for(int i = 0; i < game->info.cnt_sprite; i++)
 	{
 		//translate sprite position to relative to camera
 		spriteX = game->info.sprites[i]->x - game->prm.px;
 		spriteY = game->info.sprites[i]->y - game->prm.py;
+//		spriteX = i * 2 + game->prm.px;
+//		spriteY = i * 2 + game->prm.py;
 
 		//transform sprite with the inverse camera matrix
 		// [ planeX   dirX ] -1                          s             [ dirY      -dirX ]
