@@ -1,9 +1,9 @@
 R 640 480
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
-S ./path_to_the_sprite_texture
+NO ./textures/wall_no.xpm
+SO ./textures/wall_so.xpm
+WE ./textures/wall_we.xpm
+EA ./textures/wall_ea.xpm
+S ./textures/barrel.xpm
 F 220,100,0
 C 225,30,0
 
