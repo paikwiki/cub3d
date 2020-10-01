@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:36:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/29 20:08:30 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 18:35:21 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,11 @@ void	set_map(char **map, t_note *note, t_list **lines)
 {
 	int		idx;
 	int		idx_map;
-//	t_list	*crr_item;
-//	char	*line;
+	t_list  *temp_item;
 
 	idx_map = -1;
 	while (++idx_map > -1)
 	{
-//		crr_item = *lines;
-//		line = (*lines)->content;
 		idx = 0;
 		while (((char *)(*lines)->content)[idx] != '\0')
 		{
@@ -69,11 +66,10 @@ void	set_map(char **map, t_note *note, t_list **lines)
 		(*lines)->content = 0;
 		if ((*lines)->next == 0)
 			return ;
-//		free(*lines);
-		lines = &(*lines)->next;
+		temp_item = (*lines)->next;
+		free(*lines);
+		*lines = temp_item;
 	}
-//	free(crr_item);
-
 }
 
 void	process_map(t_game *game, t_note *note, t_list **lines)

@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/29 19:10:07 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 18:38:52 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,21 @@ int				main(int argc, char **argv)
 	if((game = (t_game *)malloc(sizeof(t_game))) == 0)
 		return (0);
 	process_map(game, &note, &lines);
+//	free(lines->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next);
+//	free(lines->next->next->next->next->next->next->next->next->next->next->next->next->next->next);
+//	free(lines->next->next->next->next->next->next->next->next->next->next->next->next->next);
+//	free(lines->next->next->next->next->next->next->next->next->next->next->next->next);
+//	free(lines->next->next->next->next->next->next->next->next->next->next->next);
+//	free(lines->next->next->next->next->next->next->next->next->next->next);
+//	free(lines->next->next->next->next->next->next->next->next->next);
+//	free(lines->next->next->next->next->next->next->next->next);
+//	free(lines->next->next->next->next->next->next->next);
+//	free(lines->next->next->next->next->next->next);
+//	free(lines->next->next->next->next->next);
+//	free(lines->next->next->next->next);
+//	free(lines->next->next->next);
+//	free(lines->next->next);
+//	free(lines->next);
 	free(lines);
 	init_game(game, &note);
 	load_texture(game);
