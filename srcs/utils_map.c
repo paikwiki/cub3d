@@ -6,11 +6,25 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:36:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/10/01 20:00:10 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 21:40:54 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+int		is_player_pos(char chr)
+{
+	if (ft_strchr("NSWE", chr) == 0)
+		return (FALSE);
+	return (TRUE);
+}
+
+int		is_sprite_pos(char chr)
+{
+	if (chr == '2')
+		return (TRUE);
+	return (FALSE);
+}
 
 int		get_wall_char(char **map, int x_start, int y_start)
 {
@@ -40,40 +54,4 @@ void	init_map(t_game *game, t_note *note)
 			game->map[idx][idx_sub++] = ' ';
 		idx++;
 	}
-}
-
-void	process_map(t_game *game, t_note *note, t_list **lines)
-{
-	init_map(game, note);
-	set_map(game->map, note, lines);
-	check_map(game->map, note);
-}
-
-void	read_cub_file(char *file_path, t_note *note, t_list **lines)
-{
-	int		fd;
-	char	*line;
-
-	if ((fd = open(file_path, O_RDONLY)) > 0)
-	{
-		while (note->is_done == FALSE)
-		{
-			if ((note->c_rd = get_next_line(fd, &line)) == 0)
-				note->is_done = TRUE;
-			if (note->is_map == TRUE)
-			{
-				note->map_width = (int)ft_strlen(line) > note->map_width ?
-						(int)ft_strlen(line) : note->map_width;
-				if (!lines)
-					*lines = ft_lstnew(line);
-				else
-					ft_lstadd_back(lines, ft_lstnew(line));
-			}
-			else
-				set_info(line, note);
-		}
-		note->map_height = ft_lstsize(*lines);
-	}
-	else
-		ft_exit_puterr("Fail to open a map file.");
 }

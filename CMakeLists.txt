@@ -41,14 +41,12 @@ add_executable(cub3D
         srcs/check_map.c
         srcs/utils_map.c
         srcs/set_info.c
-        srcs/utils_player.c
         srcs/get_info_ceil_floor.c
         srcs/utils_info.c
         srcs/handle_key.c
-        srcs/utils_inits.c
+        srcs/init_game.c
         srcs/raycasting.c
         srcs/utils_raycasting.c
-        srcs/utils_sprite.c
-        temp_utils.c srcs/get_sprite.c srcs/set_map.c srcs/calc_sprite.c)
+        temp_utils.c srcs/get_sprite.c srcs/set_map.c srcs/calc_sprite.c srcs/read_cub_file.c srcs/process_map.c srcs/utils_texture.c)
 
 target_link_libraries(cub3D "-framework OpenGL -framework AppKit")

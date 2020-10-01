@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/10/01 20:23:21 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 22:51:29 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@
 ** ============================================================================
 */
 
-void			init_note(t_note *note);
-void			check_isdigit_all(char *str);
-void			ft_exit_puterr(const char *msg);
-void			ft_putstr(char *str);
-int				ft_exit(int exit_val);
+void	init_note(t_note *note);
+void	check_isdigit_all(char *str);
+void	ft_exit_puterr(const char *msg);
+void	ft_putstr(char *str);
+int		ft_exit(int exit_val);
 
 /*
 ** ============================================================================
@@ -57,17 +57,26 @@ int				ft_exit(int exit_val);
 ** ============================================================================
 */
 
-int				count_info(t_note *note);
-int				char_to_hexadecimal(char chr);
-void			check_rgb_range(int value);
+int		count_info(t_note *note);
+int		char_to_hexadecimal(char chr);
+void	check_rgb_range(int value);
 
 /*
 ** ============================================================================
-**   utils_inits.c
+**   init_game.c
 ** ============================================================================
 */
 
-void			init_game(t_game *game, t_note *note);
+void	init_game(t_game *game, t_note *note);
+
+/*
+** ============================================================================
+**   utils_texture.c
+** ============================================================================
+*/
+
+void	init_texture_buffer(t_game *game);
+void	init_texture(t_game *game);
 
 /*
 ** ============================================================================
@@ -75,10 +84,11 @@ void			init_game(t_game *game, t_note *note);
 ** ============================================================================
 */
 
-int				get_wall_char(char **map, int x_start, int y_start);
-void			process_map(t_game *game, t_note *note, t_list **lines);
-void			read_cub_file(char *file_path, t_note *note, t_list **lines);
-void			init_map(t_game *game, t_note *note);
+int		is_player_pos(char chr);
+int		is_sprite_pos(char chr);
+int		get_wall_char(char **map, int x_start, int y_start);
+void	process_map(t_game *game, t_note *note, t_list **lines);
+void	init_map(t_game *game, t_note *note);
 
 /*
 ** ============================================================================
@@ -86,8 +96,16 @@ void			init_map(t_game *game, t_note *note);
 ** ============================================================================
 */
 
-void			sort_sprite_by_dist(t_game *game);
-void			get_sprite(t_game *game);
+void	sort_sprite_by_dist(t_game *game);
+void	get_sprite(t_game *game);
+
+/*
+** ============================================================================
+**   read_cub_file.c
+** ============================================================================
+*/
+
+void	read_cub_file(char *file_path, t_note *note, t_list **lines);
 
 /*
 ** ============================================================================
@@ -95,23 +113,15 @@ void			get_sprite(t_game *game);
 ** ============================================================================
 */
 
-void			calc_sprite(t_game *game);
+void	calc_sprite(t_game *game);
 
 /*
 ** ============================================================================
-**   utils_sprite.c
+**   process_map.c
 ** ============================================================================
 */
 
-void			generate_info_sprite(t_note *note, char **map, int x, int y);
-
-/*
-** ============================================================================
-**   utils_player.c
-** ============================================================================
-*/
-
-void			set_player_dir(t_game *game, t_note *note);
+void	process_map(t_game *game, t_note *note, t_list **lines);
 
 /*
 ** ============================================================================
@@ -119,8 +129,8 @@ void			set_player_dir(t_game *game, t_note *note);
 ** ============================================================================
 */
 
-void			calc_wall(t_game *game, t_raycast_note *rc, int idx);
-void			set_raycast_note(t_raycast_note *rc, t_game *game, int idx);
+void	calc_wall(t_game *game, t_raycast_note *rc, int idx);
+void	set_raycast_note(t_raycast_note *rc, t_game *game, int idx);
 
 /*
 ** ============================================================================
@@ -128,7 +138,7 @@ void			set_raycast_note(t_raycast_note *rc, t_game *game, int idx);
 ** ============================================================================
 */
 
-void			raycasting(t_game *game);
+void	raycasting(t_game *game);
 
 /*
 ** ============================================================================
@@ -136,7 +146,7 @@ void			raycasting(t_game *game);
 ** ============================================================================
 */
 
-void			set_map(char **map, t_note *note, t_list **lines);
+void	set_map(char **map, t_note *note, t_list **lines);
 
 /*
 ** ============================================================================
@@ -144,7 +154,7 @@ void			set_map(char **map, t_note *note, t_list **lines);
 ** ============================================================================
 */
 
-void			set_info(char *line, t_note *note);
+void	set_info(char *line, t_note *note);
 
 /*
 ** ============================================================================
@@ -152,7 +162,7 @@ void			set_info(char *line, t_note *note);
 ** ============================================================================
 */
 
-void			get_info_ceil_floor(char *line, t_note *note);
+void	get_info_ceil_floor(char *line, t_note *note);
 
 /*
 ** ============================================================================
@@ -160,7 +170,7 @@ void			get_info_ceil_floor(char *line, t_note *note);
 ** ============================================================================
 */
 
-void			check_map(char **map, t_note *note);
+void	check_map(char **map, t_note *note);
 
 /*
 ** ============================================================================
@@ -168,7 +178,7 @@ void			check_map(char **map, t_note *note);
 ** ============================================================================
 */
 
-int				handle_key(int keycode, t_game *game);
+int		handle_key(int keycode, t_game *game);
 
 /*
 ** ============================================================================
@@ -176,6 +186,6 @@ int				handle_key(int keycode, t_game *game);
 ** ============================================================================
 */
 
-void			ver_line(t_game *game, int x, int y1, int y2, int color);
-void			put_map(char **map);
+void	ver_line(t_game *game, int x, int y1, int y2, int color);
+void	put_map(char **map);
 #endif

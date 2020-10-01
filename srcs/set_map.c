@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 19:55:04 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/10/01 20:09:42 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 21:38:27 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,19 @@ static char	check_valid_map_char(char chr)
 	return (chr);
 }
 
-static int	is_player_pos(char chr)
+static void	generate_info_sprite(t_note *note, char **map, int x, int y)
 {
-	if (ft_strchr("NSWE", chr) == 0)
-		return (FALSE);
-	return (TRUE);
-}
+	t_sprite *sprite;
 
-static int	is_sprite_pos(char chr)
-{
-	if (chr == '2')
-		return (TRUE);
-	return (FALSE);
+	sprite = (t_sprite *)ft_calloc(1, sizeof(t_sprite));
+	sprite->x = x + 0.5;
+	sprite->y = y + 0.5;
+	sprite->distance = -1;
+	map[y][x] = '0';
+	if (!note->sprites)
+		note->sprites = ft_lstnew(sprite);
+	else
+		ft_lstadd_back(&note->sprites, ft_lstnew(sprite));
 }
 
 static void	generate_info_p_pos(t_note *note, char **map, int x, int y)

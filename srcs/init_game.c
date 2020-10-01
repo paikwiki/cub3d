@@ -6,64 +6,36 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:53:45 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/10/01 19:49:47 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 22:44:48 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	init_texture_buffer(t_game *game)
+static void	set_player_dir(t_game *game, t_note *note)
 {
-	int	idx;
-	int idx_sub;
-
-	if ((game->buf = (int **)malloc(sizeof(int *) * game->info.h)) == 0)
-		ft_exit_puterr("Fail to allocate memory for texture buffer");
-	idx = 0;
-	while (idx < game->info.h)
+	game->prm.dx = 0;
+	game->prm.dy = -1;
+	game->prm.pln_x = 0.66;
+	game->prm.pln_y = 0;
+	if (note->player_dir == 'S')
 	{
-		if ((game->buf[idx] = (int *)malloc(sizeof(int) * game->info.w)) == 0)
-			ft_exit_puterr("Fail to allocate memory for texture buffer");
-		idx++;
+		game->prm.dy = 1;
+		game->prm.pln_x = -0.66;
 	}
-	idx = 0;
-	while (idx < game->info.h)
+	else if (note->player_dir == 'W')
 	{
-		idx_sub = 0;
-		while (idx_sub < game->info.w)
-		{
-			game->buf[idx][idx_sub] = 0;
-			idx_sub++;
-		}
-		idx++;
+		game->prm.dx = -1;
+		game->prm.dy = 0;
+		game->prm.pln_x = 0;
+		game->prm.pln_y = -0.66;
 	}
-}
-
-static void	init_texture(t_game *game)
-{
-	int idx;
-	int idx_sub;
-
-	if (!(game->texture = (int **)malloc(sizeof(int *) * 5)))
-		ft_exit_puterr("Fail to allocate memory for mlx");
-	idx = 0;
-	while (idx < 5)
+	else if (note->player_dir == 'E')
 	{
-		if (!(game->texture[idx] = (int *)malloc(sizeof(int) * \
-				(TEX_HEIGHT * TEX_WIDTH))))
-			ft_exit_puterr("Fail to allocate memory for mlx");
-		idx++;
-	}
-	idx = 0;
-	while (idx < 5)
-	{
-		idx_sub = 0;
-		while (idx_sub < TEX_HEIGHT * TEX_WIDTH)
-		{
-			game->texture[idx][idx_sub] = 0;
-			idx_sub++;
-		}
-		idx++;
+		game->prm.dx = 1;
+		game->prm.dy = 0;
+		game->prm.pln_x = 0;
+		game->prm.pln_y = 0.66;
 	}
 }
 
