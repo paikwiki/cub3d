@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 18:36:27 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/29 15:49:13 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 21:04:48 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,25 @@ typedef struct	s_raycast_note
 	int		draw_start;
 	int		draw_end;
 }				t_raycast_note;
+
+typedef struct	s_sprite_note
+{
+	double	spr_x;
+	double	spr_y;
+	double	inv_det;
+	double	trns_x;
+	double	trns_y;
+	int		sprite_screen_x;
+	int		sprite_h;
+	int		sprite_w;
+	int		draw_start_x;
+	int		draw_end_x;
+	int		draw_start_y;
+	int		draw_end_y;
+	int		tex_x;
+	int		tex_y;
+	int		d;
+	int		color;
+}				t_sprite_note;
 
 #endif

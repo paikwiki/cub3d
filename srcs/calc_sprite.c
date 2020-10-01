@@ -6,73 +6,102 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 20:22:03 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/10/01 20:22:03 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 21:31:10 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	calc_sprite(t_game *game)
+static void	set_sprite_px(t_game *game, t_sprite_note *sp)
 {
-	// TEMPORARY VARIABLES
-	double spriteX;
-	double spriteY;
-	double invDet;
-	double transformX;
-	double transformY;
-	int spriteScreenX;
-	int spriteHeight;
-	int drawStartY;
-	int drawEndY;
-	int spriteWidth;
-	int drawStartX;
-	int drawEndX;
-	int texX;
-	int d;
-	int texY;
-	int color;
+	int stripe;
+	int y;
 
-
-	for(int i = 0; i < game->info.cnt_sprite; i++)
+	stripe = sp->draw_start_x;
+	while (stripe < sp->draw_end_x)
 	{
-		if (game->info.sprites[i])
+		sp->tex_x = (int)((256 * (stripe - (-sp->sprite_w / 2 + \
+				sp->sprite_screen_x)) * TEX_WIDTH / sp->sprite_w) / 256);
+		if (sp->trns_y > 0 && stripe > 0 && stripe < game->info.w && \
+				sp->trns_y < game->info.z_buffer[stripe])
 		{
-			spriteX = game->info.sprites[i]->x - game->prm.px;
-			spriteY = game->info.sprites[i]->y - game->prm.py;
+			y = sp->draw_start_y;
+			while (y < sp->draw_end_y)
+			{
+				sp->d = (y) * 256 - game->info.h * 128 + sp->sprite_h * 128;
+				sp->tex_y = ((sp->d * TEX_HEIGHT) / sp->sprite_h) / 256;
+				sp->color = game->texture[4][TEX_WIDTH * sp->tex_y + sp->tex_x];
+				if ((sp->color & 0x00FFFFFF) != 0)
+					game->buf[y][stripe] = sp->color;
+				y++;
+			}
 		}
-		invDet = 1.0 / (game->prm.pln_x * game->prm.dy - game->prm.dx * game->prm.pln_y);
+		stripe++;
+	}
+}
 
-		transformX = invDet * (game->prm.dy * spriteX - game->prm.dx * spriteY);
-		transformY = invDet * (-game->prm.pln_y * spriteX + game->prm.pln_x * spriteY);
-		spriteScreenX = (int)((game->info.w / 2) * (1 + transformX / transformY));
+static void	calc_sprite_w_h(t_game *game, t_sprite_note *sp)
+{
+	sp->sprite_h = (int)fabs((game->info.h / sp->trns_y));
+	sp->draw_start_y = -sp->sprite_h / 2 + game->info.h / 2;
+	if (sp->draw_start_y < 0)
+		sp->draw_start_y = 0;
+	sp->draw_end_y = sp->sprite_h / 2 + game->info.h / 2;
+	if (sp->draw_end_y >= game->info.h)
+		sp->draw_end_y = game->info.h - 1;
+	sp->sprite_w = (int)fabs((game->info.h / sp->trns_y));
+	sp->draw_start_x = -sp->sprite_w / 2 + sp->sprite_screen_x;
+	if (sp->draw_start_x < 0)
+		sp->draw_start_x = 0;
+	sp->draw_end_x = sp->sprite_w / 2 + sp->sprite_screen_x;
+	if (sp->draw_end_x >= game->info.w)
+		sp->draw_end_x = game->info.w - 1;
+}
 
-		//calculate height of the sprite on screen
-		spriteHeight = (int)fabs((game->info.h / transformY));
+static void	init_sp_note(t_sprite_note *sp)
+{
+	sp->spr_x = 0;
+	sp->spr_y = 0;
+	sp->inv_det = 0;
+	sp->trns_x = 0;
+	sp->trns_y = 0;
+	sp->sprite_screen_x = 0;
+	sp->sprite_w = 0;
+	sp->sprite_h = 0;
+	sp->draw_start_x = 0;
+	sp->draw_end_x = 0;
+	sp->draw_start_y = 0;
+	sp->draw_end_y = 0;
+	sp->tex_x = 0;
+	sp->tex_y = 0;
+	sp->d = 0;
+	sp->color = 0;
+}
 
-		drawStartY = -spriteHeight / 2 + game->info.h / 2;
-		if(drawStartY < 0) drawStartY = 0;
-		drawEndY = spriteHeight / 2 + game->info.h / 2;
-		if(drawEndY >= game->info.h) drawEndY = game->info.h - 1;
+void		calc_sprite(t_game *game)
+{
+	int				idx;
+	t_sprite_note	sp;
 
-		//calculate width of the sprite
-		spriteWidth = (int)fabs((game->info.h / transformY));
-		drawStartX = -spriteWidth / 2 + spriteScreenX;
-		if(drawStartX < 0) drawStartX = 0;
-		drawEndX = spriteWidth / 2 + spriteScreenX;
-		if(drawEndX >= game->info.w) drawEndX = game->info.w - 1;
-
-		//loop through every vertical stripe of the sprite on screen
-		for(int stripe = drawStartX; stripe < drawEndX; stripe++)
+	init_sp_note(&sp);
+	idx = 0;
+	while (idx < game->info.cnt_sprite)
+	{
+		if (game->info.sprites[idx])
 		{
-			texX = (int)((256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * TEX_WIDTH / spriteWidth) / 256);
-			if(transformY > 0 && stripe > 0 && stripe < game->info.w && transformY < game->info.z_buffer[stripe])
-				for(int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
-				{
-					d = (y) * 256 - game->info.h * 128 + spriteHeight * 128;
-					texY = ((d * TEX_HEIGHT) / spriteHeight) / 256;
-					color = game->texture[4][TEX_WIDTH * texY + texX];
-					if((color & 0x00FFFFFF) != 0) game->buf[y][stripe] = color;
-				}
+			sp.spr_x = game->info.sprites[idx]->x - game->prm.px;
+			sp.spr_y = game->info.sprites[idx]->y - game->prm.py;
 		}
+		sp.inv_det = 1.0 / (game->prm.pln_x * game->prm.dy - \
+				game->prm.dx * game->prm.pln_y);
+		sp.trns_x = sp.inv_det * \
+				(game->prm.dy * sp.spr_x - game->prm.dx * sp.spr_y);
+		sp.trns_y = sp.inv_det * \
+				(-game->prm.pln_y * sp.spr_x + game->prm.pln_x * sp.spr_y);
+		sp.sprite_screen_x = (int)((game->info.w / 2) * \
+				(1 + sp.trns_x / sp.trns_y));
+		calc_sprite_w_h(game, &sp);
+		set_sprite_px(game, &sp);
+		idx++;
 	}
 }
