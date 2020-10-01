@@ -6,7 +6,7 @@
 #    By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/29 01:26:16 by paikwiki          #+#    #+#              #
-#    Updated: 2020/10/01 23:09:49 by paikwiki         ###   ########.fr        #
+#    Updated: 2020/10/01 23:14:17 by paikwiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME					=	cub3D
 LIBFT					=	libft.a
 MINILIBX				=	libmlx.a
 CC						=	gcc
-CFLAGS					=	-Wall -Wextra -Werror -O3 -g -fsanitize=address
+CFLAGS					=	-Wall -Wextra -Werror
 RM						=	rm -f
 INCLUDES_PATH			=	./includes/
 LIBFT_PATH				=	./libft/
