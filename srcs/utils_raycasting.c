@@ -22,20 +22,6 @@
 static int		get_tex_num(t_game *game, t_raycast_note *rc)
 {
 	int	tex_num;
-
-//	if (game->map[rc->my][rc->mx] == '2')
-//		tex_num = '5';
-//	else
-//	{
-//		if (rc->side == 0 && rc->rd_x < 0)
-//			tex_num = game->map[rc->my][rc->mx] + 3;
-//		else if (rc->side == 0)
-//			tex_num = game->map[rc->my][rc->mx] + 1;
-//		if (rc->side == 1 && rc->rd_y < 0)
-//			tex_num = game->map[rc->my][rc->mx];
-//		else if (rc->side == 1)
-//			tex_num = game->map[rc->my][rc->mx] + 2;
-//	}
 	if (game->map[rc->my][rc->mx] == '2')
 		tex_num = 4;
 	else

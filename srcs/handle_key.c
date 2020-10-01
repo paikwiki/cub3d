@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:17:09 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/29 16:15:42 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 18:54:07 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,5 @@ int			handle_key(int keycode, t_game *game)
 		rotate_player(game, -1);
 	if (keycode == KEY_ESC)
 		exit(0);
-
-	for (int i = 0; i < game->info.cnt_sprite; i++)
-	{
-		if (game->info.sprites[i])
-			printf("sprite[%d] x, y, distance: %d, %d %f\n", i, (int)game->info.sprites[i]->x,  (int)game->info.sprites[i]->y, game->info.sprites[i]->distance);
-	}
-	printf("=========================================================\n");
 	return (0);
 }

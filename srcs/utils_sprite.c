@@ -18,8 +18,6 @@ void	generate_info_sprite_pos(t_note *note, char **map, int x, int y)
 
 	if (!map)
 		ft_exit_puterr("sprite error");
-//	if ((sprite = (t_sprite *)malloc(sizeof(t_sprite))) == 0)
-//		return ;
 	sprite = (t_sprite *)ft_calloc(1, sizeof(t_sprite));
 	sprite->x = x + 0.5;
 	sprite->y = y + 0.5;

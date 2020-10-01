@@ -72,7 +72,6 @@ static void		generate_rgb_to_int(int *dest, char **raw_values)
 		value = ft_atoi(raw_values[idx]);
 		check_rgb_range(value);
 		dest[idx] = value;
-//		free(raw_values[idx]);
 		idx++;
 	}
 }

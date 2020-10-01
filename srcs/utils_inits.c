@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:53:45 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/29 19:12:50 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 18:45:25 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void		init_game(t_game *game, t_note *note)
 	idx = 0;
 	while (idx < game->info.cnt_sprite)
 	{
-//		game->info.sprites[idx] = (t_sprite *)ft_calloc(1, sizeof(t_sprite));
 		game->info.sprites[idx] = crr_item->content;
 		crr_item = (t_list *)crr_item->next;
 		idx++;

@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:36:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/10/01 18:35:21 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 18:35:26 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,8 @@ void	read_cub_file(char *file_path, t_note *note, t_list **lines)
 			}
 			else
 				generate_info(line, note);
-//			free(line);
 		}
 		note->map_height = ft_lstsize(*lines);
-//		free(line);
 	}
 	else
 		ft_exit_puterr("Fail to open a map file.");
