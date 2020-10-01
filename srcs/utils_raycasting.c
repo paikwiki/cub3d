@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 11:32:22 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/28 22:54:15 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 19:44:36 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 static int		get_tex_num(t_game *game, t_raycast_note *rc)
 {
 	int	tex_num;
+
 	if (game->map[rc->my][rc->mx] == '2')
 		tex_num = 4;
 	else

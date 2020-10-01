@@ -6,13 +6,13 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 22:40:00 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/29 16:09:03 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 19:39:16 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void 	sort_sprite_by_dist(t_game *game)
+void	sort_sprite_by_dist(t_game *game)
 {
 	int			idx;
 	int			end;
@@ -26,7 +26,8 @@ void 	sort_sprite_by_dist(t_game *game)
 		{
 			if (game->info.sprites[idx] && game->info.sprites[idx + 1])
 			{
-				if (game->info.sprites[idx]->distance < game->info.sprites[idx + 1]->distance)
+				if (game->info.sprites[idx]->distance < \
+						game->info.sprites[idx + 1]->distance)
 				{
 					temp_sprite = game->info.sprites[idx];
 					game->info.sprites[idx] = game->info.sprites[idx + 1];
@@ -39,12 +40,12 @@ void 	sort_sprite_by_dist(t_game *game)
 	}
 }
 
-void 	calc_sprite(t_game *game)
+void	calc_sprite(t_game *game)
 {
 	int	idx_sprite;
 
 	idx_sprite = 0;
-	while(idx_sprite < game->info.cnt_sprite)
+	while (idx_sprite < game->info.cnt_sprite)
 	{
 		if (game->info.sprites[idx_sprite])
 		{

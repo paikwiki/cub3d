@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:53:45 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/10/01 18:45:25 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 19:49:47 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	init_texture(t_game *game)
 	}
 }
 
-void		init_info(t_game *game, t_note *note)
+static void	init_info(t_game *game, t_note *note)
 {
 	game->info.w = note->info_r[0];
 	game->info.h = note->info_r[1];
@@ -99,7 +99,8 @@ void		init_game(t_game *game, t_note *note)
 
 	init_param(game, note);
 	init_info(game, note);
-	game->info.sprites = (t_sprite **)ft_calloc(game->info.cnt_sprite, sizeof(t_sprite *));
+	game->info.sprites = \
+			(t_sprite **)ft_calloc(game->info.cnt_sprite, sizeof(t_sprite *));
 	crr_item = note->sprites;
 	idx = 0;
 	while (idx < game->info.cnt_sprite)
@@ -116,22 +117,4 @@ void		init_game(t_game *game, t_note *note)
 			&game->img.bpp, &game->img.size_line, &game->img.endian);
 	init_texture_buffer(game);
 	init_texture(game);
-}
-
-void		init_map(t_game *game, t_note *note)
-{
-	int		idx;
-	int		idx_sub;
-
-	game->map = (char **)calloc(note->map_height, sizeof(char *));
-	idx = 0;
-	while (idx < note->map_height)
-	{
-		game->map[idx] = (char *)calloc(note->map_width + 1, sizeof(char *));
-		game->map[idx][note->map_width] = '\0';
-		idx_sub = 0;
-		while (idx_sub < note->map_width)
-			game->map[idx][idx_sub++] = ' ';
-		idx++;
-	}
 }

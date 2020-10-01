@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   generate_info.c                                    :+:      :+:    :+:   */
+/*   set_info.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:39:42 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/29 19:44:34 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 20:05:58 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static void	get_info_resolution(char *line, t_note *note)
 	free(raw_values);
 }
 
-void		generate_info(char *line, t_note *note)
+void		set_info(char *line, t_note *note)
 {
 	if (ft_strncmp((const char *)line, "R ", 2) == 0)
 		get_info_resolution(line, note);

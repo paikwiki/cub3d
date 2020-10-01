@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/10/01 18:41:54 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 19:42:10 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ int				main(int argc, char **argv)
 	read_cub_file(argv[1], &note, &lines);
 	if (note.is_map == FALSE)
 		ft_exit_puterr("Fail to get information of map.");
-	if((game = (t_game *)malloc(sizeof(t_game))) == 0)
-		return (0);
+	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	process_map(game, &note, &lines);
 	free(lines);
 	init_game(game, &note);
@@ -99,13 +98,6 @@ int				main(int argc, char **argv)
 	mlx_hook(game->win, X_EVENT_KEY_PRESS, 0, &handle_key, game);
 	mlx_loop_hook(game->mlx, &main_loop, game);
 	mlx_loop(game->mlx);
-	free(game->mlx);
-	free(game->win);
-	free(game->texture);
-	free(game->buf);
-	free(game->map);
-	free(game->info.z_buffer);
-	free(game->map);
 	free(game);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/27 01:50:26 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 20:01:55 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void			check_rgb_range(int value);
 */
 
 void			init_game(t_game *game, t_note *note);
-void			init_map(t_game *game, t_note *note);
 
 /*
 ** ============================================================================
@@ -77,10 +76,9 @@ void			init_map(t_game *game, t_note *note);
 */
 
 int				get_wall_char(char **map, int x_start, int y_start);
-char			check_valid_map_char(char chr);
-void			set_map(char **map, t_note *note, t_list **lines);
 void			process_map(t_game *game, t_note *note, t_list **lines);
 void			read_cub_file(char *file_path, t_note *note, t_list **lines);
+void			init_map(t_game *game, t_note *note);
 
 /*
 ** ============================================================================
@@ -88,8 +86,8 @@ void			read_cub_file(char *file_path, t_note *note, t_list **lines);
 ** ============================================================================
 */
 
-void		 	sort_sprite_by_dist(t_game *game);
-void 			calc_sprite(t_game *game);
+void			sort_sprite_by_dist(t_game *game);
+void			calc_sprite(t_game *game);
 
 /*
 ** ============================================================================
@@ -97,7 +95,7 @@ void 			calc_sprite(t_game *game);
 ** ============================================================================
 */
 
-void			generate_info_sprite_pos(t_note *note, char **map, int x, int y);
+void			generate_info_sprite(t_note *note, char **map, int x, int y);
 
 /*
 ** ============================================================================
@@ -106,8 +104,6 @@ void			generate_info_sprite_pos(t_note *note, char **map, int x, int y);
 */
 
 void			set_player_dir(t_game *game, t_note *note);
-int				is_player_pos(char chr);
-void			generate_info_p_pos(t_note *note, char **map, int x, int y);
 
 /*
 ** ============================================================================
@@ -128,11 +124,19 @@ void			raycasting(t_game *game);
 
 /*
 ** ============================================================================
-**   generate_info.c
+**   set_map.c
 ** ============================================================================
 */
 
-void			generate_info(char *line, t_note *note);
+void			set_map(char **map, t_note *note, t_list **lines);
+
+/*
+** ============================================================================
+**   set_info.c
+** ============================================================================
+*/
+
+void			set_info(char *line, t_note *note);
 
 /*
 ** ============================================================================

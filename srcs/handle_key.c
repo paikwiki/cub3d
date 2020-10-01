@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:17:09 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/10/01 18:54:07 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 19:40:48 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ static void	rotate_player(t_game *game, int dir)
 
 	dx_old = game->prm.dx;
 	game->prm.dx = game->prm.dx * cos(dir * game->prm.r_spd) \
- - game->prm.dy * sin(dir * game->prm.r_spd);
+			- game->prm.dy * sin(dir * game->prm.r_spd);
 	game->prm.dy = dx_old * sin(dir * game->prm.r_spd) \
- + game->prm.dy * cos(dir * game->prm.r_spd);
+			+ game->prm.dy * cos(dir * game->prm.r_spd);
 	pln_x_old = game->prm.pln_x;
 	game->prm.pln_x = game->prm.pln_x * cos(dir * game->prm.r_spd) \
- - game->prm.pln_y * sin(dir * game->prm.r_spd);
+			- game->prm.pln_y * sin(dir * game->prm.r_spd);
 	game->prm.pln_y = pln_x_old * sin(dir * game->prm.r_spd) \
- + game->prm.pln_y * cos(dir * game->prm.r_spd);
+			+ game->prm.pln_y * cos(dir * game->prm.r_spd);
 }
 
 /*
@@ -48,9 +48,11 @@ static void	move_player_front_back(t_game *game, int dir)
 
 	mv_x = game->prm.dx * game->prm.m_spd;
 	mv_y = game->prm.dy * game->prm.m_spd;
-	if (game->map[(int)(game->prm.py)][(int)(game->prm.px + (dir * mv_x))] != '1')
+	if (game->map[(int)(game->prm.py)][(int)(game->prm.px + (dir * mv_x))] \
+			!= '1')
 		game->prm.px += (dir * mv_x);
-	if (game->map[(int)(game->prm.py + (dir * mv_y))][(int)(game->prm.px)] != '1')
+	if (game->map[(int)(game->prm.py + (dir * mv_y))][(int)(game->prm.px)] \
+			!= '1')
 		game->prm.py += (dir * mv_y);
 }
 
@@ -67,9 +69,11 @@ static void	move_player_left_right(t_game *game, int dir)
 
 	mv_x = game->prm.pln_x * game->prm.m_spd;
 	mv_y = game->prm.pln_y * game->prm.m_spd;
-	if (game->map[(int)(game->prm.py)][(int)(game->prm.px + (dir * mv_x))] != '1')
+	if (game->map[(int)(game->prm.py)][(int)(game->prm.px + (dir * mv_x))] \
+			!= '1')
 		game->prm.px += (dir * mv_x);
-	if (game->map[(int)(game->prm.py + (dir * mv_y))][(int)(game->prm.px)] != '1')
+	if (game->map[(int)(game->prm.py + (dir * mv_y))][(int)(game->prm.px)] \
+			!= '1')
 		game->prm.py += (dir * mv_y);
 }
 

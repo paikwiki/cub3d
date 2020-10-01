@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:36:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/10/01 18:35:26 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/01 20:00:10 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,52 +23,22 @@ int		get_wall_char(char **map, int x_start, int y_start)
 	return (0);
 }
 
-char	check_valid_map_char(char chr)
-{
-	if (ft_strchr(" 012NSWE", chr) == 0)
-		ft_exit_puterr("Not valid char.");
-	return (chr);
-}
-
-int 	is_sprite_pos(char chr)
-{
-	if (chr == '2')
-		return TRUE;
-	return FALSE;
-}
-
-void	set_map(char **map, t_note *note, t_list **lines)
+void	init_map(t_game *game, t_note *note)
 {
 	int		idx;
-	int		idx_map;
-	t_list  *temp_item;
+	int		idx_sub;
 
-	idx_map = -1;
-	while (++idx_map > -1)
+	game->map = (char **)ft_calloc(note->map_height, sizeof(char *));
+	idx = 0;
+	while (idx < note->map_height)
 	{
-		idx = 0;
-		while (((char *)(*lines)->content)[idx] != '\0')
-		{
-			map[idx_map][idx] = check_valid_map_char(((char *)(*lines)->content)[idx]);
-			if (is_sprite_pos(map[idx_map][idx]) == TRUE)
-			{
-				generate_info_sprite_pos(note, map, idx, idx_map);
-				map[idx_map][idx] = '0';
-			}
-			else if (is_player_pos(map[idx_map][idx]) == TRUE)
-			{
-				generate_info_p_pos(note, map, idx, idx_map);
-				map[idx_map][idx] = '0';
-			}
-			idx++;
-		}
-		free((*lines)->content);
-		(*lines)->content = 0;
-		if ((*lines)->next == 0)
-			return ;
-		temp_item = (*lines)->next;
-		free(*lines);
-		*lines = temp_item;
+		game->map[idx] = \
+				(char *)ft_calloc(note->map_width + 1, sizeof(char *));
+		game->map[idx][note->map_width] = '\0';
+		idx_sub = 0;
+		while (idx_sub < note->map_width)
+			game->map[idx][idx_sub++] = ' ';
+		idx++;
 	}
 }
 
@@ -100,7 +70,7 @@ void	read_cub_file(char *file_path, t_note *note, t_list **lines)
 					ft_lstadd_back(lines, ft_lstnew(line));
 			}
 			else
-				generate_info(line, note);
+				set_info(line, note);
 		}
 		note->map_height = ft_lstsize(*lines);
 	}
