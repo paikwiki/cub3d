@@ -32,6 +32,7 @@ SRCS					=	./gnl/get_next_line.c \
 							./srcs/init_game.c \
 							./srcs/main.c \
 							./srcs/process_map.c \
+							./srcs/process_screenshot.c \
 							./srcs/raycasting.c \
 							./srcs/read_cub_file.c \
 							./srcs/set_info.c \

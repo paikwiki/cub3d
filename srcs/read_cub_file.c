@@ -6,37 +6,49 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 21:34:43 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/10/01 21:35:10 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/02 02:44:26 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	read_cub_file(char *file_path, t_note *note, t_list **lines)
+static void	check_done_map(t_note *note)
 {
-	int		fd;
+	if (note->is_map == FALSE)
+		ft_exit_puterr("Fail to get information of map.");
+	return ;
+}
+
+static void	process_read_cub_file(int *fd, t_note *note, t_list **lines)
+{
 	char	*line;
 
-	if ((fd = open(file_path, O_RDONLY)) > 0)
+	while (note->is_done == FALSE)
 	{
-		while (note->is_done == FALSE)
+		if ((note->c_rd = get_next_line(*fd, &line)) == 0)
+			note->is_done = TRUE;
+		if (note->is_map == TRUE)
 		{
-			if ((note->c_rd = get_next_line(fd, &line)) == 0)
-				note->is_done = TRUE;
-			if (note->is_map == TRUE)
-			{
-				note->map_width = (int)ft_strlen(line) > note->map_width ?
-						(int)ft_strlen(line) : note->map_width;
-				if (!lines)
-					*lines = ft_lstnew(line);
-				else
-					ft_lstadd_back(lines, ft_lstnew(line));
-			}
+			note->map_width = (int)ft_strlen(line) > note->map_width ?
+					(int)ft_strlen(line) : note->map_width;
+			if (!lines)
+				*lines = ft_lstnew(line);
 			else
-				set_info(line, note);
+				ft_lstadd_back(lines, ft_lstnew(line));
 		}
-		note->map_height = ft_lstsize(*lines);
+		else
+			set_info(line, note);
 	}
+	note->map_height = ft_lstsize(*lines);
+}
+
+void		read_cub_file(char *file_path, t_note *note, t_list **lines)
+{
+	int		fd;
+
+	if ((fd = open(file_path, O_RDONLY)) > 0)
+		process_read_cub_file(&fd, note, lines);
 	else
 		ft_exit_puterr("Fail to open a map file.");
+	check_done_map(note);
 }

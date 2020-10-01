@@ -6,7 +6,7 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 16:21:54 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/09/26 21:15:21 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/02 02:52:47 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void	ft_exit_puterr(const char *msg)
 {
 	ft_putstr((char *)"Error:\n");
 	ft_putstr((char *)msg);
+	ft_putstr((char *)"\n");
 	exit(EXIT_FAILURE);
 }
