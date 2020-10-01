@@ -104,7 +104,7 @@ void		init_game(t_game *game, t_note *note)
 	idx = 0;
 	while (idx < game->info.cnt_sprite)
 	{
-		game->info.sprites[idx] = (t_sprite *)ft_calloc(1, sizeof(t_sprite));
+//		game->info.sprites[idx] = (t_sprite *)ft_calloc(1, sizeof(t_sprite));
 		game->info.sprites[idx] = crr_item->content;
 		crr_item = (t_list *)crr_item->next;
 		idx++;
