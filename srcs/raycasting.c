@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 14:07:28 by cbaek             #+#    #+#             */
-/*   Updated: 2020/10/02 23:04:57 by cbaek            ###   ########.fr       */
+/*   Updated: 2020/10/03 00:05:17 by cbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void		calc_floor_ceiling(t_game *game, t_raycast_note *rc, int x)
 		y++;
 	}
 	y = rc->draw_end;
-	while (y < game->info.h - 1)
+	while (y >= 0 && y < game->info.h - 1)
 	{
 		game->buf[y][x] = game->info.color_f;
 		y++;
