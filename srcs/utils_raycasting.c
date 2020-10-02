@@ -28,13 +28,13 @@ static int		get_tex_num(t_game *game, t_raycast_note *rc)
 	else
 	{
 		if (rc->side == 0 && rc->rd_x < 0)
-			tex_num = 2;
+			tex_num = 3;
 		else if (rc->side == 0)
 			tex_num = 1;
 		if (rc->side == 1 && rc->rd_y < 0)
 			tex_num = 0;
 		else if (rc->side == 1)
-			tex_num = 3;
+			tex_num = 2;
 	}
 	return (tex_num);
 }
