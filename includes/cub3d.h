@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:57:52 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/10/02 20:10:13 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/02 22:50:38 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
 # include "../gnl/get_next_line.h"
-
-# include <stdio.h>
 
 # define FALSE 0
 # define TRUE 1
@@ -85,6 +83,7 @@ void	check_rgb_range(int value);
 ** ============================================================================
 */
 
+void	check_valid_path(char *path);
 void	init_texture_buffer(t_game *game);
 void	init_texture(t_game *game);
 

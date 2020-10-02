@@ -6,11 +6,20 @@
 /*   By: paikwiki <paikwiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 22:50:16 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/10/01 22:51:11 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/02 22:49:53 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	check_valid_path(char *path)
+{
+	int		temp;
+
+	if (((temp = open(path, O_RDONLY)) > 0 && close(temp) == 0))
+		return ;
+	ft_exit_puterr("Map error: wrong path of texture.");
+}
 
 void	init_texture_buffer(t_game *game)
 {

@@ -6,7 +6,7 @@
 /*   By: cbaek <cbaek@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:02 by paikwiki          #+#    #+#             */
-/*   Updated: 2020/10/02 20:10:13 by paikwiki         ###   ########.fr       */
+/*   Updated: 2020/10/02 22:49:47 by paikwiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ void			load_texture(t_game *game)
 {
 	t_img	img;
 
+	check_valid_path(game->info.tex_no);
+	check_valid_path(game->info.tex_ea);
+	check_valid_path(game->info.tex_so);
+	check_valid_path(game->info.tex_we);
+	check_valid_path(game->info.tex_s);
 	load_image(game, game->texture[0], game->info.tex_no, &img);
 	load_image(game, game->texture[1], game->info.tex_ea, &img);
 	load_image(game, game->texture[2], game->info.tex_so, &img);
